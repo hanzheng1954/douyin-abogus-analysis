@@ -1,0 +1,1 @@
+var mark = function(tag) { typeof window !== undefined && window.performance && performance.mark && performance.mark(tag) }

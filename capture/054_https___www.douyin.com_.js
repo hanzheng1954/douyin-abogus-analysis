@@ -1,0 +1,1 @@
+mark('script_xss_end')

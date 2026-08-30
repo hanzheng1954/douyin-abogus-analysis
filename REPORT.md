@@ -1,0 +1,97 @@
+# douyin.com 2026-08-30 新版逆向分析报告
+
+## 一、结论（TL;DR）
+1. **a_bogus 生成器**：位于 `bdms_1.0.1.19_fix.js`（不是 webmssdk）。核心是一个 796 程序的紧凑栈式 VM（操作码 0-66），签名程序由 XHR.send 钩子逐请求执行。
+2. **算法**：SM3 哈希（Tj 常量 0x79CC4519/0x7A879D8A 已确认）+ 字节置换 + base64；输出 **非确定性**（含随机熵/时间戳），服务端解密校验而非重算比对。
+3. **已产出可用的 Node 签名器**（见 node_signer.js / final_sign.js），产出的 a_bogus 通过 Argus 签名门。
+4. **去水印/4K**：无需解密算法。`aweme/v1/web/aweme/detail` 返回 `download_addr`（官方无水印源，可直接下载）与 `bit_rate[]` 档位表；4K 仅当作者上传 4K 源时存在（gear 名如 normal_4k_0）。当前风控下带合法 uifid+webid+cookie 时 detail 接口对 a_bogus 弱校验。
+
+## 二、新架构全景（2026-08-30 更新后）
+- 首页 HTML：无任何静态资源引用，内联 71KB `_$jsvmprt` JSVM 自举运行时 + cookie 读取器 `_f1`。
+- **webmssdk 1.0.0.20**：`_$webrt_1668687510` VM 运行时（魔数 "HNOJ@?RC"，字节码为 hex 字符串），导出 `window.byted_acrawler`：`frontierSign` 产 **X-Bogus**（16 字符，输入 {"X-MS-STUB": md5("")}）、getReferer/init/isWebmssdk/report/setConfig/setTTWebid/setTTWid/setUserMode。5 个内嵌 VM 程序（签名/行为/环境检测）。
+- **sdk-glue 1.0.0.64-fix.01**：webpack 编排层。blockFetch/blockXhr = 风控拦截队列（BdmsBlock/VerifyCenterBlock/CSRFBlock），动态加载 bdms.js + verify-center/captcha SDK。
+- **bdms 1.0.1.19-fix.01**：真正的 **a_bogus 生成器**。window.bdms = {getReferer, init}。init 配置：`{aid:6383, pageId:6241, paths:["^/aweme/v1/",...], boe:false, ddrt:8.5, ic:8.5}`。
+- 请求拦截链：XHR.open → VM程序(bcLen154) 存 _method/_url → XHR.send → VM程序(bcLen238) 计算 a_bogus 并 append 到 URLSearchParams（参数名 = Z 表[220]="a_bogus"）。
+
+## 三、bdms VM 细节
+- 程序表存储：单一 base64 blob（38KB）→ 8 字节头 → XOR（key=字节4-7和%256=0xFB）→ 内置 inflate → 字节码流。
+- 表结构：Z 全局字符串表 **1001 项**（Z[220]="a_bogus"、Z[247]=base64 字母表、Z[165]="msToken"、Z[182]="x-ms-token"）；z 程序表 **796 项**（[bytecode, arity, flags, exceptionTable]）。
+- 关键程序：132=XHR 钩子初始化（135 op）、238=逐请求签名（154 op）、150=最大程序（1834 op，SM3 核心）、95=请求头处理、154=open 钩子、100=行为采集热循环。
+- 解释器入口：`X(t, r, e, n)`，栈式，操作码 0-66（0=call、5=读全局、20=写全局属性、38=压字面量、49=return、52=jump、57/58==/===、59=new、60=读 globalThis、63=D() 创建缓存包装函数等）。完整操作码语义已从去混淆源码提取。
+- 哈希：SM3（FF/GG/Tj 常量与国密标准一致）。
+
+## 四、交付物（/home/exedev/gan/douyin-re/）
+| 文件 | 用途 |
+|---|---|
+| node_signer.js | 浏览器 shims + bdms 加载器（Node 可直接 require） |
+| node_sign_test.js / final_sign.js / detail_test.js | 签名生成与回放验证 |
+| vm_Z.json / vm_z_full.json / vm_z_index.json | VM 全量表 dump（可移植纯算） |
+| out_bdms.js / out_webmssdk.js / out_sdkglue.js | webcrack 去混淆产物 |
+| frontiersign_bytecode.bin | webmssdk frontierSign VM 字节码（3057B） |
+| capture/ | 416 个运行时脚本 + requests.txt + cookies.txt |
+| init_hooks.js / trace*.js / mitm*.js | 动态断点/MITM 分析 harness（可复用） |
+| session.json / feed_sample*.json | 样本数据 |
+
+### 用法（Node 签名器）
+\`\`\`js
+require('./node_signer.js');
+global.document.cookie = 'ttwid=...; ...';        // 浏览器抓的 cookie
+global.window.bdms.init({ aid: 6383, pageId: 6241,
+  paths: ['^/webcast/','^/aweme/v1/','^/aweme/v2/','/douplus/','^/api/ad/v1/inspire',
+          '/v1/message/send','^/live/','^/captcha/','^/ecom/','^/luna/pc'],
+  boe: false, ddrt: 8.5, ic: 8.5 });
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://www.douyin.com/aweme/v1/web/...?' + query);
+xhr.send(null);
+const aBogus = decodeURIComponent(xhr._url.split('a_bogus=')[1].split('&')[0]);
+\`\`\`
+
+## 五、去水印 / 4K 解析
+- 接口：`GET /aweme/v1/web/aweme/detail/?{标准pc参数}&aweme_id={id}`（需 uifid、webid、verifyFp 与 ttwid cookie 一致）。
+- **无水印**：`aweme_detail.video.download_addr.url_list[0]`（路径含 /mps/logo/r/，logo_type=aweme_search_suffix，直链可下载，已验证 HTTP 200 video/mp4）。
+- 画质：`video.width/height` 源分辨率；`video.bit_rate[]` 档位表（gear_name: normal_720_0/low_540_0/adapt_* 等，含 bit_rate kbps 与独立 play_addr/url_list）；H265 源在 `video.play_addr_265`。选最高码率 = 取 bit_rate 表中 bitrate 最高的 play_addr.url_list；`br=`/\`definition=\` URL 参数控制档位。4K 源仅作者上传 4K 时出现（gear 名含 4k，如 normal_4k_0）。
+- 风控现状：数据中心 IP 会触发滑块验证码（响应头 x-vc-bdturing-parameters type=verify subtype=slide）；住宅 IP + 热 cookie 下 detail 接口对 a_bogus 弱校验，但建议始终携带（风控动态升级时 Argus 会开启强校验，垃圾签名 403 Blocked by ArgusSecurityPlugin）。
+
+## 六、遗留工作（可选）
+1. 纯 Python 移植 VM（表已 dump，操作码已提取）→ 免 Node 环境。
+2. 逆向 238/150 程序字节码级流程，还原 SM3+置换+熵的具体管线（学术价值；实用上 Node 签名器已够）。
+3. 4K 验证需找一条真实 4K 作品（作者上传 4K 源）。
+## 七、a_bogus 完整算法管线（opcode 级 trace 还原）
+
+### 调用链（已验证）
+XHR.send 钩子 = VM 程序 107 → 签名器 103 → 核心 150（9 参数：1,0,8,query,body,ua,pageId,aid,版本）
+程序 150 内部帧链：155(Date.now 戳) → 699/730/729(环境原生类型校验) → 277/272/274/251/246(索引选择) → 280(字节变换)
+
+### 装配（程序 132/0/104 反汇编实证）
+- 132：D(133-150,152-155) 入 s 槽位；state[8..12] 经 setter 存入 cr/ar/fr/lr/pr；盐值 Z[262]='dhzx' 存 s[2]（被 D 函数闭包捕获）
+- 0：D(103)=签名器、D(10)=SM3、D(1..75)=行为库
+- 104：D(105)=open 钩子、D(106)=setRequestHeader 钩子、D(107)=send 钩子，挂到 XHR.prototype
+- 前置：J(129)/J(700)/J(703)/J(669)/J(706)/J(715)/J(718)/J(721)/J(723)/J(690) 构建 U 配置与 qt/vt/N 等状态函数
+
+### 哈希引擎 gr（反混淆源码实锤）
+SM3 国密标准：IV=7380166F 4914B2B9 172442D7 DA8A0600 A96F30BC 163138AA E38DEE4D B0FB0E4E
+W[132] 消息扩展、Tj=79CC4519/7A879D8A、64 轮压缩、write/sum/_fill 与标准 SM3 一致
+5 次 sum 调用（trace 实测）：
+1. sum(query) → 32B
+2. sum(上一步 32B) 二次哈希
+3. sum('dhzx') → 32B
+4. sum(上一步 32B) 二次哈希
+5. sum(qt(undefined, envData, 's3') 产出的 base64 串，实测 "9B6/i1FccxYTYE==")
+
+### 载荷字节布局（程序 150 反汇编）
+[模式字节(3/11/12，onwheelx 可写性探测)] + [Date.now 4字节] + [双周序号] + [环境校验和 2字节(vt=129 实测)] + [熵数组 0,0,0,0,rand] + [pageId 4字节] + [aid 4字节] + [屏幕/窗口尺寸] + [SM3 摘要字节] → 逐字节 XOR/位运算混合 → 程序 280 3字节变换(charCodeAt/fromCharCode) → 最终 base64（180 字符）
+
+### 熵源（确定性验证实证）
+Math.random + crypto.getRandomValues + new Date()（真实时钟，Date.now 覆盖无效）
+固定三者后跨进程字节级可复现（基线已保存 baseline_bogus.txt）
+
+### 非确定性结论
+同输入每次输出不同 = 熵字节直接混入载荷，服务端解密/重算校验；字节级复现无意义，能产出有效值即可
+
+## 八、Python 移植状态（abogus_full.py）
+已完成：76 操作码 VM 解释器、JS 值模型、SM3 引擎、浏览器 shims、装配驱动骨架
+待收尾（机械性工作）：
+1. VM 帧语义修正：v 栈跨帧共享（JS 中 s[1]=v 同一数组，帧切换不重置 p）
+2. y() 异常展开表（f=1 时沿 u 表回溯）
+3. 运行 init 程序 129/700/703/669/706/715/718/721/723/690 以生成 qt/vt/N 真值（当前为占位）
+验证方法：固定随机序列 + Date，与 baseline_bogus.txt 字节对拍

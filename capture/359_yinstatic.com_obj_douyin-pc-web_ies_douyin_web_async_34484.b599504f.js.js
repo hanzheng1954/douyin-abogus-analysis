@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdouyin_web=self.webpackChunkdouyin_web||[]).push([["34484"],{654047:function(e,t,u){let n;u.r(t),u.d(t,{getImStore:function(){return i}});var r=u(399989),o=u(286066),c=u(575559);let i=()=>{if(!n)try{n=r.O.getIsSaasPopup()?c.J:o.Z}catch(e){throw n=void 0,e}return n}}}]);

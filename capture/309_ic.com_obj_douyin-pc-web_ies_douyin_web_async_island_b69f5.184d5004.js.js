@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdouyin_web=self.webpackChunkdouyin_web||[]).push([["78783"],{282170:function(e,u,n){n.r(u);var s=n(629686),a=n(320165);n(101199);var b=n(911987);u.default=e=>(0,a.jsx)(b.Z,(0,s._)({},e))}}]);

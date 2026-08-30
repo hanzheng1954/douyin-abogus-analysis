@@ -1,0 +1,2498 @@
+[
+  {
+    "name": "000_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "001_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "002_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 123,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "003_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 18,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "004_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 28,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "005_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 1601,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "006_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 2896,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "007_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 26,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "008_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 212,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "009_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 32,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "010_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 11892,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "011_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 30,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "012_com_slardar_fe_sdk-web_browser.cn.js_bid_douyin_web_globalName_Slardar.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js?bid=douyin_web&globalName=Slardar",
+    "len": 46192,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js?bid=douyin_web&globalName=Slardar"
+  },
+  {
+    "name": "013_m_obj_douyin-pc-web_ies_douyin_web_libs_pre-build-xgplayer.cdf9bd18.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/libs/pre-build-xgplayer.cdf9bd18.js",
+    "len": 429406,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/libs/pre-build-xgplayer.cdf9bd18.js"
+  },
+  {
+    "name": "014_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "015_c.com_obj_douyin-pc-web_ies_douyin_web_libs_pre-build-util.60f5e727.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/libs/pre-build-util.60f5e727.js",
+    "len": 224082,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/libs/pre-build-util.60f5e727.js"
+  },
+  {
+    "name": "016_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "017_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 28,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "018____lf-security.bytegoofy.com_obj_security-secsdk_runtime_bundler_34.js.js",
+    "url": "https://lf-security.bytegoofy.com/obj/security-secsdk/runtime_bundler_34.js",
+    "len": 177294,
+    "embedder": "https://lf-security.bytegoofy.com/obj/security-secsdk/runtime_bundler_34.js"
+  },
+  {
+    "name": "019_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 26,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "020_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 19,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "021_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 123,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "022_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 26,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "023_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 808,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "024_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 24,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "025_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 22,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "026_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 20,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "027_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 17,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "028_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 233,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "029_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 38,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "030_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 31967,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "031_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 36,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "032_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 41,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "033_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 418,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "034_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 39,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "035_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 28,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "036_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 64,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "037_ic.applogcdn.com_obj_applog-sdk-static_log-sdk_collect_5_collect.dy.js.js",
+    "url": "https://lf-static.applogcdn.com/obj/applog-sdk-static/log-sdk/collect/5/collect.dy.js",
+    "len": 189682,
+    "embedder": "https://lf-static.applogcdn.com/obj/applog-sdk-static/log-sdk/collect/5/collect.dy.js"
+  },
+  {
+    "name": "038_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 26,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "039_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 37,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "040_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 1054,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "041_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 35,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "042_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 29,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "043_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 29049,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "044_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 27,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "045_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 19713,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "046_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 2111,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "047_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 25,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "048_bytetos.com_obj_rc-client-security_c-webmssdk_1.0.0.20_webmssdk.es5.js.js",
+    "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/c-webmssdk/1.0.0.20/webmssdk.es5.js",
+    "len": 387188,
+    "embedder": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/c-webmssdk/1.0.0.20/webmssdk.es5.js"
+  },
+  {
+    "name": "049_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 991,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "050_ytetos.com_obj_rc-client-security_web_glue_1.0.0.64-fix.01_sdk-glue.js.js",
+    "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/glue/1.0.0.64-fix.01/sdk-glue.js",
+    "len": 100342,
+    "embedder": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/glue/1.0.0.64-fix.01/sdk-glue.js"
+  },
+  {
+    "name": "051_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 2754,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "052_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 49,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "053_lf-cdn-tos.bytescm.com_obj_static_filter-xss_filter-xss-lastest.umd.js.js",
+    "url": "https://lf-cdn-tos.bytescm.com/obj/static/filter-xss/filter-xss-lastest.umd.js",
+    "len": 29497,
+    "embedder": "https://lf-cdn-tos.bytescm.com/obj/static/filter-xss/filter-xss-lastest.umd.js"
+  },
+  {
+    "name": "054_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 22,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "055_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 3658,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "056_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 617,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "057_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 16,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "058_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 18,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "059_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 38,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "060_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 514,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "061_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 36,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "062_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 385,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "063_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 151,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "064_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 16,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "065_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 67,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "066_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 43,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "067_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 992,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "068_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 87,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "069_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 985,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "070_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 992,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "071_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 992,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "072_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 50,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "073_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 979,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "074_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 35,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "075_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 201320,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "076_n-static.com_obj_rc-verifycenter_sec_sdk_build_4.0.28_captcha_index.js.js",
+    "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/sec_sdk_build/4.0.28/captcha/index.js",
+    "len": 84408,
+    "embedder": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/sec_sdk_build/4.0.28/captcha/index.js"
+  },
+  {
+    "name": "077_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 254538,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "078_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 102,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "079_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 533,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "080_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 494,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "081_hgfb-cn-static.com_obj_rc-verifycenter_verifycenter_1.0.0.413_index.js.js",
+    "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.413/index.js",
+    "len": 60785,
+    "embedder": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.413/index.js"
+  },
+  {
+    "name": "082_dn-tos.bytescm.com_obj_rc-verifycenter_rmc-nocaptcha_1.0.0.51_setup.js.js",
+    "url": "https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/rmc-nocaptcha/1.0.0.51/setup.js",
+    "len": 266367,
+    "embedder": "https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/rmc-nocaptcha/1.0.0.51/setup.js"
+  },
+  {
+    "name": "083_inline.js",
+    "url": "",
+    "len": 28,
+    "embedder": ""
+  },
+  {
+    "name": "084_inline.js",
+    "url": "",
+    "len": 1203,
+    "embedder": ""
+  },
+  {
+    "name": "085_inline.js",
+    "url": "",
+    "len": 3144,
+    "embedder": ""
+  },
+  {
+    "name": "086_inline.js",
+    "url": "",
+    "len": 3268,
+    "embedder": ""
+  },
+  {
+    "name": "087_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "088_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "089_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 421,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "090_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 144927,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "091_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 56,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "092_https___www.douyin.com_.js",
+    "url": "https://www.douyin.com/",
+    "len": 16,
+    "embedder": "https://www.douyin.com/"
+  },
+  {
+    "name": "093_s___privacy.zijieapi.com_api_web-cmp_sdk__project_key_dd2ac766b575c31f.js",
+    "url": "https://privacy.zijieapi.com/api/web-cmp/sdk/?project_key=dd2ac766b575c31f",
+    "len": 57788,
+    "embedder": "https://privacy.zijieapi.com/api/web-cmp/sdk/?project_key=dd2ac766b575c31f"
+  },
+  {
+    "name": "094_instatic.com_obj_accessibility-task-platform_entrance_a11y_web_init.js.js",
+    "url": "https://sf1-cdn-tos.douyinstatic.com/obj/accessibility-task-platform/entrance/a11y_web_init.js",
+    "len": 5464,
+    "embedder": "https://sf1-cdn-tos.douyinstatic.com/obj/accessibility-task-platform/entrance/a11y_web_init.js"
+  },
+  {
+    "name": "095_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-0.6ba66ae4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-0.6ba66ae4.js",
+    "len": 120198,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-0.6ba66ae4.js"
+  },
+  {
+    "name": "096_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "097_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_framework.5ba1f416.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/framework.5ba1f416.js",
+    "len": 340698,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/framework.5ba1f416.js"
+  },
+  {
+    "name": "098_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "099_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-2.33775463.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-2.33775463.js",
+    "len": 109122,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-2.33775463.js"
+  },
+  {
+    "name": "100_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "101_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-1.637abe90.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-1.637abe90.js",
+    "len": 200848,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-1.637abe90.js"
+  },
+  {
+    "name": "102_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "103_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-3.8f73dde5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-3.8f73dde5.js",
+    "len": 138717,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-3.8f73dde5.js"
+  },
+  {
+    "name": "104_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "105_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-6.528ea584.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-6.528ea584.js",
+    "len": 135874,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-6.528ea584.js"
+  },
+  {
+    "name": "106_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "107_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-7.485fc7ca.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-7.485fc7ca.js",
+    "len": 174821,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-7.485fc7ca.js"
+  },
+  {
+    "name": "108_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "109_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-10.dd68ed63.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-10.dd68ed63.js",
+    "len": 197410,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-10.dd68ed63.js"
+  },
+  {
+    "name": "110_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "111_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-8.6c91ba34.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-8.6c91ba34.js",
+    "len": 160890,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-8.6c91ba34.js"
+  },
+  {
+    "name": "112_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "113_.com_obj_douyin-pc-web_ies_douyin_web_runtime_client-entry.f0e31fad.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/runtime~client-entry.f0e31fad.js",
+    "len": 55107,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/runtime~client-entry.f0e31fad.js"
+  },
+  {
+    "name": "114_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "115_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-4.51339cae.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-4.51339cae.js",
+    "len": 520151,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-4.51339cae.js"
+  },
+  {
+    "name": "116_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "117_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-11.eeb26f10.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-11.eeb26f10.js",
+    "len": 421498,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-11.eeb26f10.js"
+  },
+  {
+    "name": "118_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "119_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-9.e8adf283.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-9.e8adf283.js",
+    "len": 127669,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-9.e8adf283.js"
+  },
+  {
+    "name": "120_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "121_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-12.759912b4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-12.759912b4.js",
+    "len": 116658,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-12.759912b4.js"
+  },
+  {
+    "name": "122_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "123_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-5.a7487128.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-5.a7487128.js",
+    "len": 473062,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-5.a7487128.js"
+  },
+  {
+    "name": "124_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "125_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-13.77cac2b5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-13.77cac2b5.js",
+    "len": 165233,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-13.77cac2b5.js"
+  },
+  {
+    "name": "126_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "127_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-15.3ac38ace.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-15.3ac38ace.js",
+    "len": 119874,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-15.3ac38ace.js"
+  },
+  {
+    "name": "128_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "129_instatic.com_obj_douyin-pc-web_ies_douyin_web_static-style.132f0d96.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/static-style.132f0d96.js",
+    "len": 22652,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/static-style.132f0d96.js"
+  },
+  {
+    "name": "130_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "131_ouyinstatic.com_obj_douyin-pc-web_ies_douyin_web_player-14.e9734047.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-14.e9734047.js",
+    "len": 120353,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/player-14.e9734047.js"
+  },
+  {
+    "name": "132_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "133_b.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_lottie.67103682.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/lottie.67103682.js",
+    "len": 328942,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/lottie.67103682.js"
+  },
+  {
+    "name": "134_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "135_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_87322.1d73b35f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/87322.1d73b35f.js",
+    "len": 90085,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/87322.1d73b35f.js"
+  },
+  {
+    "name": "136_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "137_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_88411.a317f1a9.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/88411.a317f1a9.js",
+    "len": 84456,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/88411.a317f1a9.js"
+  },
+  {
+    "name": "138_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "139_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_91211.15bee5c4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/91211.15bee5c4.js",
+    "len": 114782,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/91211.15bee5c4.js"
+  },
+  {
+    "name": "140_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "141_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_86374.57596021.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/86374.57596021.js",
+    "len": 67225,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/86374.57596021.js"
+  },
+  {
+    "name": "142_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "143_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_16229.042586a5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/16229.042586a5.js",
+    "len": 116042,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/16229.042586a5.js"
+  },
+  {
+    "name": "144_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "145_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_63711.97c20f9e.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63711.97c20f9e.js",
+    "len": 103461,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63711.97c20f9e.js"
+  },
+  {
+    "name": "146_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "147_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_48157.b557e359.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/48157.b557e359.js",
+    "len": 112752,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/48157.b557e359.js"
+  },
+  {
+    "name": "148_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "149_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_56147.48d4d880.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/56147.48d4d880.js",
+    "len": 136532,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/56147.48d4d880.js"
+  },
+  {
+    "name": "150_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "151_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_85127.e7961766.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/85127.e7961766.js",
+    "len": 102566,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/85127.e7961766.js"
+  },
+  {
+    "name": "152_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "153_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_52133.6e347da2.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/52133.6e347da2.js",
+    "len": 97765,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/52133.6e347da2.js"
+  },
+  {
+    "name": "154_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "155_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_50672.af72a0e4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/50672.af72a0e4.js",
+    "len": 267532,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/50672.af72a0e4.js"
+  },
+  {
+    "name": "156_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "157_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_69203.eb5f1baa.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/69203.eb5f1baa.js",
+    "len": 101869,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/69203.eb5f1baa.js"
+  },
+  {
+    "name": "158_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "159_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_28563.3b5e3e5c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/28563.3b5e3e5c.js",
+    "len": 467707,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/28563.3b5e3e5c.js"
+  },
+  {
+    "name": "160_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "161_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_96475.332d315c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/96475.332d315c.js",
+    "len": 165792,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/96475.332d315c.js"
+  },
+  {
+    "name": "162_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "163_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_22154.4147e7ba.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/22154.4147e7ba.js",
+    "len": 102429,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/22154.4147e7ba.js"
+  },
+  {
+    "name": "164_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "165_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_76069.668ade34.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/76069.668ade34.js",
+    "len": 112761,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/76069.668ade34.js"
+  },
+  {
+    "name": "166_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "167_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_21506.c7c7709f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/21506.c7c7709f.js",
+    "len": 101515,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/21506.c7c7709f.js"
+  },
+  {
+    "name": "168_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "169_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_63190.d679256d.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63190.d679256d.js",
+    "len": 138460,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63190.d679256d.js"
+  },
+  {
+    "name": "170_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "171_douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_polyfill.4ba7de64.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/polyfill.4ba7de64.js",
+    "len": 175786,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/polyfill.4ba7de64.js"
+  },
+  {
+    "name": "172_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "173_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_53484.3c5a8b75.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/53484.3c5a8b75.js",
+    "len": 123685,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/53484.3c5a8b75.js"
+  },
+  {
+    "name": "174_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "175_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_44806.680099b1.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/44806.680099b1.js",
+    "len": 81980,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/44806.680099b1.js"
+  },
+  {
+    "name": "176_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "177_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_83106.6ca79266.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/83106.6ca79266.js",
+    "len": 127164,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/83106.6ca79266.js"
+  },
+  {
+    "name": "178_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "179_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_49332.461994a2.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/49332.461994a2.js",
+    "len": 109373,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/49332.461994a2.js"
+  },
+  {
+    "name": "180_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "181_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_20217.0b999e7d.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/20217.0b999e7d.js",
+    "len": 118838,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/20217.0b999e7d.js"
+  },
+  {
+    "name": "182_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "183_com_obj_douyin-pc-web_ies_douyin_web_client-entry_43479360.b09402a4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~43479360.b09402a4.js",
+    "len": 672172,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~43479360.b09402a4.js"
+  },
+  {
+    "name": "184_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "185_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_57309.777262fe.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/57309.777262fe.js",
+    "len": 293709,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/57309.777262fe.js"
+  },
+  {
+    "name": "186_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "187_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_38814.72b8f928.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/38814.72b8f928.js",
+    "len": 124070,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/38814.72b8f928.js"
+  },
+  {
+    "name": "188_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "189_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_39244.3e61b4d6.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/39244.3e61b4d6.js",
+    "len": 114377,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/39244.3e61b4d6.js"
+  },
+  {
+    "name": "190_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "191_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_37256.48833684.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/37256.48833684.js",
+    "len": 96342,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/37256.48833684.js"
+  },
+  {
+    "name": "192_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "193_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_27404.1b364f26.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/27404.1b364f26.js",
+    "len": 158414,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/27404.1b364f26.js"
+  },
+  {
+    "name": "194_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "195_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_61097.42a02613.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/61097.42a02613.js",
+    "len": 97288,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/61097.42a02613.js"
+  },
+  {
+    "name": "196_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "197_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_15335.cd131791.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/15335.cd131791.js",
+    "len": 87739,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/15335.cd131791.js"
+  },
+  {
+    "name": "198_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "199_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_93654.fda376a5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/93654.fda376a5.js",
+    "len": 102576,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/93654.fda376a5.js"
+  },
+  {
+    "name": "200_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "201_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_37541.8752a314.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/37541.8752a314.js",
+    "len": 196834,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/37541.8752a314.js"
+  },
+  {
+    "name": "202_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "203_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_47375.b40a054f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/47375.b40a054f.js",
+    "len": 110285,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/47375.b40a054f.js"
+  },
+  {
+    "name": "204_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "205_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_30744.2e3b56bb.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/30744.2e3b56bb.js",
+    "len": 96287,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/30744.2e3b56bb.js"
+  },
+  {
+    "name": "206_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "207_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_14747.5f69fe69.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/14747.5f69fe69.js",
+    "len": 975313,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/14747.5f69fe69.js"
+  },
+  {
+    "name": "208_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "209_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_47464.c198bbbd.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/47464.c198bbbd.js",
+    "len": 99409,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/47464.c198bbbd.js"
+  },
+  {
+    "name": "210_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "211_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_91426.fa18b196.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/91426.fa18b196.js",
+    "len": 107666,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/91426.fa18b196.js"
+  },
+  {
+    "name": "212_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "213_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_94657.828ee232.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/94657.828ee232.js",
+    "len": 110045,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/94657.828ee232.js"
+  },
+  {
+    "name": "214_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "215_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_23809.93d4b109.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/23809.93d4b109.js",
+    "len": 139072,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/23809.93d4b109.js"
+  },
+  {
+    "name": "216_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "217_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_81229.2ac45910.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/81229.2ac45910.js",
+    "len": 119994,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/81229.2ac45910.js"
+  },
+  {
+    "name": "218_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "219_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_16043.6aaefb0c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/16043.6aaefb0c.js",
+    "len": 109609,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/16043.6aaefb0c.js"
+  },
+  {
+    "name": "220_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "221_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_79556.0a511ffe.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/79556.0a511ffe.js",
+    "len": 106612,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/79556.0a511ffe.js"
+  },
+  {
+    "name": "222_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "223_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_96214.151c610c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/96214.151c610c.js",
+    "len": 94478,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/96214.151c610c.js"
+  },
+  {
+    "name": "224_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "225_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_80025.238db671.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/80025.238db671.js",
+    "len": 716943,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/80025.238db671.js"
+  },
+  {
+    "name": "226_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "227_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_81086.78d2bcfe.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/81086.78d2bcfe.js",
+    "len": 149263,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/81086.78d2bcfe.js"
+  },
+  {
+    "name": "228_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "229_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_23973.75c0e437.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/23973.75c0e437.js",
+    "len": 90895,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/23973.75c0e437.js"
+  },
+  {
+    "name": "230_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "231_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_40521.1890d475.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/40521.1890d475.js",
+    "len": 119582,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/40521.1890d475.js"
+  },
+  {
+    "name": "232_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "233_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_77170.f9e14f31.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/77170.f9e14f31.js",
+    "len": 65649,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/77170.f9e14f31.js"
+  },
+  {
+    "name": "234_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "235_web.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_6776.de890fd1.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/6776.de890fd1.js",
+    "len": 116743,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/6776.de890fd1.js"
+  },
+  {
+    "name": "236_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "237_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_60861.b4029e1d.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/60861.b4029e1d.js",
+    "len": 122539,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/60861.b4029e1d.js"
+  },
+  {
+    "name": "238_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "239_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_63474.d0623530.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63474.d0623530.js",
+    "len": 108669,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/63474.d0623530.js"
+  },
+  {
+    "name": "240_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "241_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_76489.71ac13e4.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/76489.71ac13e4.js",
+    "len": 236908,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/76489.71ac13e4.js"
+  },
+  {
+    "name": "242_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "243_com_obj_douyin-pc-web_ies_douyin_web_client-entry_034974ad.ebc50dfb.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~034974ad.ebc50dfb.js",
+    "len": 509409,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~034974ad.ebc50dfb.js"
+  },
+  {
+    "name": "244_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "245_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_92176.101098a8.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/92176.101098a8.js",
+    "len": 102410,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/92176.101098a8.js"
+  },
+  {
+    "name": "246_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_28161.36648645.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/28161.36648645.js",
+    "len": 67525,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/28161.36648645.js"
+  },
+  {
+    "name": "247_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_67306.bc39d782.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/67306.bc39d782.js",
+    "len": 97670,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/67306.bc39d782.js"
+  },
+  {
+    "name": "248_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_47072.545ea211.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/47072.545ea211.js",
+    "len": 89680,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/47072.545ea211.js"
+  },
+  {
+    "name": "249_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_41162.59af17ab.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/41162.59af17ab.js",
+    "len": 81974,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/41162.59af17ab.js"
+  },
+  {
+    "name": "250_uyinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_6757.0a382b50.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/6757.0a382b50.js",
+    "len": 76758,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/6757.0a382b50.js"
+  },
+  {
+    "name": "251_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_69073.4b3def2a.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69073.4b3def2a.js",
+    "len": 72187,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69073.4b3def2a.js"
+  },
+  {
+    "name": "252_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_69855.02725258.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69855.02725258.js",
+    "len": 103878,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69855.02725258.js"
+  },
+  {
+    "name": "253_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_15915.e5c46fed.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15915.e5c46fed.js",
+    "len": 107343,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15915.e5c46fed.js"
+  },
+  {
+    "name": "254_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_51253.a0a7d10c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/51253.a0a7d10c.js",
+    "len": 82099,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/51253.a0a7d10c.js"
+  },
+  {
+    "name": "255_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_64571.13e8cdf1.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/64571.13e8cdf1.js",
+    "len": 81905,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/64571.13e8cdf1.js"
+  },
+  {
+    "name": "256_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_10771.466d9f9c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/10771.466d9f9c.js",
+    "len": 90542,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/10771.466d9f9c.js"
+  },
+  {
+    "name": "257_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_24882.ef10d5b9.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/24882.ef10d5b9.js",
+    "len": 101152,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/24882.ef10d5b9.js"
+  },
+  {
+    "name": "258_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_15799.fa8f14eb.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15799.fa8f14eb.js",
+    "len": 86803,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15799.fa8f14eb.js"
+  },
+  {
+    "name": "259_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_45829.7381b0e1.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/45829.7381b0e1.js",
+    "len": 115063,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/45829.7381b0e1.js"
+  },
+  {
+    "name": "260_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_89429.04b9acd3.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/89429.04b9acd3.js",
+    "len": 110442,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/89429.04b9acd3.js"
+  },
+  {
+    "name": "261_eb.douyinstatic.com_obj_douyin-pc-web_ies_douyin_web_21884.fca5a889.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/21884.fca5a889.js",
+    "len": 84125,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/21884.fca5a889.js"
+  },
+  {
+    "name": "262_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "263_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_1.da6f6d06.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~1.da6f6d06.js",
+    "len": 529832,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~1.da6f6d06.js"
+  },
+  {
+    "name": "264_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "265_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_23634.8faea9ae.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/23634.8faea9ae.js",
+    "len": 132728,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/23634.8faea9ae.js"
+  },
+  {
+    "name": "266_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_25446.86cbbc34.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/25446.86cbbc34.js",
+    "len": 138665,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/25446.86cbbc34.js"
+  },
+  {
+    "name": "267_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_21133.16ca01e2.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21133.16ca01e2.js",
+    "len": 143885,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21133.16ca01e2.js"
+  },
+  {
+    "name": "268_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_42794.c88daddf.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/42794.c88daddf.js",
+    "len": 191227,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/42794.c88daddf.js"
+  },
+  {
+    "name": "269__obj_douyin-pc-web_ies_douyin_web_async_player-Interaction.c57286cf.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/player-Interaction.c57286cf.js",
+    "len": 146828,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/player-Interaction.c57286cf.js"
+  },
+  {
+    "name": "270_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_74352.1ca8f0e2.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/74352.1ca8f0e2.js",
+    "len": 79158,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/74352.1ca8f0e2.js"
+  },
+  {
+    "name": "271_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_52170.cdfa7e36.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/52170.cdfa7e36.js",
+    "len": 67774,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/52170.cdfa7e36.js"
+  },
+  {
+    "name": "272_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_20717.29e43faa.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/20717.29e43faa.js",
+    "len": 101930,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/20717.29e43faa.js"
+  },
+  {
+    "name": "273_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_61070.b884d555.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/61070.b884d555.js",
+    "len": 89136,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/61070.b884d555.js"
+  },
+  {
+    "name": "274_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_3.e0f4aa96.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~3.e0f4aa96.js",
+    "len": 332302,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~3.e0f4aa96.js"
+  },
+  {
+    "name": "275_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "276_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_4.7c7c269a.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~4.7c7c269a.js",
+    "len": 366483,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~4.7c7c269a.js"
+  },
+  {
+    "name": "277_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "278_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_5.690a095f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~5.690a095f.js",
+    "len": 324911,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~5.690a095f.js"
+  },
+  {
+    "name": "279_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "280_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_38563.b723e57f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/38563.b723e57f.js",
+    "len": 262089,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/38563.b723e57f.js"
+  },
+  {
+    "name": "281_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_91131.215178cc.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/91131.215178cc.js",
+    "len": 116513,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/91131.215178cc.js"
+  },
+  {
+    "name": "282_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_49715.1cc3eab5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/49715.1cc3eab5.js",
+    "len": 103268,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/49715.1cc3eab5.js"
+  },
+  {
+    "name": "283_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_6.13507692.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~6.13507692.js",
+    "len": 369183,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~6.13507692.js"
+  },
+  {
+    "name": "284_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "285_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_69221.a1d423ff.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69221.a1d423ff.js",
+    "len": 391893,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/69221.a1d423ff.js"
+  },
+  {
+    "name": "286_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_63258.2d79b06f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/63258.2d79b06f.js",
+    "len": 198907,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/63258.2d79b06f.js"
+  },
+  {
+    "name": "287_static.com_obj_douyin-pc-web_ies_douyin_web_client-entry_7.f17ae8b6.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~7.f17ae8b6.js",
+    "len": 368318,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/client-entry~7.f17ae8b6.js"
+  },
+  {
+    "name": "288_inline.js",
+    "url": "",
+    "len": 344,
+    "embedder": ""
+  },
+  {
+    "name": "289_inline.js",
+    "url": "",
+    "len": 39,
+    "embedder": ""
+  },
+  {
+    "name": "290_wasm___wasm_4886ec22.js",
+    "url": "wasm://wasm/4886ec22",
+    "len": 0,
+    "embedder": "wasm://wasm/4886ec22"
+  },
+  {
+    "name": "291_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_14306.6a77313a.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/14306.6a77313a.js",
+    "len": 239160,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/14306.6a77313a.js"
+  },
+  {
+    "name": "292_ic.com_obj_douyin-pc-web_ies_douyin_web_async_routes-route.b54cdfe8.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/routes-route.b54cdfe8.js",
+    "len": 494515,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/routes-route.b54cdfe8.js"
+  },
+  {
+    "name": "293_tps___p-pc-weboff.byteimg.com_tos-cn-i-9r5gewecjs_bdms_1.0.1.19_fix.js.js",
+    "url": "https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/bdms_1.0.1.19_fix.js",
+    "len": 147523,
+    "embedder": "https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/bdms_1.0.1.19_fix.js"
+  },
+  {
+    "name": "294_ort.ibytedapm.com_slardar_fe_sdk-web_plugins_common-monitors.1.16.9.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.16.9.js",
+    "len": 24537,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.16.9.js"
+  },
+  {
+    "name": "295_-short.ibytedapm.com_slardar_fe_sdk-web_plugins_blank-screen.1.16.9.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/blank-screen.1.16.9.js",
+    "len": 9089,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/blank-screen.1.16.9.js"
+  },
+  {
+    "name": "296____lf3-short.ibytedapm.com_slardar_fe_sdk-web_plugins_action.1.16.9.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/action.1.16.9.js",
+    "len": 11759,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/action.1.16.9.js"
+  },
+  {
+    "name": "297_ic.com_obj_douyin-pc-web_ies_douyin_web_async_island_076c3.eb5e7fb8.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_076c3.eb5e7fb8.js",
+    "len": 6013,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_076c3.eb5e7fb8.js"
+  },
+  {
+    "name": "298_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_55663.21f3fc83.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/55663.21f3fc83.js",
+    "len": 126885,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/55663.21f3fc83.js"
+  },
+  {
+    "name": "299_ic.com_obj_douyin-pc-web_ies_douyin_web_async_island_4f5df.869bfd2e.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_4f5df.869bfd2e.js",
+    "len": 12654,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_4f5df.869bfd2e.js"
+  },
+  {
+    "name": "300_com_obj_douyin-pc-web_ies_douyin_web_async_DetectHevcFrame.b52c92b2.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/DetectHevcFrame.b52c92b2.js",
+    "len": 1436,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/DetectHevcFrame.b52c92b2.js"
+  },
+  {
+    "name": "301_com_obj_douyin-pc-web_ies_douyin_web_async_DownloadJXModal.37d6e79a.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/DownloadJXModal.37d6e79a.js",
+    "len": 20745,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/DownloadJXModal.37d6e79a.js"
+  },
+  {
+    "name": "302_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_35148.6397398d.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/35148.6397398d.js",
+    "len": 610181,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/35148.6397398d.js"
+  },
+  {
+    "name": "303_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_62977.3173b1dd.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/62977.3173b1dd.js",
+    "len": 128063,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/62977.3173b1dd.js"
+  },
+  {
+    "name": "304_inline.js",
+    "url": "",
+    "len": 126,
+    "embedder": ""
+  },
+  {
+    "name": "305_inline.js",
+    "url": "",
+    "len": 125,
+    "embedder": ""
+  },
+  {
+    "name": "306_inline.js",
+    "url": "",
+    "len": 129,
+    "embedder": ""
+  },
+  {
+    "name": "307_inline.js",
+    "url": "",
+    "len": 402,
+    "embedder": ""
+  },
+  {
+    "name": "308_inline.js",
+    "url": "",
+    "len": 331,
+    "embedder": ""
+  },
+  {
+    "name": "309_ic.com_obj_douyin-pc-web_ies_douyin_web_async_island_b69f5.184d5004.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_b69f5.184d5004.js",
+    "len": 222,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_b69f5.184d5004.js"
+  },
+  {
+    "name": "310_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "311_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "312_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "313_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "314_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_19304.b3cddbd7.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/19304.b3cddbd7.js",
+    "len": 83973,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/19304.b3cddbd7.js"
+  },
+  {
+    "name": "315_den-cn_ph-auvym_ljhwZthlaukjlkulzlp_douyin-pc_pylon-wasm_index_v2.wasm.js",
+    "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ph-auvym/ljhwZthlaukjlkulzlp/douyin-pc/pylon-wasm/index_v2.wasm",
+    "len": 0,
+    "embedder": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ph-auvym/ljhwZthlaukjlkulzlp/douyin-pc/pylon-wasm/index_v2.wasm"
+  },
+  {
+    "name": "316_inline.js",
+    "url": "",
+    "len": 126,
+    "embedder": ""
+  },
+  {
+    "name": "317_inline.js",
+    "url": "",
+    "len": 127,
+    "embedder": ""
+  },
+  {
+    "name": "318_inline.js",
+    "url": "",
+    "len": 125,
+    "embedder": ""
+  },
+  {
+    "name": "319_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "320_inline.js",
+    "url": "",
+    "len": 346,
+    "embedder": ""
+  },
+  {
+    "name": "321_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "322_inline.js",
+    "url": "",
+    "len": 386,
+    "embedder": ""
+  },
+  {
+    "name": "323_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "324_inline.js",
+    "url": "",
+    "len": 410,
+    "embedder": ""
+  },
+  {
+    "name": "325_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "326_inline.js",
+    "url": "",
+    "len": 412,
+    "embedder": ""
+  },
+  {
+    "name": "327_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "328_inline.js",
+    "url": "",
+    "len": 445,
+    "embedder": ""
+  },
+  {
+    "name": "329_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "330_inline.js",
+    "url": "",
+    "len": 531,
+    "embedder": ""
+  },
+  {
+    "name": "331_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "332_inline.js",
+    "url": "",
+    "len": 582,
+    "embedder": ""
+  },
+  {
+    "name": "333_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "334_inline.js",
+    "url": "",
+    "len": 471,
+    "embedder": ""
+  },
+  {
+    "name": "335_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "336_inline.js",
+    "url": "",
+    "len": 510,
+    "embedder": ""
+  },
+  {
+    "name": "337_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "338_inline.js",
+    "url": "",
+    "len": 596,
+    "embedder": ""
+  },
+  {
+    "name": "339_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "340_inline.js",
+    "url": "",
+    "len": 647,
+    "embedder": ""
+  },
+  {
+    "name": "341_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "342_inline.js",
+    "url": "",
+    "len": 493,
+    "embedder": ""
+  },
+  {
+    "name": "343_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "344_inline.js",
+    "url": "",
+    "len": 628,
+    "embedder": ""
+  },
+  {
+    "name": "345_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "346_inline.js",
+    "url": "",
+    "len": 630,
+    "embedder": ""
+  },
+  {
+    "name": "347_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "348_inline.js",
+    "url": "",
+    "len": 537,
+    "embedder": ""
+  },
+  {
+    "name": "349_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "350_inline.js",
+    "url": "",
+    "len": 592,
+    "embedder": ""
+  },
+  {
+    "name": "351_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "352_inline.js",
+    "url": "",
+    "len": 498,
+    "embedder": ""
+  },
+  {
+    "name": "353_inline.js",
+    "url": "",
+    "len": 121,
+    "embedder": ""
+  },
+  {
+    "name": "354_inline.js",
+    "url": "",
+    "len": 500,
+    "embedder": ""
+  },
+  {
+    "name": "355_atic.com_obj_douyin-pc-web_ies_douyin_web_async_RechageBtn.9c9e6354.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/RechageBtn.9c9e6354.js",
+    "len": 26793,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/RechageBtn.9c9e6354.js"
+  },
+  {
+    "name": "356_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_12442.b8cae180.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/12442.b8cae180.js",
+    "len": 79954,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/12442.b8cae180.js"
+  },
+  {
+    "name": "357_.com_obj_douyin-pc-web_ies_douyin_web_async_electronInject.81365e71.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/electronInject.81365e71.js",
+    "len": 16515,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/electronInject.81365e71.js"
+  },
+  {
+    "name": "358_tatic.com_obj_douyin-pc-web_ies_douyin_web_async_TabSwitch.5555e844.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/TabSwitch.5555e844.js",
+    "len": 3701,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/TabSwitch.5555e844.js"
+  },
+  {
+    "name": "359_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_34484.b599504f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/34484.b599504f.js",
+    "len": 301,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/34484.b599504f.js"
+  },
+  {
+    "name": "360_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "361_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "362_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "363_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "364_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "365_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "366_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "367_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_21538.4f42f1cb.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21538.4f42f1cb.js",
+    "len": 86795,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21538.4f42f1cb.js"
+  },
+  {
+    "name": "368_uyinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_7638.a3891d12.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/7638.a3891d12.js",
+    "len": 88289,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/7638.a3891d12.js"
+  },
+  {
+    "name": "369_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_63047.7b191b33.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/63047.7b191b33.js",
+    "len": 60719,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/63047.7b191b33.js"
+  },
+  {
+    "name": "370_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_21038.f9c9a07a.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21038.f9c9a07a.js",
+    "len": 4695,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/21038.f9c9a07a.js"
+  },
+  {
+    "name": "371_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_19110.c0faf987.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/19110.c0faf987.js",
+    "len": 361646,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/19110.c0faf987.js"
+  },
+  {
+    "name": "372_recharge_web_vmok_static_js_async___federation_expose_data.c0a40d99.js.js",
+    "url": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/static/js/async/__federation_expose_data.c0a40d99.js",
+    "len": 24237,
+    "embedder": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/static/js/async/__federation_expose_data.c0a40d99.js"
+  },
+  {
+    "name": "373_os.com_obj_webcast-new_recharge_web_vmok_vmok-remote-entry.6b66fe95.js.js",
+    "url": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/vmok-remote-entry.6b66fe95.js",
+    "len": 103934,
+    "embedder": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/vmok-remote-entry.6b66fe95.js"
+  },
+  {
+    "name": "374_inline.js",
+    "url": "",
+    "len": 103,
+    "embedder": ""
+  },
+  {
+    "name": "375_.com_obj_webcast-new_recharge_web_vmok_static_js_async_908.dc15d6d0.js.js",
+    "url": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/static/js/async/908.dc15d6d0.js",
+    "len": 138415,
+    "embedder": "https://lf3-webcast.bytetos.com/obj/webcast-new/recharge_web_vmok/static/js/async/908.dc15d6d0.js"
+  },
+  {
+    "name": "376_inline.js",
+    "url": "",
+    "len": 39,
+    "embedder": ""
+  },
+  {
+    "name": "377_hgfb-cn-static.com_obj_rc-verifycenter_verifycenter_1.0.0.417_index.js.js",
+    "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.417/index.js",
+    "len": 63474,
+    "embedder": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.417/index.js"
+  },
+  {
+    "name": "378_static.com_obj_douyin-pc-web_ies_douyin_web_async_SiderBar.14a90622.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/SiderBar.14a90622.js",
+    "len": 125936,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/SiderBar.14a90622.js"
+  },
+  {
+    "name": "379_.com_obj_douyin-pc-web_ies_douyin_web_async_FeedBackOnline.b30f00f3.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/FeedBackOnline.b30f00f3.js",
+    "len": 74779,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/FeedBackOnline.b30f00f3.js"
+  },
+  {
+    "name": "380_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_88481.90d095e5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/88481.90d095e5.js",
+    "len": 134,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/88481.90d095e5.js"
+  },
+  {
+    "name": "381_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_36676.064edc34.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/36676.064edc34.js",
+    "len": 177239,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/36676.064edc34.js"
+  },
+  {
+    "name": "382_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_34953.7cb02771.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/34953.7cb02771.js",
+    "len": 19044,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/34953.7cb02771.js"
+  },
+  {
+    "name": "383_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_15557.18a8f37b.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15557.18a8f37b.js",
+    "len": 230731,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/15557.18a8f37b.js"
+  },
+  {
+    "name": "384_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_80437.c2505fb5.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/80437.c2505fb5.js",
+    "len": 55057,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/80437.c2505fb5.js"
+  },
+  {
+    "name": "385__fe__byted_uc-secure-dtrait-core_1.0.0.16_dist_index.umd.production.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-dtrait-core/1.0.0.16/dist/index.umd.production.js",
+    "len": 87575,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-dtrait-core/1.0.0.16/dist/index.umd.production.js"
+  },
+  {
+    "name": "386_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "387_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "388_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "389_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "390_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "391_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "392_er_fe__byted_uc-secure-monitor-base_1.0.4_dist_index.umd.production.js.js",
+    "url": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-monitor-base/1.0.4/dist/index.umd.production.js",
+    "len": 234817,
+    "embedder": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-monitor-base/1.0.4/dist/index.umd.production.js"
+  },
+  {
+    "name": "393_er_fe__byted_uc-secure-tool-detect_latest_dist_index.umd.production.js.js",
+    "url": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-tool-detect/latest/dist/index.umd.production.js",
+    "len": 8129,
+    "embedder": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/ucenter_fe/@byted/uc-secure-tool-detect/latest/dist/index.umd.production.js"
+  },
+  {
+    "name": "394_com_obj_uc-assets_zt__byted_x-storage-web_4.0.5_dist_latest_index.html.js",
+    "url": "https://lf-zt.douyin.com/obj/uc-assets/zt/@byted/x-storage-web/4.0.5/dist/latest/index.html",
+    "len": 36219,
+    "embedder": "https://lf-zt.douyin.com/obj/uc-assets/zt/@byted/x-storage-web/4.0.5/dist/latest/index.html"
+  },
+  {
+    "name": "395_ort.ibytedapm.com_slardar_fe_sdk-web_plugins_common-monitors.1.14.4.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.14.4.js",
+    "len": 24129,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.14.4.js"
+  },
+  {
+    "name": "396_ort.ibytedapm.com_slardar_fe_sdk-web_plugins_common-monitors.1.14.4.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.14.4.js",
+    "len": 24129,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/common-monitors.1.14.4.js"
+  },
+  {
+    "name": "397_-short.ibytedapm.com_slardar_fe_sdk-web_plugins_blank-screen.1.14.4.js.js",
+    "url": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/blank-screen.1.14.4.js",
+    "len": 8801,
+    "embedder": "https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/plugins/blank-screen.1.14.4.js"
+  },
+  {
+    "name": "398_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_84404.4210c08b.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/84404.4210c08b.js",
+    "len": 134,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/84404.4210c08b.js"
+  },
+  {
+    "name": "399_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "400_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "401_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_23678.2258760c.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/23678.2258760c.js",
+    "len": 52926,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/23678.2258760c.js"
+  },
+  {
+    "name": "402_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "403_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "404_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "405_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "406_om_obj_douyin-pc-web_ies_douyin_web_async_transport-schema.649827ed.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/transport-schema.649827ed.js",
+    "len": 23987,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/transport-schema.649827ed.js"
+  },
+  {
+    "name": "407_yinstatic.com_obj_douyin-pc-web_ies_douyin_web_async_26601.e62b8960.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/26601.e62b8960.js",
+    "len": 1640,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/26601.e62b8960.js"
+  },
+  {
+    "name": "408____lf-ucenter-web.yhgfb-cn-static.com_obj_passport-fe_lottie-no-amd.js.js",
+    "url": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/lottie-no-amd.js",
+    "len": 168187,
+    "embedder": "https://lf-ucenter-web.yhgfb-cn-static.com/obj/passport-fe/lottie-no-amd.js"
+  },
+  {
+    "name": "409_tic.com_obj_douyin-pc-web_ies_douyin_web_async_live-schema.7d839906.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/live-schema.7d839906.js",
+    "len": 452499,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/live-schema.7d839906.js"
+  },
+  {
+    "name": "410_inline.js",
+    "url": "",
+    "len": 77501,
+    "embedder": ""
+  },
+  {
+    "name": "411_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "412_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "413_inline.js",
+    "url": "",
+    "len": 0,
+    "embedder": ""
+  },
+  {
+    "name": "414_inline.js",
+    "url": "",
+    "len": 333,
+    "embedder": ""
+  },
+  {
+    "name": "415_ic.com_obj_douyin-pc-web_ies_douyin_web_async_island_f4a73.5541ac0f.js.js",
+    "url": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_f4a73.5541ac0f.js",
+    "len": 14340,
+    "embedder": "https://lf-douyin-pc-web.douyinstatic.com/obj/douyin-pc-web/ies/douyin_web/async/island_f4a73.5541ac0f.js"
+  }
+]

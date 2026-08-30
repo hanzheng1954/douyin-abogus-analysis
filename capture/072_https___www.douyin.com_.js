@@ -1,0 +1,1 @@
+self.__pace_f.push([1,"6:\"$Sreact.suspense\"\n"])

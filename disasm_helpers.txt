@@ -1,0 +1,133 @@
+===== PROGRAM 277 (arity=0 flags=True bcLen=21) =====
+          pc=0     UNDEF2         ; push undefined
+      L1: pc=1     S_READ       chain=1 slot=18   ; push s-chain[N][x]
+      L4: pc=4     CALL           ; call fn with argc args
+      L6: pc=6     UNDEF2         ; push undefined
+      L7: pc=7     S_READ       chain=1 slot=19   ; push s-chain[N][x]
+     L10: pc=10    CALL           ; call fn with argc args
+     L12: pc=12    OR             ; a|=b
+     L13: pc=13    UNDEF2         ; push undefined
+     L14: pc=14    S_READ       chain=1 slot=20   ; push s-chain[N][x]
+     L17: pc=17    CALL           ; call fn with argc args
+     L19: pc=19    OR             ; a|=b
+          pc=20    ???76
+
+===== PROGRAM 272 (arity=0 flags=True bcLen=82) =====
+          pc=0     S_READ       chain=2 slot=0   ; push s-chain[N][x]
+      L3: pc=3     DUP            ; push top
+      L4: pc=4     GET_GK       Z[192]='data'   ; push obj[Z[x]]
+      L6: pc=6     CALL           ; call fn with argc args
+      L8: pc=8     S_WRITE      chain=0 slot=2   ; s-chain[N][x]=pop
+     L11: pc=11    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L14: pc=14    GET_GK       Z[25]='length'   ; push obj[Z[x]]
+     L16: pc=16    LIT          -> 0   ; push literal
+     L18: pc=18    SEQ            ; a===b
+     L19: pc=19    JMP_F        -> L26   ; jump if !pop
+     L21: pc=21    LIT          -> 1   ; push literal
+     L23: pc=23    LIT          -> 1   ; push literal
+     L25: pc=25    SHL            ; a<<=b
+     L26: pc=26    ???76
+     L27: pc=27    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L30: pc=30    GET_GK       Z[25]='length'   ; push obj[Z[x]]
+     L32: pc=32    LIT          -> 1   ; push literal
+     L34: pc=34    SEQ            ; a===b
+     L35: pc=35    JMP_F        -> L39   ; jump if !pop
+     L37: pc=37    LIT          -> 0   ; push literal
+     L39: pc=39    ???76
+     L40: pc=40    LIT          -> 0   ; push literal
+     L42: pc=42    S_WRITE      chain=0 slot=3   ; s-chain[N][x]=pop
+     L45: pc=45    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L48: pc=48    DUP            ; push top
+     L49: pc=49    GET_GK       Z[397]='reduce'   ; push obj[Z[x]]
+     L51: pc=51    MAKE_FN      -> program 273   ; D(program, s) -> cached fn
+     L53: pc=53    CALL           ; call fn with argc args
+     L55: pc=55    POP            ; pop
+     L56: pc=56    S_READ       chain=0 slot=3   ; push s-chain[N][x]
+     L59: pc=59    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L62: pc=62    GET_GK       Z[25]='length'   ; push obj[Z[x]]
+     L64: pc=64    LIT          -> 1   ; push literal
+     L66: pc=66    SUB            ; a-=b
+     L67: pc=67    DIV            ; a/=b
+     L68: pc=68    LIT          -> 18   ; push literal
+     L70: pc=70    GT             ; a>b
+     L71: pc=71    JMP_F        -> L78   ; jump if !pop
+     L73: pc=73    LIT          -> 1   ; push literal
+     L75: pc=75    LIT          -> 4   ; push literal
+     L77: pc=77    SHL            ; a<<=b
+     L78: pc=78    ???76
+     L79: pc=79    LIT          -> 0   ; push literal
+          pc=81    ???76
+
+===== PROGRAM 274 (arity=0 flags=True bcLen=24) =====
+          pc=0     S_READ       chain=2 slot=1   ; push s-chain[N][x]
+      L3: pc=3     DUP            ; push top
+      L4: pc=4     GET_GK       Z[192]='data'   ; push obj[Z[x]]
+      L6: pc=6     CALL           ; call fn with argc args
+      L8: pc=8     GET_GK       Z[25]='length'   ; push obj[Z[x]]
+     L10: pc=10    LIT          -> 0   ; push literal
+     L12: pc=12    SEQ            ; a===b
+     L13: pc=13    JMP_F        -> L20   ; jump if !pop
+     L15: pc=15    LIT          -> 1   ; push literal
+     L17: pc=17    LIT          -> 2   ; push literal
+     L19: pc=19    SHL            ; a<<=b
+     L20: pc=20    ???76
+     L21: pc=21    LIT          -> 0   ; push literal
+          pc=23    ???76
+
+===== PROGRAM 251 (arity=0 flags=True bcLen=67) =====
+          pc=0     THIS           ; push this(c)
+      L1: pc=1     DUP            ; push top
+      L2: pc=2     GET_GK       Z[360]='isEmpty'   ; push obj[Z[x]]
+      L4: pc=4     CALL           ; call fn with argc args
+      L6: pc=6     JMP_F        -> L10   ; jump if !pop
+      L8: pc=8     SLICE        count=0   ; a=v.slice(p,p+F)
+     L10: pc=10    ???76
+     L11: pc=11    SLICE        count=0   ; a=v.slice(p,p+F)
+     L13: pc=13    S_WRITE      chain=0 slot=2   ; s-chain[N][x]=pop
+     L16: pc=16    THIS           ; push this(c)
+     L17: pc=17    GET_GK       Z[357]='front'   ; push obj[Z[x]]
+     L19: pc=19    S_WRITE      chain=0 slot=3   ; s-chain[N][x]=pop
+     L22: pc=22    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L25: pc=25    DUP            ; push top
+     L26: pc=26    GET_GK       Z[79]='push'   ; push obj[Z[x]]
+     L28: pc=28    THIS           ; push this(c)
+     L29: pc=29    GET_GK       Z[356]='items'   ; push obj[Z[x]]
+     L31: pc=31    S_READ       chain=0 slot=3   ; push s-chain[N][x]
+     L34: pc=34    GET            ; obj[key]
+     L35: pc=35    CALL           ; call fn with argc args
+     L37: pc=37    POP            ; pop
+     L38: pc=38    S_READ       chain=0 slot=3   ; push s-chain[N][x]
+     L41: pc=41    LIT          -> 1   ; push literal
+     L43: pc=43    ADD            ; a+=b
+     L44: pc=44    THIS           ; push this(c)
+     L45: pc=45    DUP            ; push top
+     L46: pc=46    GET_GK       Z[25]='length'   ; push obj[Z[x]]
+     L48: pc=48    CALL           ; call fn with argc args
+     L50: pc=50    MOD            ; a%=b
+     L51: pc=51    S_WRITE      chain=0 slot=3   ; s-chain[N][x]=pop
+     L54: pc=54    S_READ       chain=0 slot=3   ; push s-chain[N][x]
+     L57: pc=57    THIS           ; push this(c)
+     L58: pc=58    GET_GK       Z[358]='rear'   ; push obj[Z[x]]
+     L60: pc=60    NE             ; a!=b
+     L61: pc=61    JMP_T2       -> L21   ; jump if pop truthy
+     L63: pc=63    S_READ       chain=0 slot=2   ; push s-chain[N][x]
+          pc=66    ???76
+
+===== PROGRAM 246 (arity=0 flags=True bcLen=8) =====
+          pc=0     THIS           ; push this(c)
+      L1: pc=1     GET_GK       Z[357]='front'   ; push obj[Z[x]]
+      L3: pc=3     THIS           ; push this(c)
+      L4: pc=4     GET_GK       Z[358]='rear'   ; push obj[Z[x]]
+      L6: pc=6     SEQ            ; a===b
+          pc=7     ???76
+
+===== PROGRAM 96 (arity=1 flags=True bcLen=14) =====
+          pc=0     TYPEOF_G     Z[161]='URL'   ; push typeof globalThis[Z[x]]
+      L2: pc=2     PUSH_Z       Z[22]='undefined'   ; push Z[x]
+      L4: pc=4     NE             ; a!=b
+      L5: pc=5     JMP_T        -> L12   ; jump if top truthy (不弹)
+      L7: pc=7     S_READ       chain=0 slot=2   ; push s-chain[N][x]
+     L10: pc=10    GLB          Z[161]='URL'   ; push globalThis[Z[x]] (checked)
+     L12: pc=12    INSTOF         ; a instanceof b
+          pc=13    ???76
+

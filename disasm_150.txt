@@ -1,0 +1,864 @@
+===== PROGRAM 150 (arity=9 flags=True bcLen=1834) =====
+          pc=0     S_ADDR       chain=1 slot=4   ; push s-chain[N], x
+      L3: pc=3     POST_INC       ; obj[key]++
+      L4: pc=4     POP            ; pop
+      L5: pc=5     LIT          -> 11   ; push literal
+      L7: pc=7     S_WRITE      chain=0 slot=12   ; s-chain[N][x]=pop
+     L10: pc=10    GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+     L12: pc=12    GET_GK       Z[277]='onwheelx'   ; push obj[Z[x]]
+     L14: pc=14    JMP_T        -> L21   ; jump if top truthy (不弹)
+     L16: pc=16    GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+     L18: pc=18    GET_GK       Z[277]='onwheelx'   ; push obj[Z[x]]
+     L20: pc=20    GET_GK       Z[278]='_Ax'   ; push obj[Z[x]]
+     L22: pc=22    JMP_F        -> L76   ; jump if !pop
+     L24: pc=24    GLB          Z[12]='Object'   ; push globalThis[Z[x]] (checked)
+     L26: pc=26    DUP            ; push top
+     L27: pc=27    GET_GK       Z[275]='getOwnPropertyDescriptor'   ; push obj[Z[x]]
+     L29: pc=29    GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+     L31: pc=31    GET_GK       Z[277]='onwheelx'   ; push obj[Z[x]]
+     L33: pc=33    PUSH_Z       Z[278]='_Ax'   ; push Z[x]
+     L35: pc=35    CALL           ; call fn with argc args
+     L37: pc=37    S_ADDR       chain=0 slot=13   ; push s-chain[N], x
+     L40: pc=40    SET_TOP        ; obj[key]=top(不弹)
+     L41: pc=41    NULL           ; push null
+     L42: pc=42    SEQ            ; a===b
+     L43: pc=43    JMP_T_POP    -> L51   ; jump if pop truthy
+     L45: pc=45    S_READ       chain=0 slot=13   ; push s-chain[N][x]
+     L48: pc=48    LIT          -> 0   ; push literal
+     L50: pc=50    UNDEF          ; push undefined
+     L51: pc=51    SEQ            ; a===b
+     L52: pc=52    JMP_F        -> L58   ; jump if !pop
+     L54: pc=54    LIT          -> 0   ; push literal
+     L56: pc=56    UNDEF          ; push undefined
+     L57: pc=57    JMP          -> L63   ; a+=U
+     L59: pc=59    S_READ       chain=0 slot=13   ; push s-chain[N][x]
+     L62: pc=62    GET_GK       Z[35]='writable'   ; push obj[Z[x]]
+     L64: pc=64    FALSE          ; push false
+     L65: pc=65    SEQ            ; a===b
+     L66: pc=66    JMP_F        -> L71   ; jump if !pop
+     L68: pc=68    LIT          -> 3   ; push literal
+     L70: pc=70    JMP          -> L73   ; a+=U
+     L72: pc=72    LIT          -> 12   ; push literal
+     L74: pc=74    S_WRITE      chain=0 slot=12   ; s-chain[N][x]=pop
+     L77: pc=77    GLB          Z[172]='Date'   ; push globalThis[Z[x]] (checked)
+     L79: pc=79    DUP            ; push top
+     L80: pc=80    GET_GK       Z[173]='now'   ; push obj[Z[x]]
+     L82: pc=82    CALL           ; call fn with argc args
+     L84: pc=84    S_WRITE      chain=0 slot=14   ; s-chain[N][x]=pop
+     L87: pc=87    S_READ       chain=2 slot=3   ; push s-chain[N][x]
+     L90: pc=90    NEW            ; new fn(...args)
+     L92: pc=92    S_WRITE      chain=0 slot=15   ; s-chain[N][x]=pop
+     L95: pc=95    UNDEF2         ; push undefined
+     L96: pc=96    S_READ       chain=2 slot=4   ; push s-chain[N][x]
+     L99: pc=99    CALL           ; call fn with argc args
+    L101: pc=101   S_WRITE      chain=0 slot=16   ; s-chain[N][x]=pop
+    L104: pc=104   S_READ       chain=2 slot=5   ; push s-chain[N][x]
+    L107: pc=107   GET_GK       Z[145]='track'   ; push obj[Z[x]]
+    L109: pc=109   GET_GK       Z[143]='mode'   ; push obj[Z[x]]
+    L111: pc=111   LIT          -> 0   ; push literal
+    L113: pc=113   NE             ; a!=b
+    L114: pc=114   JMP_F        -> L119   ; jump if !pop
+    L116: pc=116   LIT          -> 0   ; push literal
+    L118: pc=118   JMP          -> L125   ; a+=U
+    L120: pc=120   UNDEF2         ; push undefined
+    L121: pc=121   S_READ       chain=2 slot=6   ; push s-chain[N][x]
+    L124: pc=124   CALL           ; call fn with argc args
+    L126: pc=126   S_WRITE      chain=0 slot=17   ; s-chain[N][x]=pop
+    L129: pc=129   S_READ       chain=0 slot=15   ; push s-chain[N][x]
+    L132: pc=132   DUP            ; push top
+    L133: pc=133   GET_GK       Z[279]='sum'   ; push obj[Z[x]]
+    L135: pc=135   S_READ       chain=0 slot=5   ; push s-chain[N][x]
+    L138: pc=138   S_READ       chain=1 slot=2   ; push s-chain[N][x]
+    L141: pc=141   ADD            ; a+=b
+    L142: pc=142   CALL           ; call fn with argc args
+    L144: pc=144   S_WRITE      chain=0 slot=18   ; s-chain[N][x]=pop
+    L147: pc=147   S_READ       chain=0 slot=15   ; push s-chain[N][x]
+    L150: pc=150   DUP            ; push top
+    L151: pc=151   GET_GK       Z[279]='sum'   ; push obj[Z[x]]
+    L153: pc=153   S_READ       chain=0 slot=18   ; push s-chain[N][x]
+    L156: pc=156   CALL           ; call fn with argc args
+    L158: pc=158   S_WRITE      chain=0 slot=18   ; s-chain[N][x]=pop
+    L161: pc=161   S_READ       chain=0 slot=15   ; push s-chain[N][x]
+    L164: pc=164   DUP            ; push top
+    L165: pc=165   GET_GK       Z[279]='sum'   ; push obj[Z[x]]
+    L167: pc=167   S_READ       chain=0 slot=6   ; push s-chain[N][x]
+    L170: pc=170   S_READ       chain=1 slot=2   ; push s-chain[N][x]
+    L173: pc=173   ADD            ; a+=b
+    L174: pc=174   CALL           ; call fn with argc args
+    L176: pc=176   S_WRITE      chain=0 slot=19   ; s-chain[N][x]=pop
+    L179: pc=179   S_READ       chain=0 slot=15   ; push s-chain[N][x]
+    L182: pc=182   DUP            ; push top
+    L183: pc=183   GET_GK       Z[279]='sum'   ; push obj[Z[x]]
+    L185: pc=185   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L188: pc=188   CALL           ; call fn with argc args
+    L190: pc=190   S_WRITE      chain=0 slot=19   ; s-chain[N][x]=pop
+    L193: pc=193   UNDEF2         ; push undefined
+    L194: pc=194   S_READ       chain=1 slot=14   ; push s-chain[N][x]
+    L197: pc=197   S_READ       chain=0 slot=16   ; push s-chain[N][x]
+    L200: pc=200   S_READ       chain=0 slot=17   ; push s-chain[N][x]
+    L203: pc=203   GLB          Z[176]='navigator'   ; push globalThis[Z[x]] (checked)
+    L205: pc=205   GET_GK       Z[207]='userAgent'   ; push obj[Z[x]]
+    L207: pc=207   CALL           ; call fn with argc args
+    L209: pc=209   S_WRITE      chain=0 slot=20   ; s-chain[N][x]=pop
+    L212: pc=212   UNDEF2         ; push undefined
+    L213: pc=213   S_READ       chain=2 slot=1   ; push s-chain[N][x]
+    L216: pc=216   S_READ       chain=0 slot=20   ; push s-chain[N][x]
+    L219: pc=219   PUSH_Z       Z[254]='s3'   ; push Z[x]
+    L221: pc=221   CALL           ; call fn with argc args
+    L223: pc=223   S_WRITE      chain=0 slot=20   ; s-chain[N][x]=pop
+    L226: pc=226   S_READ       chain=0 slot=15   ; push s-chain[N][x]
+    L229: pc=229   DUP            ; push top
+    L230: pc=230   GET_GK       Z[279]='sum'   ; push obj[Z[x]]
+    L232: pc=232   S_READ       chain=0 slot=20   ; push s-chain[N][x]
+    L235: pc=235   CALL           ; call fn with argc args
+    L237: pc=237   S_WRITE      chain=0 slot=21   ; s-chain[N][x]=pop
+    L240: pc=240   GLB          Z[176]='navigator'   ; push globalThis[Z[x]] (checked)
+    L242: pc=242   GET_GK       Z[280]='vendorSubs'   ; push obj[Z[x]]
+    L244: pc=244   S_ADDR       chain=0 slot=11   ; push s-chain[N], x
+    L247: pc=247   SET_TOP        ; obj[key]=top(不弹)
+    L248: pc=248   NULL           ; push null
+    L249: pc=249   SEQ            ; a===b
+    L250: pc=250   JMP_T_POP    -> L258   ; jump if pop truthy
+    L252: pc=252   S_READ       chain=0 slot=11   ; push s-chain[N][x]
+    L255: pc=255   LIT          -> 0   ; push literal
+    L257: pc=257   UNDEF          ; push undefined
+    L258: pc=258   SEQ            ; a===b
+    L259: pc=259   JMP_F        -> L265   ; jump if !pop
+    L261: pc=261   LIT          -> 0   ; push literal
+    L263: pc=263   UNDEF          ; push undefined
+    L264: pc=264   JMP          -> L270   ; a+=U
+    L266: pc=266   S_READ       chain=0 slot=11   ; push s-chain[N][x]
+    L269: pc=269   GET_GK       Z[281]='ink'   ; push obj[Z[x]]
+    L271: pc=271   JMP_T_POP    -> L274   ; jump if pop truthy
+    L273: pc=273   LIT          -> 1000   ; push literal
+    L275: pc=275   S_WRITE      chain=0 slot=22   ; s-chain[N][x]=pop
+    L278: pc=278   LIT          -> 3   ; push literal
+    L280: pc=280   LIT          -> 82   ; push literal
+    L282: pc=282   SLICE        count=2   ; a=v.slice(p,p+F)
+    L284: pc=284   S_WRITE      chain=0 slot=23   ; s-chain[N][x]=pop
+    L287: pc=287   LIT          -> 41   ; push literal
+    L289: pc=289   S_WRITE      chain=0 slot=24   ; s-chain[N][x]=pop
+    L292: pc=292   S_READ       chain=0 slot=10   ; push s-chain[N][x]
+    L295: pc=295   DUP            ; push top
+    L296: pc=296   GET_GK       Z[282]='split'   ; push obj[Z[x]]
+    L298: pc=298   PUSH_Z       Z[283]='.'   ; push Z[x]
+    L300: pc=300   CALL           ; call fn with argc args
+    L302: pc=302   DUP            ; push top
+    L303: pc=303   GET_GK       Z[243]='map'   ; push obj[Z[x]]
+    L305: pc=305   MAKE_FN      -> program 151   ; D(program, s) -> cached fn
+    L307: pc=307   CALL           ; call fn with argc args
+    L309: pc=309   S_WRITE      chain=0 slot=25   ; s-chain[N][x]=pop
+    L312: pc=312   GLB          Z[172]='Date'   ; push globalThis[Z[x]] (checked)
+    L314: pc=314   NEW            ; new fn(...args)
+    L316: pc=316   DUP            ; push top
+    L317: pc=317   GET_GK       Z[284]='getTime'   ; push obj[Z[x]]
+    L319: pc=319   CALL           ; call fn with argc args
+    L321: pc=321   NUM_G        Z[285]='1721836800000'   ; push +Z[x]
+    L323: pc=323   SUB            ; a-=b
+    L324: pc=324   LIT          -> 1000   ; push literal
+    L326: pc=326   DIV            ; a/=b
+    L327: pc=327   LIT          -> 60   ; push literal
+    L329: pc=329   DIV            ; a/=b
+    L330: pc=330   LIT          -> 60   ; push literal
+    L332: pc=332   DIV            ; a/=b
+    L333: pc=333   LIT          -> 24   ; push literal
+    L335: pc=335   DIV            ; a/=b
+    L336: pc=336   LIT          -> 14   ; push literal
+    L338: pc=338   DIV            ; a/=b
+    L339: pc=339   LIT          -> 0   ; push literal
+    L341: pc=341   SHR            ; a>>=b
+    L342: pc=342   S_WRITE      chain=0 slot=26   ; s-chain[N][x]=pop
+    L345: pc=345   UNDEF2         ; push undefined
+    L346: pc=346   S_READ       chain=1 slot=21   ; push s-chain[N][x]
+    L349: pc=349   CALL           ; call fn with argc args
+    L351: pc=351   S_WRITE      chain=0 slot=27   ; s-chain[N][x]=pop
+    L354: pc=354   LIT          -> 2   ; push literal
+    L356: pc=356   S_WRITE      chain=0 slot=28   ; s-chain[N][x]=pop
+    L359: pc=359   S_READ       chain=1 slot=3   ; push s-chain[N][x]
+    L362: pc=362   LIT          -> 0   ; push literal
+    L364: pc=364   GT             ; a>b
+    L365: pc=365   JMP_F        -> L382   ; jump if !pop
+    L367: pc=367   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L370: pc=370   S_READ       chain=1 slot=3   ; push s-chain[N][x]
+    L373: pc=373   SUB            ; a-=b
+    L374: pc=374   LIT          -> 3   ; push literal
+    L376: pc=376   ADD            ; a+=b
+    L377: pc=377   LIT          -> 255   ; push literal
+    L379: pc=379   AND            ; a&=b
+    L380: pc=380   S_WRITE      chain=0 slot=28   ; s-chain[N][x]=pop
+    L383: pc=383   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L386: pc=386   LIT          -> 255   ; push literal
+    L388: pc=388   AND            ; a&=b
+    L389: pc=389   S_WRITE      chain=0 slot=29   ; s-chain[N][x]=pop
+    L392: pc=392   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L395: pc=395   LIT          -> 8   ; push literal
+    L397: pc=397   SHR            ; a>>=b
+    L398: pc=398   LIT          -> 255   ; push literal
+    L400: pc=400   AND            ; a&=b
+    L401: pc=401   S_WRITE      chain=0 slot=30   ; s-chain[N][x]=pop
+    L404: pc=404   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L407: pc=407   LIT          -> 16   ; push literal
+    L409: pc=409   SHR            ; a>>=b
+    L410: pc=410   LIT          -> 255   ; push literal
+    L412: pc=412   AND            ; a&=b
+    L413: pc=413   S_WRITE      chain=0 slot=31   ; s-chain[N][x]=pop
+    L416: pc=416   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L419: pc=419   LIT          -> 24   ; push literal
+    L421: pc=421   SHR            ; a>>=b
+    L422: pc=422   LIT          -> 255   ; push literal
+    L424: pc=424   AND            ; a&=b
+    L425: pc=425   S_WRITE      chain=0 slot=32   ; s-chain[N][x]=pop
+    L428: pc=428   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L431: pc=431   LIT          -> 256   ; push literal
+    L433: pc=433   DIV            ; a/=b
+    L434: pc=434   LIT          -> 256   ; push literal
+    L436: pc=436   DIV            ; a/=b
+    L437: pc=437   LIT          -> 256   ; push literal
+    L439: pc=439   DIV            ; a/=b
+    L440: pc=440   LIT          -> 256   ; push literal
+    L442: pc=442   DIV            ; a/=b
+    L443: pc=443   LIT          -> 255   ; push literal
+    L445: pc=445   AND            ; a&=b
+    L446: pc=446   S_WRITE      chain=0 slot=33   ; s-chain[N][x]=pop
+    L449: pc=449   S_READ       chain=0 slot=14   ; push s-chain[N][x]
+    L452: pc=452   LIT          -> 256   ; push literal
+    L454: pc=454   DIV            ; a/=b
+    L455: pc=455   LIT          -> 256   ; push literal
+    L457: pc=457   DIV            ; a/=b
+    L458: pc=458   LIT          -> 256   ; push literal
+    L460: pc=460   DIV            ; a/=b
+    L461: pc=461   LIT          -> 256   ; push literal
+    L463: pc=463   DIV            ; a/=b
+    L464: pc=464   LIT          -> 256   ; push literal
+    L466: pc=466   DIV            ; a/=b
+    L467: pc=467   LIT          -> 255   ; push literal
+    L469: pc=469   AND            ; a&=b
+    L470: pc=470   S_WRITE      chain=0 slot=34   ; s-chain[N][x]=pop
+    L473: pc=473   S_READ       chain=0 slot=16   ; push s-chain[N][x]
+    L476: pc=476   LIT          -> 256   ; push literal
+    L478: pc=478   MOD            ; a%=b
+    L479: pc=479   LIT          -> 255   ; push literal
+    L481: pc=481   AND            ; a&=b
+    L482: pc=482   S_WRITE      chain=0 slot=35   ; s-chain[N][x]=pop
+    L485: pc=485   S_READ       chain=0 slot=16   ; push s-chain[N][x]
+    L488: pc=488   LIT          -> 256   ; push literal
+    L490: pc=490   DIV            ; a/=b
+    L491: pc=491   LIT          -> 255   ; push literal
+    L493: pc=493   AND            ; a&=b
+    L494: pc=494   S_WRITE      chain=0 slot=36   ; s-chain[N][x]=pop
+    L497: pc=497   UNDEF2         ; push undefined
+    L498: pc=498   S_READ       chain=2 slot=0   ; push s-chain[N][x]
+    L501: pc=501   CALL           ; call fn with argc args
+    L503: pc=503   S_WRITE      chain=0 slot=37   ; s-chain[N][x]=pop
+    L506: pc=506   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L509: pc=509   GET_GK       Z[271]='4'   ; push obj[Z[x]]
+    L511: pc=511   LIT          -> 255   ; push literal
+    L513: pc=513   AND            ; a&=b
+    L514: pc=514   S_WRITE      chain=0 slot=38   ; s-chain[N][x]=pop
+    L517: pc=517   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L520: pc=520   GET_GK       Z[271]='4'   ; push obj[Z[x]]
+    L522: pc=522   LIT          -> 8   ; push literal
+    L524: pc=524   SHR            ; a>>=b
+    L525: pc=525   LIT          -> 255   ; push literal
+    L527: pc=527   AND            ; a&=b
+    L528: pc=528   S_WRITE      chain=0 slot=39   ; s-chain[N][x]=pop
+    L531: pc=531   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L534: pc=534   GET_GK       Z[70]='0'   ; push obj[Z[x]]
+    L536: pc=536   S_WRITE      chain=0 slot=40   ; s-chain[N][x]=pop
+    L539: pc=539   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L542: pc=542   GET_GK       Z[72]='1'   ; push obj[Z[x]]
+    L544: pc=544   S_WRITE      chain=0 slot=41   ; s-chain[N][x]=pop
+    L547: pc=547   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L550: pc=550   GET_GK       Z[74]='2'   ; push obj[Z[x]]
+    L552: pc=552   S_WRITE      chain=0 slot=42   ; s-chain[N][x]=pop
+    L555: pc=555   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L558: pc=558   GET_GK       Z[76]='3'   ; push obj[Z[x]]
+    L560: pc=560   S_WRITE      chain=0 slot=43   ; s-chain[N][x]=pop
+    L563: pc=563   S_READ       chain=0 slot=17   ; push s-chain[N][x]
+    L566: pc=566   LIT          -> 255   ; push literal
+    L568: pc=568   AND            ; a&=b
+    L569: pc=569   S_WRITE      chain=0 slot=44   ; s-chain[N][x]=pop
+    L572: pc=572   S_READ       chain=0 slot=17   ; push s-chain[N][x]
+    L575: pc=575   LIT          -> 8   ; push literal
+    L577: pc=577   SHR            ; a>>=b
+    L578: pc=578   LIT          -> 255   ; push literal
+    L580: pc=580   AND            ; a&=b
+    L581: pc=581   S_WRITE      chain=0 slot=45   ; s-chain[N][x]=pop
+    L584: pc=584   S_READ       chain=0 slot=17   ; push s-chain[N][x]
+    L587: pc=587   LIT          -> 16   ; push literal
+    L589: pc=589   SHR            ; a>>=b
+    L590: pc=590   LIT          -> 255   ; push literal
+    L592: pc=592   AND            ; a&=b
+    L593: pc=593   S_WRITE      chain=0 slot=46   ; s-chain[N][x]=pop
+    L596: pc=596   S_READ       chain=0 slot=17   ; push s-chain[N][x]
+    L599: pc=599   LIT          -> 24   ; push literal
+    L601: pc=601   SHR            ; a>>=b
+    L602: pc=602   LIT          -> 255   ; push literal
+    L604: pc=604   AND            ; a&=b
+    L605: pc=605   S_WRITE      chain=0 slot=47   ; s-chain[N][x]=pop
+    L608: pc=608   S_READ       chain=0 slot=18   ; push s-chain[N][x]
+    L611: pc=611   GET_GK       Z[286]='9'   ; push obj[Z[x]]
+    L613: pc=613   S_WRITE      chain=0 slot=48   ; s-chain[N][x]=pop
+    L616: pc=616   S_READ       chain=0 slot=18   ; push s-chain[N][x]
+    L619: pc=619   GET_GK       Z[287]='18'   ; push obj[Z[x]]
+    L621: pc=621   S_WRITE      chain=0 slot=49   ; s-chain[N][x]=pop
+    L624: pc=624   LIT          -> 3   ; push literal
+    L626: pc=626   S_WRITE      chain=0 slot=50   ; s-chain[N][x]=pop
+    L629: pc=629   S_READ       chain=0 slot=18   ; push s-chain[N][x]
+    L632: pc=632   S_READ       chain=0 slot=50   ; push s-chain[N][x]
+    L635: pc=635   GET            ; obj[key]
+    L636: pc=636   S_WRITE      chain=0 slot=51   ; s-chain[N][x]=pop
+    L639: pc=639   S_READ       chain=0 slot=51   ; push s-chain[N][x]
+    L642: pc=642   LIT          -> 11   ; push literal
+    L644: pc=644   SEQ            ; a===b
+    L645: pc=645   JMP_F        -> L681   ; jump if !pop
+    L647: pc=647   S_ADDR       chain=0 slot=50   ; push s-chain[N], x
+    L650: pc=650   POST_INC       ; obj[key]++
+    L651: pc=651   POP            ; pop
+    L652: pc=652   S_READ       chain=0 slot=50   ; push s-chain[N][x]
+    L655: pc=655   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L658: pc=658   GET_GK       Z[25]='length'   ; push obj[Z[x]]
+    L660: pc=660   LT             ; a<b
+    L661: pc=661   JMP_F        -> L674   ; jump if !pop
+    L663: pc=663   S_READ       chain=0 slot=18   ; push s-chain[N][x]
+    L666: pc=666   S_READ       chain=0 slot=50   ; push s-chain[N][x]
+    L669: pc=669   GET            ; obj[key]
+    L670: pc=670   S_WRITE      chain=0 slot=51   ; s-chain[N][x]=pop
+    L673: pc=673   JMP          -> L679   ; a+=U
+    L675: pc=675   LIT          -> 12   ; push literal
+    L677: pc=677   S_WRITE      chain=0 slot=51   ; s-chain[N][x]=pop
+    L680: pc=680   JMP          -> L638   ; a+=U
+    L682: pc=682   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L685: pc=685   GET_GK       Z[271]='4'   ; push obj[Z[x]]
+    L687: pc=687   LIT          -> 2   ; push literal
+    L689: pc=689   AND            ; a&=b
+    L690: pc=690   JMP_F        -> L696   ; jump if !pop
+    L692: pc=692   LIT          -> 11   ; push literal
+    L694: pc=694   S_WRITE      chain=0 slot=51   ; s-chain[N][x]=pop
+    L697: pc=697   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L700: pc=700   GET_GK       Z[288]='10'   ; push obj[Z[x]]
+    L702: pc=702   S_WRITE      chain=0 slot=52   ; s-chain[N][x]=pop
+    L705: pc=705   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L708: pc=708   GET_GK       Z[289]='19'   ; push obj[Z[x]]
+    L710: pc=710   S_WRITE      chain=0 slot=53   ; s-chain[N][x]=pop
+    L713: pc=713   LIT          -> 4   ; push literal
+    L715: pc=715   S_WRITE      chain=0 slot=54   ; s-chain[N][x]=pop
+    L718: pc=718   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L721: pc=721   S_READ       chain=0 slot=54   ; push s-chain[N][x]
+    L724: pc=724   GET            ; obj[key]
+    L725: pc=725   S_WRITE      chain=0 slot=55   ; s-chain[N][x]=pop
+    L728: pc=728   S_READ       chain=0 slot=55   ; push s-chain[N][x]
+    L731: pc=731   LIT          -> 8   ; push literal
+    L733: pc=733   SEQ            ; a===b
+    L734: pc=734   JMP_F        -> L770   ; jump if !pop
+    L736: pc=736   S_ADDR       chain=0 slot=54   ; push s-chain[N], x
+    L739: pc=739   POST_INC       ; obj[key]++
+    L740: pc=740   POP            ; pop
+    L741: pc=741   S_READ       chain=0 slot=54   ; push s-chain[N][x]
+    L744: pc=744   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L747: pc=747   GET_GK       Z[25]='length'   ; push obj[Z[x]]
+    L749: pc=749   LT             ; a<b
+    L750: pc=750   JMP_F        -> L763   ; jump if !pop
+    L752: pc=752   S_READ       chain=0 slot=19   ; push s-chain[N][x]
+    L755: pc=755   S_READ       chain=0 slot=54   ; push s-chain[N][x]
+    L758: pc=758   GET            ; obj[key]
+    L759: pc=759   S_WRITE      chain=0 slot=55   ; s-chain[N][x]=pop
+    L762: pc=762   JMP          -> L768   ; a+=U
+    L764: pc=764   LIT          -> 9   ; push literal
+    L766: pc=766   S_WRITE      chain=0 slot=55   ; s-chain[N][x]=pop
+    L769: pc=769   JMP          -> L727   ; a+=U
+    L771: pc=771   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L774: pc=774   GET_GK       Z[271]='4'   ; push obj[Z[x]]
+    L776: pc=776   LIT          -> 4   ; push literal
+    L778: pc=778   AND            ; a&=b
+    L779: pc=779   JMP_F        -> L785   ; jump if !pop
+    L781: pc=781   LIT          -> 8   ; push literal
+    L783: pc=783   S_WRITE      chain=0 slot=55   ; s-chain[N][x]=pop
+    L786: pc=786   S_READ       chain=0 slot=21   ; push s-chain[N][x]
+    L789: pc=789   GET_GK       Z[290]='11'   ; push obj[Z[x]]
+    L791: pc=791   S_WRITE      chain=0 slot=56   ; s-chain[N][x]=pop
+    L794: pc=794   S_READ       chain=0 slot=21   ; push s-chain[N][x]
+    L797: pc=797   GET_GK       Z[291]='21'   ; push obj[Z[x]]
+    L799: pc=799   S_WRITE      chain=0 slot=57   ; s-chain[N][x]=pop
+    L802: pc=802   LIT          -> 5   ; push literal
+    L804: pc=804   S_WRITE      chain=0 slot=58   ; s-chain[N][x]=pop
+    L807: pc=807   S_READ       chain=0 slot=21   ; push s-chain[N][x]
+    L810: pc=810   S_READ       chain=0 slot=58   ; push s-chain[N][x]
+    L813: pc=813   GET            ; obj[key]
+    L814: pc=814   S_WRITE      chain=0 slot=59   ; s-chain[N][x]=pop
+    L817: pc=817   S_READ       chain=0 slot=59   ; push s-chain[N][x]
+    L820: pc=820   LIT          -> 12   ; push literal
+    L822: pc=822   SEQ            ; a===b
+    L823: pc=823   JMP_F        -> L859   ; jump if !pop
+    L825: pc=825   S_ADDR       chain=0 slot=58   ; push s-chain[N], x
+    L828: pc=828   POST_INC       ; obj[key]++
+    L829: pc=829   POP            ; pop
+    L830: pc=830   S_READ       chain=0 slot=58   ; push s-chain[N][x]
+    L833: pc=833   S_READ       chain=0 slot=21   ; push s-chain[N][x]
+    L836: pc=836   GET_GK       Z[25]='length'   ; push obj[Z[x]]
+    L838: pc=838   LT             ; a<b
+    L839: pc=839   JMP_F        -> L852   ; jump if !pop
+    L841: pc=841   S_READ       chain=0 slot=21   ; push s-chain[N][x]
+    L844: pc=844   S_READ       chain=0 slot=58   ; push s-chain[N][x]
+    L847: pc=847   GET            ; obj[key]
+    L848: pc=848   S_WRITE      chain=0 slot=59   ; s-chain[N][x]=pop
+    L851: pc=851   JMP          -> L857   ; a+=U
+    L853: pc=853   LIT          -> 13   ; push literal
+    L855: pc=855   S_WRITE      chain=0 slot=59   ; s-chain[N][x]=pop
+    L858: pc=858   JMP          -> L816   ; a+=U
+    L860: pc=860   S_READ       chain=0 slot=37   ; push s-chain[N][x]
+    L863: pc=863   GET_GK       Z[271]='4'   ; push obj[Z[x]]
+    L865: pc=865   LIT          -> 8   ; push literal
+    L867: pc=867   AND            ; a&=b
+    L868: pc=868   JMP_F        -> L874   ; jump if !pop
+    L870: pc=870   LIT          -> 12   ; push literal
+    L872: pc=872   S_WRITE      chain=0 slot=59   ; s-chain[N][x]=pop
+    L875: pc=875   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L878: pc=878   LIT          -> 255   ; push literal
+    L880: pc=880   AND            ; a&=b
+    L881: pc=881   S_WRITE      chain=0 slot=60   ; s-chain[N][x]=pop
+    L884: pc=884   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L887: pc=887   LIT          -> 8   ; push literal
+    L889: pc=889   SHR            ; a>>=b
+    L890: pc=890   LIT          -> 255   ; push literal
+    L892: pc=892   AND            ; a&=b
+    L893: pc=893   S_WRITE      chain=0 slot=61   ; s-chain[N][x]=pop
+    L896: pc=896   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L899: pc=899   LIT          -> 16   ; push literal
+    L901: pc=901   SHR            ; a>>=b
+    L902: pc=902   LIT          -> 255   ; push literal
+    L904: pc=904   AND            ; a&=b
+    L905: pc=905   S_WRITE      chain=0 slot=62   ; s-chain[N][x]=pop
+    L908: pc=908   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L911: pc=911   LIT          -> 24   ; push literal
+    L913: pc=913   SHR            ; a>>=b
+    L914: pc=914   LIT          -> 255   ; push literal
+    L916: pc=916   AND            ; a&=b
+    L917: pc=917   S_WRITE      chain=0 slot=63   ; s-chain[N][x]=pop
+    L920: pc=920   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L923: pc=923   LIT          -> 256   ; push literal
+    L925: pc=925   DIV            ; a/=b
+    L926: pc=926   LIT          -> 256   ; push literal
+    L928: pc=928   DIV            ; a/=b
+    L929: pc=929   LIT          -> 256   ; push literal
+    L931: pc=931   DIV            ; a/=b
+    L932: pc=932   LIT          -> 256   ; push literal
+    L934: pc=934   DIV            ; a/=b
+    L935: pc=935   LIT          -> 255   ; push literal
+    L937: pc=937   AND            ; a&=b
+    L938: pc=938   S_WRITE      chain=0 slot=64   ; s-chain[N][x]=pop
+    L941: pc=941   S_READ       chain=0 slot=22   ; push s-chain[N][x]
+    L944: pc=944   LIT          -> 256   ; push literal
+    L946: pc=946   DIV            ; a/=b
+    L947: pc=947   LIT          -> 256   ; push literal
+    L949: pc=949   DIV            ; a/=b
+    L950: pc=950   LIT          -> 256   ; push literal
+    L952: pc=952   DIV            ; a/=b
+    L953: pc=953   LIT          -> 256   ; push literal
+    L955: pc=955   DIV            ; a/=b
+    L956: pc=956   LIT          -> 256   ; push literal
+    L958: pc=958   DIV            ; a/=b
+    L959: pc=959   LIT          -> 255   ; push literal
+    L961: pc=961   AND            ; a&=b
+    L962: pc=962   S_WRITE      chain=0 slot=65   ; s-chain[N][x]=pop
+    L965: pc=965   S_READ       chain=0 slot=12   ; push s-chain[N][x]
+    L968: pc=968   S_WRITE      chain=0 slot=66   ; s-chain[N][x]=pop
+    L971: pc=971   S_READ       chain=0 slot=8   ; push s-chain[N][x]
+    L974: pc=974   LIT          -> 255   ; push literal
+    L976: pc=976   AND            ; a&=b
+    L977: pc=977   S_WRITE      chain=0 slot=67   ; s-chain[N][x]=pop
+    L980: pc=980   S_READ       chain=0 slot=8   ; push s-chain[N][x]
+    L983: pc=983   LIT          -> 8   ; push literal
+    L985: pc=985   SHR            ; a>>=b
+    L986: pc=986   LIT          -> 255   ; push literal
+    L988: pc=988   AND            ; a&=b
+    L989: pc=989   S_WRITE      chain=0 slot=68   ; s-chain[N][x]=pop
+    L992: pc=992   S_READ       chain=0 slot=8   ; push s-chain[N][x]
+    L995: pc=995   LIT          -> 16   ; push literal
+    L997: pc=997   SHR            ; a>>=b
+    L998: pc=998   LIT          -> 255   ; push literal
+   L1000: pc=1000  AND            ; a&=b
+   L1001: pc=1001  S_WRITE      chain=0 slot=69   ; s-chain[N][x]=pop
+   L1004: pc=1004  S_READ       chain=0 slot=8   ; push s-chain[N][x]
+   L1007: pc=1007  LIT          -> 24   ; push literal
+   L1009: pc=1009  SHR            ; a>>=b
+   L1010: pc=1010  LIT          -> 255   ; push literal
+   L1012: pc=1012  AND            ; a&=b
+   L1013: pc=1013  S_WRITE      chain=0 slot=70   ; s-chain[N][x]=pop
+   L1016: pc=1016  S_READ       chain=0 slot=9   ; push s-chain[N][x]
+   L1019: pc=1019  LIT          -> 255   ; push literal
+   L1021: pc=1021  AND            ; a&=b
+   L1022: pc=1022  S_WRITE      chain=0 slot=71   ; s-chain[N][x]=pop
+   L1025: pc=1025  S_READ       chain=0 slot=9   ; push s-chain[N][x]
+   L1028: pc=1028  LIT          -> 8   ; push literal
+   L1030: pc=1030  SHR            ; a>>=b
+   L1031: pc=1031  LIT          -> 255   ; push literal
+   L1033: pc=1033  AND            ; a&=b
+   L1034: pc=1034  S_WRITE      chain=0 slot=72   ; s-chain[N][x]=pop
+   L1037: pc=1037  S_READ       chain=0 slot=9   ; push s-chain[N][x]
+   L1040: pc=1040  LIT          -> 16   ; push literal
+   L1042: pc=1042  SHR            ; a>>=b
+   L1043: pc=1043  LIT          -> 255   ; push literal
+   L1045: pc=1045  AND            ; a&=b
+   L1046: pc=1046  S_WRITE      chain=0 slot=73   ; s-chain[N][x]=pop
+   L1049: pc=1049  S_READ       chain=0 slot=9   ; push s-chain[N][x]
+   L1052: pc=1052  LIT          -> 24   ; push literal
+   L1054: pc=1054  SHR            ; a>>=b
+   L1055: pc=1055  LIT          -> 255   ; push literal
+   L1057: pc=1057  AND            ; a&=b
+   L1058: pc=1058  S_WRITE      chain=0 slot=74   ; s-chain[N][x]=pop
+   L1061: pc=1061  OBJ            ; push {}
+   L1062: pc=1062  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1064: pc=1064  GET_GK       Z[292]='innerWidth'   ; push obj[Z[x]]
+   L1066: pc=1066  LIT          -> 0   ; push literal
+   L1068: pc=1068  SHR            ; a>>=b
+   L1069: pc=1069  DEF_VAL      Z[292]='innerWidth'   ; defineProperty value Z[x]
+   L1071: pc=1071  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1073: pc=1073  GET_GK       Z[293]='innerHeight'   ; push obj[Z[x]]
+   L1075: pc=1075  LIT          -> 0   ; push literal
+   L1077: pc=1077  SHR            ; a>>=b
+   L1078: pc=1078  DEF_VAL      Z[293]='innerHeight'   ; defineProperty value Z[x]
+   L1080: pc=1080  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1082: pc=1082  GET_GK       Z[294]='outerWidth'   ; push obj[Z[x]]
+   L1084: pc=1084  LIT          -> 0   ; push literal
+   L1086: pc=1086  SHR            ; a>>=b
+   L1087: pc=1087  DEF_VAL      Z[294]='outerWidth'   ; defineProperty value Z[x]
+   L1089: pc=1089  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1091: pc=1091  GET_GK       Z[295]='outerHeight'   ; push obj[Z[x]]
+   L1093: pc=1093  LIT          -> 0   ; push literal
+   L1095: pc=1095  SHR            ; a>>=b
+   L1096: pc=1096  DEF_VAL      Z[295]='outerHeight'   ; defineProperty value Z[x]
+   L1098: pc=1098  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1100: pc=1100  GET_GK       Z[200]='screen'   ; push obj[Z[x]]
+   L1102: pc=1102  GET_GK       Z[296]='availWidth'   ; push obj[Z[x]]
+   L1104: pc=1104  LIT          -> 0   ; push literal
+   L1106: pc=1106  SHR            ; a>>=b
+   L1107: pc=1107  DEF_VAL      Z[296]='availWidth'   ; defineProperty value Z[x]
+   L1109: pc=1109  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1111: pc=1111  GET_GK       Z[200]='screen'   ; push obj[Z[x]]
+   L1113: pc=1113  GET_GK       Z[297]='availHeight'   ; push obj[Z[x]]
+   L1115: pc=1115  LIT          -> 0   ; push literal
+   L1117: pc=1117  SHR            ; a>>=b
+   L1118: pc=1118  DEF_VAL      Z[297]='availHeight'   ; defineProperty value Z[x]
+   L1120: pc=1120  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1122: pc=1122  GET_GK       Z[200]='screen'   ; push obj[Z[x]]
+   L1124: pc=1124  GET_GK       Z[298]='width'   ; push obj[Z[x]]
+   L1126: pc=1126  LIT          -> 0   ; push literal
+   L1128: pc=1128  SHR            ; a>>=b
+   L1129: pc=1129  DEF_VAL      Z[299]='sizeWidth'   ; defineProperty value Z[x]
+   L1131: pc=1131  GLB          Z[132]='window'   ; push globalThis[Z[x]] (checked)
+   L1133: pc=1133  GET_GK       Z[200]='screen'   ; push obj[Z[x]]
+   L1135: pc=1135  GET_GK       Z[300]='height'   ; push obj[Z[x]]
+   L1137: pc=1137  LIT          -> 0   ; push literal
+   L1139: pc=1139  SHR            ; a>>=b
+   L1140: pc=1140  DEF_VAL      Z[301]='sizeHeight'   ; defineProperty value Z[x]
+   L1142: pc=1142  GLB          Z[176]='navigator'   ; push globalThis[Z[x]] (checked)
+   L1144: pc=1144  GET_GK       Z[302]='platform'   ; push obj[Z[x]]
+   L1146: pc=1146  DEF_VAL      Z[302]='platform'   ; defineProperty value Z[x]
+   L1148: pc=1148  S_WRITE      chain=0 slot=75   ; s-chain[N][x]=pop
+   L1151: pc=1151  UNDEF2         ; push undefined
+   L1152: pc=1152  S_READ       chain=1 slot=13   ; push s-chain[N][x]
+   L1155: pc=1155  S_READ       chain=0 slot=75   ; push s-chain[N][x]
+   L1158: pc=1158  CALL           ; call fn with argc args
+   L1160: pc=1160  S_WRITE      chain=0 slot=76   ; s-chain[N][x]=pop
+   L1163: pc=1163  UNDEF2         ; push undefined
+   L1164: pc=1164  S_READ       chain=1 slot=12   ; push s-chain[N][x]
+   L1167: pc=1167  S_READ       chain=0 slot=76   ; push s-chain[N][x]
+   L1170: pc=1170  CALL           ; call fn with argc args
+   L1172: pc=1172  S_WRITE      chain=0 slot=77   ; s-chain[N][x]=pop
+   L1175: pc=1175  S_READ       chain=0 slot=77   ; push s-chain[N][x]
+   L1178: pc=1178  GET_GK       Z[25]='length'   ; push obj[Z[x]]
+   L1180: pc=1180  S_WRITE      chain=0 slot=78   ; s-chain[N][x]=pop
+   L1183: pc=1183  S_READ       chain=0 slot=78   ; push s-chain[N][x]
+   L1186: pc=1186  LIT          -> 255   ; push literal
+   L1188: pc=1188  AND            ; a&=b
+   L1189: pc=1189  S_WRITE      chain=0 slot=79   ; s-chain[N][x]=pop
+   L1192: pc=1192  S_READ       chain=0 slot=78   ; push s-chain[N][x]
+   L1195: pc=1195  LIT          -> 8   ; push literal
+   L1197: pc=1197  SHR            ; a>>=b
+   L1198: pc=1198  LIT          -> 255   ; push literal
+   L1200: pc=1200  AND            ; a&=b
+   L1201: pc=1201  S_WRITE      chain=0 slot=80   ; s-chain[N][x]=pop
+   L1204: pc=1204  S_READ       chain=0 slot=14   ; push s-chain[N][x]
+   L1207: pc=1207  LIT          -> 3   ; push literal
+   L1209: pc=1209  ADD            ; a+=b
+   L1210: pc=1210  LIT          -> 255   ; push literal
+   L1212: pc=1212  AND            ; a&=b
+   L1213: pc=1213  PUSH_Z       Z[303]=','   ; push Z[x]
+   L1215: pc=1215  ADD            ; a+=b
+   L1216: pc=1216  S_WRITE      chain=0 slot=81   ; s-chain[N][x]=pop
+   L1219: pc=1219  UNDEF2         ; push undefined
+   L1220: pc=1220  S_READ       chain=1 slot=12   ; push s-chain[N][x]
+   L1223: pc=1223  S_READ       chain=0 slot=81   ; push s-chain[N][x]
+   L1226: pc=1226  CALL           ; call fn with argc args
+   L1228: pc=1228  S_WRITE      chain=0 slot=82   ; s-chain[N][x]=pop
+   L1231: pc=1231  S_READ       chain=0 slot=82   ; push s-chain[N][x]
+   L1234: pc=1234  GET_GK       Z[25]='length'   ; push obj[Z[x]]
+   L1236: pc=1236  S_WRITE      chain=0 slot=83   ; s-chain[N][x]=pop
+   L1239: pc=1239  S_READ       chain=0 slot=83   ; push s-chain[N][x]
+   L1242: pc=1242  LIT          -> 255   ; push literal
+   L1244: pc=1244  AND            ; a&=b
+   L1245: pc=1245  S_WRITE      chain=0 slot=84   ; s-chain[N][x]=pop
+   L1248: pc=1248  S_READ       chain=0 slot=83   ; push s-chain[N][x]
+   L1251: pc=1251  LIT          -> 8   ; push literal
+   L1253: pc=1253  SHR            ; a>>=b
+   L1254: pc=1254  LIT          -> 255   ; push literal
+   L1256: pc=1256  AND            ; a&=b
+   L1257: pc=1257  S_WRITE      chain=0 slot=85   ; s-chain[N][x]=pop
+   L1260: pc=1260  UNDEF2         ; push undefined
+   L1261: pc=1261  S_READ       chain=1 slot=19   ; push s-chain[N][x]
+   L1264: pc=1264  S_READ       chain=0 slot=25   ; push s-chain[N][x]
+   L1267: pc=1267  CALL           ; call fn with argc args
+   L1269: pc=1269  S_WRITE      chain=0 slot=86   ; s-chain[N][x]=pop
+   L1272: pc=1272  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1275: pc=1275  GET_GK       Z[70]='0'   ; push obj[Z[x]]
+   L1277: pc=1277  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1280: pc=1280  GET_GK       Z[72]='1'   ; push obj[Z[x]]
+   L1282: pc=1282  XOR            ; a^=b
+   L1283: pc=1283  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1286: pc=1286  GET_GK       Z[74]='2'   ; push obj[Z[x]]
+   L1288: pc=1288  XOR            ; a^=b
+   L1289: pc=1289  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1292: pc=1292  GET_GK       Z[76]='3'   ; push obj[Z[x]]
+   L1294: pc=1294  XOR            ; a^=b
+   L1295: pc=1295  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1298: pc=1298  GET_GK       Z[271]='4'   ; push obj[Z[x]]
+   L1300: pc=1300  XOR            ; a^=b
+   L1301: pc=1301  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1304: pc=1304  GET_GK       Z[304]='5'   ; push obj[Z[x]]
+   L1306: pc=1306  XOR            ; a^=b
+   L1307: pc=1307  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1310: pc=1310  GET_GK       Z[305]='6'   ; push obj[Z[x]]
+   L1312: pc=1312  XOR            ; a^=b
+   L1313: pc=1313  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1316: pc=1316  GET_GK       Z[306]='7'   ; push obj[Z[x]]
+   L1318: pc=1318  XOR            ; a^=b
+   L1319: pc=1319  S_READ       chain=0 slot=24   ; push s-chain[N][x]
+   L1322: pc=1322  XOR            ; a^=b
+   L1323: pc=1323  S_READ       chain=0 slot=26   ; push s-chain[N][x]
+   L1326: pc=1326  XOR            ; a^=b
+   L1327: pc=1327  S_READ       chain=0 slot=27   ; push s-chain[N][x]
+   L1330: pc=1330  XOR            ; a^=b
+   L1331: pc=1331  S_READ       chain=0 slot=28   ; push s-chain[N][x]
+   L1334: pc=1334  XOR            ; a^=b
+   L1335: pc=1335  S_READ       chain=0 slot=29   ; push s-chain[N][x]
+   L1338: pc=1338  XOR            ; a^=b
+   L1339: pc=1339  S_READ       chain=0 slot=30   ; push s-chain[N][x]
+   L1342: pc=1342  XOR            ; a^=b
+   L1343: pc=1343  S_READ       chain=0 slot=31   ; push s-chain[N][x]
+   L1346: pc=1346  XOR            ; a^=b
+   L1347: pc=1347  S_READ       chain=0 slot=32   ; push s-chain[N][x]
+   L1350: pc=1350  XOR            ; a^=b
+   L1351: pc=1351  S_READ       chain=0 slot=33   ; push s-chain[N][x]
+   L1354: pc=1354  XOR            ; a^=b
+   L1355: pc=1355  S_READ       chain=0 slot=34   ; push s-chain[N][x]
+   L1358: pc=1358  XOR            ; a^=b
+   L1359: pc=1359  S_READ       chain=0 slot=35   ; push s-chain[N][x]
+   L1362: pc=1362  XOR            ; a^=b
+   L1363: pc=1363  S_READ       chain=0 slot=36   ; push s-chain[N][x]
+   L1366: pc=1366  XOR            ; a^=b
+   L1367: pc=1367  S_READ       chain=0 slot=38   ; push s-chain[N][x]
+   L1370: pc=1370  XOR            ; a^=b
+   L1371: pc=1371  S_READ       chain=0 slot=39   ; push s-chain[N][x]
+   L1374: pc=1374  XOR            ; a^=b
+   L1375: pc=1375  S_READ       chain=0 slot=40   ; push s-chain[N][x]
+   L1378: pc=1378  XOR            ; a^=b
+   L1379: pc=1379  S_READ       chain=0 slot=41   ; push s-chain[N][x]
+   L1382: pc=1382  XOR            ; a^=b
+   L1383: pc=1383  S_READ       chain=0 slot=42   ; push s-chain[N][x]
+   L1386: pc=1386  XOR            ; a^=b
+   L1387: pc=1387  S_READ       chain=0 slot=43   ; push s-chain[N][x]
+   L1390: pc=1390  XOR            ; a^=b
+   L1391: pc=1391  S_READ       chain=0 slot=44   ; push s-chain[N][x]
+   L1394: pc=1394  XOR            ; a^=b
+   L1395: pc=1395  S_READ       chain=0 slot=45   ; push s-chain[N][x]
+   L1398: pc=1398  XOR            ; a^=b
+   L1399: pc=1399  S_READ       chain=0 slot=46   ; push s-chain[N][x]
+   L1402: pc=1402  XOR            ; a^=b
+   L1403: pc=1403  S_READ       chain=0 slot=47   ; push s-chain[N][x]
+   L1406: pc=1406  XOR            ; a^=b
+   L1407: pc=1407  S_READ       chain=0 slot=48   ; push s-chain[N][x]
+   L1410: pc=1410  XOR            ; a^=b
+   L1411: pc=1411  S_READ       chain=0 slot=49   ; push s-chain[N][x]
+   L1414: pc=1414  XOR            ; a^=b
+   L1415: pc=1415  S_READ       chain=0 slot=51   ; push s-chain[N][x]
+   L1418: pc=1418  XOR            ; a^=b
+   L1419: pc=1419  S_READ       chain=0 slot=52   ; push s-chain[N][x]
+   L1422: pc=1422  XOR            ; a^=b
+   L1423: pc=1423  S_READ       chain=0 slot=53   ; push s-chain[N][x]
+   L1426: pc=1426  XOR            ; a^=b
+   L1427: pc=1427  S_READ       chain=0 slot=55   ; push s-chain[N][x]
+   L1430: pc=1430  XOR            ; a^=b
+   L1431: pc=1431  S_READ       chain=0 slot=56   ; push s-chain[N][x]
+   L1434: pc=1434  XOR            ; a^=b
+   L1435: pc=1435  S_READ       chain=0 slot=57   ; push s-chain[N][x]
+   L1438: pc=1438  XOR            ; a^=b
+   L1439: pc=1439  S_READ       chain=0 slot=59   ; push s-chain[N][x]
+   L1442: pc=1442  XOR            ; a^=b
+   L1443: pc=1443  S_READ       chain=0 slot=60   ; push s-chain[N][x]
+   L1446: pc=1446  XOR            ; a^=b
+   L1447: pc=1447  S_READ       chain=0 slot=61   ; push s-chain[N][x]
+   L1450: pc=1450  XOR            ; a^=b
+   L1451: pc=1451  S_READ       chain=0 slot=62   ; push s-chain[N][x]
+   L1454: pc=1454  XOR            ; a^=b
+   L1455: pc=1455  S_READ       chain=0 slot=63   ; push s-chain[N][x]
+   L1458: pc=1458  XOR            ; a^=b
+   L1459: pc=1459  S_READ       chain=0 slot=64   ; push s-chain[N][x]
+   L1462: pc=1462  XOR            ; a^=b
+   L1463: pc=1463  S_READ       chain=0 slot=65   ; push s-chain[N][x]
+   L1466: pc=1466  XOR            ; a^=b
+   L1467: pc=1467  S_READ       chain=0 slot=66   ; push s-chain[N][x]
+   L1470: pc=1470  XOR            ; a^=b
+   L1471: pc=1471  S_READ       chain=0 slot=67   ; push s-chain[N][x]
+   L1474: pc=1474  XOR            ; a^=b
+   L1475: pc=1475  S_READ       chain=0 slot=68   ; push s-chain[N][x]
+   L1478: pc=1478  XOR            ; a^=b
+   L1479: pc=1479  S_READ       chain=0 slot=69   ; push s-chain[N][x]
+   L1482: pc=1482  XOR            ; a^=b
+   L1483: pc=1483  S_READ       chain=0 slot=70   ; push s-chain[N][x]
+   L1486: pc=1486  XOR            ; a^=b
+   L1487: pc=1487  S_READ       chain=0 slot=71   ; push s-chain[N][x]
+   L1490: pc=1490  XOR            ; a^=b
+   L1491: pc=1491  S_READ       chain=0 slot=72   ; push s-chain[N][x]
+   L1494: pc=1494  XOR            ; a^=b
+   L1495: pc=1495  S_READ       chain=0 slot=73   ; push s-chain[N][x]
+   L1498: pc=1498  XOR            ; a^=b
+   L1499: pc=1499  S_READ       chain=0 slot=74   ; push s-chain[N][x]
+   L1502: pc=1502  XOR            ; a^=b
+   L1503: pc=1503  S_READ       chain=0 slot=79   ; push s-chain[N][x]
+   L1506: pc=1506  XOR            ; a^=b
+   L1507: pc=1507  S_READ       chain=0 slot=80   ; push s-chain[N][x]
+   L1510: pc=1510  XOR            ; a^=b
+   L1511: pc=1511  S_READ       chain=0 slot=84   ; push s-chain[N][x]
+   L1514: pc=1514  XOR            ; a^=b
+   L1515: pc=1515  S_READ       chain=0 slot=85   ; push s-chain[N][x]
+   L1518: pc=1518  XOR            ; a^=b
+   L1519: pc=1519  S_WRITE      chain=0 slot=87   ; s-chain[N][x]=pop
+   L1522: pc=1522  S_READ       chain=0 slot=34   ; push s-chain[N][x]
+   L1525: pc=1525  S_READ       chain=0 slot=44   ; push s-chain[N][x]
+   L1528: pc=1528  S_READ       chain=0 slot=56   ; push s-chain[N][x]
+   L1531: pc=1531  S_READ       chain=0 slot=61   ; push s-chain[N][x]
+   L1534: pc=1534  S_READ       chain=0 slot=73   ; push s-chain[N][x]
+   L1537: pc=1537  S_READ       chain=0 slot=29   ; push s-chain[N][x]
+   L1540: pc=1540  S_READ       chain=0 slot=70   ; push s-chain[N][x]
+   L1543: pc=1543  S_READ       chain=0 slot=45   ; push s-chain[N][x]
+   L1546: pc=1546  S_READ       chain=0 slot=35   ; push s-chain[N][x]
+   L1549: pc=1549  S_READ       chain=0 slot=49   ; push s-chain[N][x]
+   L1552: pc=1552  S_READ       chain=0 slot=38   ; push s-chain[N][x]
+   L1555: pc=1555  S_READ       chain=0 slot=66   ; push s-chain[N][x]
+   L1558: pc=1558  S_READ       chain=0 slot=51   ; push s-chain[N][x]
+   L1561: pc=1561  S_READ       chain=0 slot=68   ; push s-chain[N][x]
+   L1564: pc=1564  S_READ       chain=0 slot=28   ; push s-chain[N][x]
+   L1567: pc=1567  S_READ       chain=0 slot=48   ; push s-chain[N][x]
+   L1570: pc=1570  S_READ       chain=0 slot=64   ; push s-chain[N][x]
+   L1573: pc=1573  S_READ       chain=0 slot=47   ; push s-chain[N][x]
+   L1576: pc=1576  S_READ       chain=0 slot=30   ; push s-chain[N][x]
+   L1579: pc=1579  S_READ       chain=0 slot=71   ; push s-chain[N][x]
+   L1582: pc=1582  S_READ       chain=0 slot=26   ; push s-chain[N][x]
+   L1585: pc=1585  S_READ       chain=0 slot=55   ; push s-chain[N][x]
+   L1588: pc=1588  S_READ       chain=0 slot=31   ; push s-chain[N][x]
+   L1591: pc=1591  S_READ       chain=0 slot=69   ; push s-chain[N][x]
+   L1594: pc=1594  S_READ       chain=0 slot=59   ; push s-chain[N][x]
+   L1597: pc=1597  S_READ       chain=0 slot=40   ; push s-chain[N][x]
+   L1600: pc=1600  S_READ       chain=0 slot=62   ; push s-chain[N][x]
+   L1603: pc=1603  S_READ       chain=0 slot=63   ; push s-chain[N][x]
+   L1606: pc=1606  S_READ       chain=0 slot=27   ; push s-chain[N][x]
+   L1609: pc=1609  S_READ       chain=0 slot=72   ; push s-chain[N][x]
+   L1612: pc=1612  S_READ       chain=0 slot=41   ; push s-chain[N][x]
+   L1615: pc=1615  S_READ       chain=0 slot=74   ; push s-chain[N][x]
+   L1618: pc=1618  S_READ       chain=0 slot=57   ; push s-chain[N][x]
+   L1621: pc=1621  S_READ       chain=0 slot=52   ; push s-chain[N][x]
+   L1624: pc=1624  S_READ       chain=0 slot=42   ; push s-chain[N][x]
+   L1627: pc=1627  S_READ       chain=0 slot=39   ; push s-chain[N][x]
+   L1630: pc=1630  S_READ       chain=0 slot=33   ; push s-chain[N][x]
+   L1633: pc=1633  S_READ       chain=0 slot=67   ; push s-chain[N][x]
+   L1636: pc=1636  S_READ       chain=0 slot=53   ; push s-chain[N][x]
+   L1639: pc=1639  S_READ       chain=0 slot=43   ; push s-chain[N][x]
+   L1642: pc=1642  S_READ       chain=0 slot=65   ; push s-chain[N][x]
+   L1645: pc=1645  S_READ       chain=0 slot=46   ; push s-chain[N][x]
+   L1648: pc=1648  S_READ       chain=0 slot=36   ; push s-chain[N][x]
+   L1651: pc=1651  S_READ       chain=0 slot=24   ; push s-chain[N][x]
+   L1654: pc=1654  S_READ       chain=0 slot=60   ; push s-chain[N][x]
+   L1657: pc=1657  S_READ       chain=0 slot=32   ; push s-chain[N][x]
+   L1660: pc=1660  S_READ       chain=0 slot=79   ; push s-chain[N][x]
+   L1663: pc=1663  S_READ       chain=0 slot=80   ; push s-chain[N][x]
+   L1666: pc=1666  S_READ       chain=0 slot=84   ; push s-chain[N][x]
+   L1669: pc=1669  S_READ       chain=0 slot=85   ; push s-chain[N][x]
+   L1672: pc=1672  SLICE        count=50   ; a=v.slice(p,p+F)
+   L1674: pc=1674  DUP            ; push top
+   L1675: pc=1675  GET_GK       Z[264]='concat'   ; push obj[Z[x]]
+   L1677: pc=1677  UNDEF2         ; push undefined
+   L1678: pc=1678  S_READ       chain=1 slot=6   ; push s-chain[N][x]
+   L1681: pc=1681  S_READ       chain=0 slot=77   ; push s-chain[N][x]
+   L1684: pc=1684  CALL           ; call fn with argc args
+   L1686: pc=1686  UNDEF2         ; push undefined
+   L1687: pc=1687  S_READ       chain=1 slot=6   ; push s-chain[N][x]
+   L1690: pc=1690  S_READ       chain=0 slot=82   ; push s-chain[N][x]
+   L1693: pc=1693  CALL           ; call fn with argc args
+   L1695: pc=1695  S_READ       chain=0 slot=87   ; push s-chain[N][x]
+   L1698: pc=1698  SLICE        count=1   ; a=v.slice(p,p+F)
+   L1700: pc=1700  CALL           ; call fn with argc args
+   L1702: pc=1702  S_WRITE      chain=0 slot=88   ; s-chain[N][x]=pop
+   L1705: pc=1705  GLB          Z[120]='String'   ; push globalThis[Z[x]] (checked)
+   L1707: pc=1707  GET_GK       Z[258]='fromCharCode'   ; push obj[Z[x]]
+   L1709: pc=1709  DUP            ; push top
+   L1710: pc=1710  GET_GK       Z[126]='apply'   ; push obj[Z[x]]
+   L1712: pc=1712  GLB          Z[120]='String'   ; push globalThis[Z[x]] (checked)
+   L1714: pc=1714  UNDEF2         ; push undefined
+   L1715: pc=1715  S_READ       chain=1 slot=6   ; push s-chain[N][x]
+   L1718: pc=1718  UNDEF2         ; push undefined
+   L1719: pc=1719  S_READ       chain=1 slot=18   ; push s-chain[N][x]
+   L1722: pc=1722  S_READ       chain=0 slot=23   ; push s-chain[N][x]
+   L1725: pc=1725  LIT          -> 1   ; push literal
+   L1727: pc=1727  CALL           ; call fn with argc args
+   L1729: pc=1729  CALL           ; call fn with argc args
+   L1731: pc=1731  CALL           ; call fn with argc args
+   L1733: pc=1733  S_WRITE      chain=0 slot=89   ; s-chain[N][x]=pop
+   L1736: pc=1736  UNDEF2         ; push undefined
+   L1737: pc=1737  S_READ       chain=1 slot=20   ; push s-chain[N][x]
+   L1740: pc=1740  S_READ       chain=0 slot=88   ; push s-chain[N][x]
+   L1743: pc=1743  CALL           ; call fn with argc args
+   L1745: pc=1745  S_WRITE      chain=0 slot=90   ; s-chain[N][x]=pop
+   L1748: pc=1748  UNDEF2         ; push undefined
+   L1749: pc=1749  S_READ       chain=2 slot=2   ; push s-chain[N][x]
+   L1752: pc=1752  GLB          Z[120]='String'   ; push globalThis[Z[x]] (checked)
+   L1754: pc=1754  GET_GK       Z[258]='fromCharCode'   ; push obj[Z[x]]
+   L1756: pc=1756  DUP            ; push top
+   L1757: pc=1757  GET_GK       Z[126]='apply'   ; push obj[Z[x]]
+   L1759: pc=1759  NULL           ; push null
+   L1760: pc=1760  LIT          -> 211   ; push literal
+   L1762: pc=1762  SLICE        count=1   ; a=v.slice(p,p+F)
+   L1764: pc=1764  CALL           ; call fn with argc args
+   L1766: pc=1766  GLB          Z[120]='String'   ; push globalThis[Z[x]] (checked)
+   L1768: pc=1768  GET_GK       Z[258]='fromCharCode'   ; push obj[Z[x]]
+   L1770: pc=1770  DUP            ; push top
+   L1771: pc=1771  GET_GK       Z[126]='apply'   ; push obj[Z[x]]
+   L1773: pc=1773  NULL           ; push null
+   L1774: pc=1774  SLICE        count=0   ; a=v.slice(p,p+F)
+   L1776: pc=1776  DUP            ; push top
+   L1777: pc=1777  GET_GK       Z[264]='concat'   ; push obj[Z[x]]
+   L1779: pc=1779  UNDEF2         ; push undefined
+   L1780: pc=1780  S_READ       chain=1 slot=6   ; push s-chain[N][x]
+   L1783: pc=1783  S_READ       chain=0 slot=86   ; push s-chain[N][x]
+   L1786: pc=1786  CALL           ; call fn with argc args
+   L1788: pc=1788  UNDEF2         ; push undefined
+   L1789: pc=1789  S_READ       chain=1 slot=6   ; push s-chain[N][x]
+   L1792: pc=1792  S_READ       chain=0 slot=90   ; push s-chain[N][x]
+   L1795: pc=1795  CALL           ; call fn with argc args
+   L1797: pc=1797  CALL           ; call fn with argc args
+   L1799: pc=1799  CALL           ; call fn with argc args
+   L1801: pc=1801  CALL           ; call fn with argc args
+   L1803: pc=1803  S_WRITE      chain=0 slot=91   ; s-chain[N][x]=pop
+   L1806: pc=1806  S_READ       chain=0 slot=89   ; push s-chain[N][x]
+   L1809: pc=1809  S_READ       chain=0 slot=91   ; push s-chain[N][x]
+   L1812: pc=1812  ADD            ; a+=b
+   L1813: pc=1813  S_WRITE      chain=0 slot=92   ; s-chain[N][x]=pop
+   L1816: pc=1816  UNDEF2         ; push undefined
+   L1817: pc=1817  S_READ       chain=2 slot=1   ; push s-chain[N][x]
+   L1820: pc=1820  S_READ       chain=0 slot=92   ; push s-chain[N][x]
+   L1823: pc=1823  PUSH_Z       Z[256]='s4'   ; push Z[x]
+   L1825: pc=1825  CALL           ; call fn with argc args
+   L1827: pc=1827  S_WRITE      chain=0 slot=93   ; s-chain[N][x]=pop
+   L1830: pc=1830  S_READ       chain=0 slot=93   ; push s-chain[N][x]
+          pc=1833  ???76
+
