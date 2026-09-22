@@ -17,7 +17,7 @@
 | 8 | SM3 管线 | trace 复核 | ✅ `ret=A[32]` 恰好 5 次，第 5 次输入 `"9B6/i1FccxYTYE=="` 与报告一致 |
 | 9 | 钩子链 id | trace 复核 | ✅ `E 105`（open，第 1 行）→ `E 107`（send，第 135 行） |
 | 10 | 风控现状 | 单次无签名 detail 请求 | 403 `Blocked by ArgusSecurityPlugin Uifid Not Found`（与报告「需 uifid」一致） |
-| 11 | Python 移植 | `python3 abogus_full.py` | ❌ 仍卡异常展开（`abogus_full.py:454`），见 §五 |
+| 11 | Python 移植 | `python3 abogus_py.py`（新忠实路线）/ `abogus_full.py`（旧路线） | ⏳ **仍未跑通**：新路线修掉 7 处解释器语义错误，卡在引导第 1 个程序（`abogus_vm.py:790`），详见 §五 与 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) |
 
 ## 一、线上重抓（第 1 项）
 
@@ -90,12 +90,33 @@ URLSearchParams/_method/_url 钩子与 `bdmsInvokeList` 读取的 send 路径。
 
 ## 五、Python 移植状态（第 11 项）
 
+两条路线，均**尚未产出 a_bogus**；完整过程与下一步见 [PY_PORT_REPORT.md](PY_PORT_REPORT.md)。
+
+**旧路线**（`abogus_full.py`，本轮未改动）：
+
     python3 abogus_full.py
     -> abogus_full.py:454  if f == 2: raise Exception(jsstr(l))
     -> Exception: <JSFunction object>      （触发点 vm.X(132, None, [], st132)）
 
-即 REPORT §八 遗留项 2（`y()` 异常展开表）。移植仍未产出可用签名，结论与报告一致。
-对拍目标已明确为 `rerun_sign.js --fixed-entropy --full` 的输出（同 query、同固定熵、一进程一次）。
+**新路线**（本轮新增，忠实镜像 `bdms_patched.js` 的 `X/g/d/y/b/D`）：
+
+    abogus_vm.py    忠实解释器：76+1 操作码、帧内共享栈、y() 三态展开 + 异常表、b() 惰性全局访问器
+    abogus_env.py   与 node_signer.js 逐项对齐的 shims（固定熵 LCG、固定 Date、SM3 gr、内置对象）
+    abogus_py.py    驱动入口（--trace / --stop boot|init|open）
+    gen_boot.py     从 bdms_patched.js 自动抽取引导序列 -> vm_boot.py（39 个 J() + 13 个别名，避免手抄）
+    abogus_probe.js Node 侧注入探针：复现参考值 ✅（与 rerun_sign 固定熵输出**完全一致**，180 字符，全程 211 次程序调用）
+
+已修 7 处语义错误（就地换帧不生效 / 嵌套异常未捕获 / `new` 实参越界 / opcode 74 吞 TypeError /
+`js_key` 未导入 / 函数原型链缺失 / 探针引号注入），当前精确失败点：
+
+    python3 abogus_py.py
+    -> abogus_vm.py:790  raise JSThrow(self.l)   ->   JSThrow: undefined
+    触发链: vm_boot.py BOOT[0] J(232) -> 232 pc=94 CALL -> 程序 244（实参 '400'）
+    Node 侧同一调用正常返回 undef；Python 侧 244 跑到 pc=8 抛异常，且其 S_READ chain=2 slot=8 未落到 StateObj
+
+差距：长度 0（卡在引导，未进入签名）。下一步最小动作：用 `node abogus_probe.js --trace-ops=232,244`
+与 Python `V._DBG=[0,N,pid]` 逐指令对齐 232 pc=85..94 / 244 pc=0..10 的 `p`、`op` 与栈值，
+判定是 D-wrapper 的 hot/state 过期判据，还是状态链取值错。
 
 ## 六、trace 与风控复核（第 8、9、10 项）
 

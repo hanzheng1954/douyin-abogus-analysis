@@ -40,6 +40,15 @@ if command -v node >/dev/null 2>&1; then
   C=$(node rerun_sign.js --full 2>/dev/null | sed -n 's/.*\[随机熵#1\] full=//p')
   D=$(node rerun_sign.js --full 2>/dev/null | sed -n 's/.*\[随机熵#2\] full=//p')
   [ -n "$C" ] && [ "$C" != "$D" ] && ok "随机熵两次不同（非确定性成立）" || ng "随机熵未体现非确定性"
+  P=$(node abogus_probe.js 2>/dev/null | sed -n 's/^A_BOGUS: //p')
+  [ -n "$P" ] && [ "$P" = "$A" ] && ok "探针 abogus_probe.js 与固定熵参考值一致（180 字符）" || ng "探针结果与参考值不一致"
+  # Python 移植（WIP）：当前应停在引导阶段的 JSThrow；一旦跑通，这里会提示更新文档
+  if python3 abogus_py.py >/tmp/va_py.log 2>&1; then
+    sk "Python 移植已能跑通 —— 请更新 PY_PORT_REPORT.md / RERUN_REPORT.md"
+  else
+    grep -q 'JSThrow' /tmp/va_py.log && ok "Python 移植仍停在引导阶段（与 PY_PORT_REPORT.md 记录一致）" \
+      || ng "Python 移植失败方式与文档不符（见 /tmp/va_py.log）"
+  fi
 else sk "未安装 node"; fi
 
 echo "== 5. 本地层往返对拍（文档声明的统计口径）=="

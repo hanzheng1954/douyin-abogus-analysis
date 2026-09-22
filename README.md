@@ -41,6 +41,13 @@
     abogus.py            纯 Python VM 核心（76 操作码 + JS 值模型 + SM3）
     abogus_shims.py      浏览器 shims（确定性熵源/Date/FakeXHR）
     abogus_driver.py     装配与驱动（程序132装配 + XHR 钩子）
+    PY_PORT_REPORT.md    Python 忠实移植（abogus_vm/env/py）进度：已修 7 处语义错误、仍未跑通及原因
+    abogus_vm.py         忠实解释器（帧内共享栈 / y() 三态展开 / 异常表 / 惰性全局访问器）
+    abogus_env.py        与 node_signer.js 对齐的 shims（固定熵 LCG / 固定 Date / SM3 gr / 内置对象）
+    abogus_py.py         新移植路线入口（--trace / --stop boot|init|open）
+    gen_boot.py vm_boot.py  从 bdms_patched.js 自动抽取模块级引导序列（39 个 J() + 13 别名）
+    abogus_probe.js      注入探针：可复现参考 a_bogus（与 rerun_sign 固定熵输出逐字符一致）
+    abogus_scan.js       环境面清单（全局读/属性访问/opcode 使用面），移植 shims 的依据
     disasm.py            VM 反汇编器（输出带注释伪码，路径自包含）
     vm_Z.json            全局字符串表（1001 项，含 a_bogus / dhzx 盐）
     vm_z_full.json       796 个 VM 程序字节码
