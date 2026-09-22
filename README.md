@@ -84,8 +84,9 @@
     node rerun_sign.js --fixed-entropy --full  # 4. 固定熵出 180 字符 a_bogus（跨进程稳定）
     node rerun_sign.js                  # 4'. 随机熵：两次不同（非确定性）
     python3 track_douyin.py             # 5. 与 track_baseline.json 对拍，有变化退出码 1
+    ./verify_all.sh --online            # 一键复跑上面全部可验证环节（PASS/FAIL 汇总）
 
-最近一次全量重跑结果与偏差口径见 [RERUN_REPORT.md](RERUN_REPORT.md)。
+最近一次全量重跑结果与偏差口径见 [RERUN_REPORT.md](RERUN_REPORT.md)（含「未能复现项及原因」）。
 
 ## 快速使用（Node 签名器）
 
