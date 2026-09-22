@@ -110,7 +110,23 @@ abogus_vm.JSThrow: undefined
 | 9 | `abogus_env.JSURL` | 全流程跑通但 URL 上没有 a_bogus | JS 的 `searchParams` 是**活**的：`append()` 必须反映到 `href/search`。旧 shim 的 `_u` 是快照。改为 `query_string()/live_href()` 按 pairs 实时重建，`toString/toJSON` 同步 |
 | 10 | `abogus_py` 取值口径 | 与参考值比较时长度/内容对不上 | 提取 a_bogus 时补 `unquote()`，与 `rerun_sign.js` 的 `decodeURIComponent` 对齐 |
 
-## 八、下一步（定位那 9 字节）
+## 八、对拍已锁定的第一处硬分歧：第 5 次 SM3 sum 的输入不同
+
+同一 query / 同固定熵下，两侧 5 次 sum 的输入（用 `sum()` 入口打桩，Node 侧 patch SM3 类、Python 侧 monkeypatch `SM3Engine.sum`）：
+
+| # | Node | Python | 判定 |
+|---|---|---|---|
+| 1 | str len=292（query） | str len=292 | ✅ |
+| 2 | arr len=32（上一步摘要） | arr len=32 | ✅ |
+| 3 | str len=4 `"dhzx"` | str len=4 `'dhzx'` | ✅ |
+| 4 | arr len=32 | arr len=32 | ✅ |
+| 5 | str len=**16** `"9B6/i1FccxYTYE=="` | str len=**148** `'zdg6CfizzToVP/Rb5wow...'` | ❌ 输入完全不同 |
+
+第 5 次对应 REPORT §七 的 `qt(undefined, envData, 's3')`（环境派生 base64）。前 4 次一致说明
+SM3 引擎、query 拼接、盐与二次哈希链都对；分歧集中在这个**环境 blob 的生成**（`qt` 及其依赖的 envData）。
+这是目前最短的一条追查线：先让 Node/Python 的 `qt(...)` 返回值对齐，再回到载荷长度差（9 字节）。
+
+## 九、下一步（定位那 9 字节）
 
 1. **熵消耗计数**：给 Python `RandomSource.next` 与 Node 侧 `Math.random`/`crypto.getRandomValues` 各加计数器，
    跑同一 query 比较总次数与逐次取值 —— 这是当前最可疑的差异源。
