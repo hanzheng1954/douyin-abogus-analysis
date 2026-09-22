@@ -1,5 +1,11 @@
 // 确定性基线：固定 Math.random / Date.now / performance.now 生成基准 a_bogus
 const fs = require('fs');
+// Node 21+ 的 crypto/performance/navigator 是「只有 getter」的全局，直接赋值会被静默忽略
+function installGlobal(name, value) {
+  try { Object.defineProperty(globalThis, name, { value, writable: true, configurable: true, enumerable: false }); }
+  catch (e) { global[name] = value; }
+}
+
 
 // 固定熵源
 let seed = 12345;
@@ -8,9 +14,9 @@ const FIXED_NOW = 1788091256878;
 Date.now = function () { return FIXED_NOW; };
 const RealDate = Date;
 Date = class extends RealDate { constructor(...args) { super(...(args.length ? args : [FIXED_NOW])); } static now() { return FIXED_NOW; } };
-global.performance = { now: () => FIXED_NOW, timing: { navigationStart: 0 } };
+installGlobal('performance', { now: () => FIXED_NOW, timing: { navigationStart: 0 } });
 
-global.crypto = { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } };
+installGlobal('crypto', { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } });
 require(__dirname + '/node_signer.js');
 
 // session.json 含真实 cookie 与签名样本，按 .gitignore 约定不入库（见 README「复现前置」）

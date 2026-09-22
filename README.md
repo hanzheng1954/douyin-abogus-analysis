@@ -80,6 +80,10 @@
 2. 全部脚本路径自包含（相对脚本目录），无需作者机器的绝对路径；Playwright 浏览器路径可用
    `CHROME_PATH=<chromium 可执行文件>` 覆盖。
 3. `disasm.py <程序id> [...]` 可直接运行，仅依赖同目录的 `vm_Z.json` / `vm_z_full.json`。
+4. **Node 21+ 的 `navigator` / `crypto` / `performance` 是 getter-only 全局**：`global.navigator = {...}`
+   会被静默忽略（实测 `navigator.userAgent` 一直是 `"Node.js/24"`，导致 UA shim 与固定熵 crypto 覆盖全部失效）。
+   仓库内所有 harness 已改用 `Object.defineProperty(globalThis, name, {value, writable:true, configurable:true})`；
+   自写脚本请照做，否则参考值不可比。
 
 ## 重跑全流程（离线可复现）
 

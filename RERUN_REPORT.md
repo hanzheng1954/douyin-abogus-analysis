@@ -17,7 +17,7 @@
 | 8 | SM3 管线 | trace 复核 | ✅ `ret=A[32]` 恰好 5 次，第 5 次输入 `"9B6/i1FccxYTYE=="` 与报告一致 |
 | 9 | 钩子链 id | trace 复核 | ✅ `E 105`（open，第 1 行）→ `E 107`（send，第 135 行） |
 | 10 | 风控现状 | 单次无签名 detail 请求 | 403 `Blocked by ArgusSecurityPlugin Uifid Not Found`（与报告「需 uifid」一致） |
-| 11 | Python 移植 | `python3 abogus_py.py`（忠实路线）/ `abogus_full.py`（旧路线） | ⏳ **已跑通全流程并产出 a_bogus**，但长度 168（目标 180，差 9 字节），字节级对拍未通过；本轮共修 17 处语义/移植错误，详见 §五 与 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) |
+| 11 | Python 移植 | `python3 abogus_py.py`（忠实路线）/ `abogus_full.py`（旧路线） | ⏳ **长度与熵已完全对齐（两侧同为 168 字符），仅剩 13 个字符差异**，根因=环境校验和 bitmask（Node 129 vs Python 39）；共修 12 处语义/移植错误 + 2 处 Node 侧 shim 失效，详见 §五 与 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) |
 
 ## 一、线上重抓（第 1 项）
 
@@ -115,7 +115,7 @@ URLSearchParams/_method/_url 钩子与 `bdmsInvokeList` 读取的 send 路径。
     Node 侧同一调用正常返回 undef；Python 侧 244 跑到 pc=8 抛异常，且其 S_READ chain=2 slot=8 未落到 StateObj
 
 **本轮续修后的最新状态**：`python3 abogus_py.py` 已能走完 boot → init → open → send 并产出 a_bogus，
-长度 **168**（参考 180，差 12 base64 字符 = 9 字节），字节级对拍未通过。本轮又修 10 处（defineProperty 描述符语义、
+长度 **168**，与修正后的 Node 参考值同长；逐字符比对仍有 **13 位差异**（环境校验和 bitmask 不同）。本轮又修 10 处（defineProperty 描述符语义、
 帧链 `U[0]` 属性访问、回帧 pid 簿记、StateObj get/set 双保留、缺 `import re`、宿主对象 prototype、SM3 实例挂 prototype、
 SM3 字节归一 int、URL searchParams 活绑定、取值口径对齐），明细见 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) §七。
 

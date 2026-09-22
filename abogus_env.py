@@ -19,14 +19,22 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 
 class RandomSource(object):
-    """rerun_sign.js 的 LCG：seed=(seed*1103515245+12345) & 0x7fffffff; return seed/0x7fffffff"""
+    """rerun_sign.js 的 LCG：seed=(seed*1103515245+12345) & 0x7fffffff; return seed/0x7fffffff
+
+    注意：JS 的乘法在 **float64** 上做，`seed*1103515245` 一旦超过 2^53 就会被舍入；
+    Python 整数是精确的，直接算会从第 2 次起与 JS 分叉（实测第 2 个值就有 1e-8 级差异）。
+    这里显式用 float 复刻 double 运算，再取低 31 位（等价于 JS 的先 ToInt32 再 & 0x7fffffff）。
+    """
+    MASK = 0x7FFFFFFF
+
     def __init__(self, seed=12345, log=None):
         self.seed = seed
         self.n = 0
         self.log = log
 
     def random(self):
-        self.seed = (self.seed * 1103515245 + 12345) & 0x7FFFFFFF
+        x = float(self.seed) * 1103515245.0 + 12345.0     # IEEE-754 double，与 JS 同精度
+        self.seed = int(x % 4294967296.0) & self.MASK     # JS: ToInt32(x) & 0x7fffffff
         self.n += 1
         r = self.seed / 0x7FFFFFFF
         if self.log is not None:

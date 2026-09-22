@@ -444,6 +444,11 @@ def run(trace_on=False, stop_phase=None, limit=None):
     store['bdms'] = bdms_mod
     store['__ac_referer'] = None
 
+    # bdms 的 webpack 模块在加载期会自行消耗两次 Math.random（模块 8499 / 3405 的初始化），
+    # 移植里不执行那些模块代码，但必须对齐熵序列位置，否则后续签名用的随机值整体错位。
+    if vm.rnd is not None:
+        vm.rnd.random(); vm.rnd.random()
+
     for entry in BOOT:
         if entry[0] == 'alias':
             ns[entry[1]] = ns.get(entry[2])

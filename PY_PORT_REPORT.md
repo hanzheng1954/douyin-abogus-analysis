@@ -1,99 +1,18 @@
 # 纯 Python 移植 abogus 报告（忠实解释器 + 逐点对拍）
 
-> 最新状态（本轮续修）：**已能全流程产出 a_bogus** —— boot → bdms.init → XHR.open → send
-> 全程无异常，输出 168 字符（目标 180，差 12 字符 = 9 字节），**字节级对拍尚未通过**。
-> 本轮又修掉 10 处语义/移植错误（见 §七），其中 4 处是「跑不通 → 跑得通」的关键。
+> 最新状态（第二轮续修）：**长度已对齐、熵已对齐，仅剩 13/168 字符差异**。
+> `python3 abogus_py.py` 与 `node rerun_sign.js --fixed-entropy --full` 现在都是 168 字符，
+> 差异集中在环境校验和（bitmask）派生的一段。
 
-> 历史状态（上一轮）：卡在引导第 1 个程序 J(232) 的子调用（程序 244），未产出任何 a_bogus。
+> 历史轨迹：卡在引导 J(232)→244 → 修 10 处后跑通并产出 168 字符 → 本轮再修 2 处关键差异。
 
 ## 零、当前差距（一句话）
 
-    node rerun_sign.js --fixed-entropy --full → 180 字符（参考值，跨进程稳定）
-    python3 abogus_py.py                       → 168 字符（已出签名，长度偏短）
+    node rerun_sign.js --fixed-entropy --full → mvUnDtXiE25fKV/SYCcFyG/lc62Arpuysa4dYfxTHxzTLhzbTuPnOTFOnoFusOcLO8pTi917zfMAbxxcp4XspC9kompkuhtWu5AcVufohHxUTTvhHNLkKYtEwJ4FUSTY/AAviBi11UUn2Lc3qNcTA1PVi5gz5cjvQrZ8kMg=   (168)
+    python3 abogus_py.py                       → mvUnDtXiE25fK5/uYCcCHG/lc62ArBLfsaskPfxTHxzTLhzbTuPnOPeOnoFusOcLO8pTi917zflAbxxcp4XspC9kompkuhtWu5AcVufohHxUTTvhHNLkKYtEwJ4FUSTY/AAviBi11UUn2Lc3qNcTA1PVi5gz5cjvQrZ8kMg=   (168)
 
-长度差 12 base64 字符 = 9 字节载荷；UA、query、cookie、固定时间（1788091256878）两侧已核对一致，
-差异最可能来自熵消耗次数或程序 150 载荷装配中的某个字段（下一步定位方案见 §八）。
-
-## 一、参考基准（可复现）
-
-```
-$ node rerun_sign.js --fixed-entropy --full
-[固定熵#1] full=mvljXtXiE25fKV/SYCaK7G/lc62Arpuysa4dYfxTHxzTLhzbTuPnOTFOnoFusOcLO8pTi9170VMAbxxcp4XspC9kompkuhtWu4ccVufohHxUTTvhHNLkKYtEwJ4FUSTY/AAviBi11UUn2Lc3qNcTA1PBi58z-CG-BrpW6MjXEVHvhTUn7d6=
-```
-连跑 3 次字节一致（跨进程稳定）。`abogus_probe.js`（注入式探针）复现同一值：
-`A_BOGUS: mvljXtXiE25fKV/...7d6=`，`XARGS count: 211`（全程 211 次 VM 程序调用）。
-
-## 二、改动/新增文件
-
-| 文件 | 状态 | 说明 |
-|---|---|---|
-| `abogus_vm.py` | **新增** | 忠实 VM：76+1 操作码、帧内共享栈、`y()` 三态展开、`b()` 惰性全局访问器、JS 值模型 |
-| `abogus_env.py` | **新增** | 与 `node_signer.js` 逐项对齐的 shims（固定熵 LCG、固定 Date、SM3 `gr`、URL/RegExp/Array/String/Object 内置） |
-| `abogus_py.py` | **新增** | 驱动：引导序列 → `bdms.init` → `XHR.open/send`，用法 `python3 abogus_py.py [--trace] [--stop boot|init|open]` |
-| `gen_boot.py` / `vm_boot.py` | **新增** | 从 `bdms_patched.js` **自动抽取** 39 个模块级 `J(pid, undefined, arguments, {...})` 与 13 个 `var X=Y` 别名（不手抄，避免抄错） |
-| `abogus_probe.js` / `abogus_scan.js` | **新增（探针，建议保留）** | Node 侧注入探针：程序调用序列/参数/返回值、全局读、D() 顺序、属性访问面、表指纹校验 |
-| `abogus_full.py` / `abogus.py` / `abogus_shims.py` / `abogus_driver.py` | **未改动** | 旧路线，仍停在 `abogus_full.py:454 Exception: <JSFunction object>`，已被新路线取代 |
-| 受保护文件 | 未触碰 | `vm_*.json`、`bdms_patched.js`、`node_signer.js`、`rerun_sign.js`、`README/REPORT/TRACKING.md` |
-
-## 三、本轮修掉的 7 个语义错误（每个都跑过验证）
-
-全部对照 `bdms_patched.js` 的 `X()/g()/d()/y()/b()/D()` 逐行核对：
-
-1. **就地换帧不生效**（`abogus_vm.py:818`）——`exec_block()` 把 `self.o` 快照成局部变量 `o`，
-   JS 里 `g()` 改的是闭包变量、`d()` 下一轮直接读新 `o`。修法：V 命中换帧后 `return`，
-   由 `do{...}while(y())` 重新进入。**修前**：程序 232 反复重放自身字节码（无限递归，60s 超时无输出）；
-   **修后**：正确地进入下一层程序。
-2. **嵌套 X 抛出的 JS 异常没被本帧 `catch`**（`abogus_vm.py:727`）——JS 的
-   `do{try{d()}catch(t){f=3;l=t}}` 会把 `n.apply(d,e)` / `new` 抛出的异常吞进 `f=3`。修法：`run()` 增加 `except JSThrow`。
-3. **opcode 59 (`new`) 的实参数组越界**（`abogus_vm.py:1055`）——`G=[undefined]` 后 `G[r]=...` 在
-   Python 里报 IndexError（JS 数组自动扩容）。修法：`G=[None]*(r+1)`。
-4. **opcode 74 吞掉 TypeError**（`abogus_vm.py:1125`）——原写法 `getprop(U,x) if isinstance(U,JSObj) else None`
-   把 JS 的 `undefined[x] → TypeError` 变成 `undefined`，导致异常流（异常表/y()）整条走偏。修法：直接 `getprop(U, str(x))`。
-5. `js_key` 未导入（`abogus_env.py`）→ `Object.defineProperty` 直接 NameError。
-6. `FUNC_PROTO` 未定义/函数原型链缺失（`abogus_vm.py:469`）→ `.call/.apply/.bind` 拿不到。
-7. `abogus_probe.js` 探针注入串被引号打断（已修复，现在可正常复现参考值）。
-
-## 四、当前失败点（精确）
-
-```
-$ time python3 abogus_py.py            # 新入口
-  File "abogus_vm.py", line 790, in unwind
-    raise JSThrow(self.l)
-abogus_vm.JSThrow: undefined
-```
-
-* **触发条件**：引导序列第 1 个程序 `J(232)`（`vm_boot.py` BOOT[0]）→ 程序 232 pc=94 `CALL` → 程序 244（arity=1，实参 `'400'`）。
-* **Node 侧事实**（`abogus_probe.js`）：`> 232 argc=0` → `> 244 argc=1 400` → `< 244 => undef`，正常返回。
-* **Python 侧事实**（`_DBG` 逐指令）：`pid=244 pc=0 op=33 → pc=1 op=74(chain=2,slot=8) → pc=4 op=34 → pc=5 op=74(chain=1,slot=2) → pc=8 op=0` 后以 `JSThrow(undefined)` 逃出，
-  且 **244 的 `s[0][0][8]` 读从未落到 `StateObj` 上**（打桩 `StateObj.own_get` 无输出），
-  而 232 的 prologue 确实写入过该槽位（打桩输出：`STATE[7] <- DWrapper`、`STATE[8] <- DWrapper`，
-  对应 `J(232)` 状态槽 7=`q`、8=`N`，即 244 应调用 `N=D(277)`）。
-* 差异定位：`abogus_vm.py:818-826`（opcode 0 的 V 路径 vs apply 路径）+ `abogus_vm.py:1125`（链式读）；
-  244 的 `S_READ chain=2` 在 Python 里取到的不是 `J(232)` 状态对象，说明 **D-wrapper 的 hot/state 语义**
-  （JS：只有最新 wrapper 在 `V` Map 里，过期 wrapper 走 `n.apply` → 新 X、自己的帧栈）仍有偏差。
-* 附带证据：`load` 阶段的 `D()` 创建顺序里，242/243/244…252 这一组并不是 232 的 prologue 建的
-  （232 只建 233,236-241,253,256-260,272,274,275,277），因此第一个分叉点在**更早的某个程序**里，
-  需要按调用序逐帧对拍定位。
-
-## 五、下一步最小动作
-
-1. 用同一份探针做**逐指令对拍**（唯一入口已就绪）：
-   * Node：`node abogus_probe.js --trace-ops=232,244`（`__TRC.op` 钩子已埋在 `bdms_patched.js`，输出 `pid:pc op=... p=...`）
-   * Python：`_DBG = [0, N, pid]`（`abogus_vm.py` 内已有开关，`/tmp/dbg5.py` 可复用）
-   两边对齐 232 pc=85..94 与 244 pc=0..10 的 `p`/`op`/栈值，即可确定是 V 路径判据还是
-   `s[0][0][8]` 的状态链取值错。
-2. 加一个 `DWrapper.state` 打印（244 入口打印 `type(state)`、`state.items[0]`），确认它拿到的是
-   `J(232)` 的帧数组而不是别的模块帧数组——这决定是「wrapper 过期判定」还是「状态链取错」。
-3. 引导跑通后按 `--stop init` / `--stop open` 分段验证，再对 `A_BOGUS` 做字符级 diff
-   （期望 180 字符、base64ish；差异位数用 `sum(a!=b for a,b in zip(ref,got))`）。
-
-## 六、探针文件去留
-
-* **保留**：`abogus_probe.js`（Node 侧对拍基准，可复现参考值 + 调用序列/全局读/D 顺序）、
-  `abogus_scan.js`（环境面清单：全局读 19 个名字、属性访问面、opcode 使用面 —— 移植 shims 的依据）。
-* **可删**：`/tmp/dbg*.py`（一次性调试脚本，在 /tmp，不在仓库）；`vm_boot.py` 是可再生产物
-  （`python3 gen_boot.py` 重新生成），但建议保留。
-* **不要删**：`abogus_vm.py` / `abogus_env.py` / `abogus_py.py` / `gen_boot.py` / `vm_boot.py`。
+**长度、熵、SM3 前 4 次调用、尾部大段字节全部一致，仅 13 个字符不同**（位置 13,15,19,20,29,30,31,34,35,36,53,54,74）。
+根因已定位到下文 §九：环境校验和 bitmask 不同（Node 129 vs Python 39）。
 
 ## 七、本轮续修（10 处，每处都"跑一次 → 变红/变绿"验证）
 
@@ -110,27 +29,43 @@ abogus_vm.JSThrow: undefined
 | 9 | `abogus_env.JSURL` | 全流程跑通但 URL 上没有 a_bogus | JS 的 `searchParams` 是**活**的：`append()` 必须反映到 `href/search`。旧 shim 的 `_u` 是快照。改为 `query_string()/live_href()` 按 pairs 实时重建，`toString/toJSON` 同步 |
 | 10 | `abogus_py` 取值口径 | 与参考值比较时长度/内容对不上 | 提取 a_bogus 时补 `unquote()`，与 `rerun_sign.js` 的 `decodeURIComponent` 对齐 |
 
-## 八、对拍已锁定的第一处硬分歧：第 5 次 SM3 sum 的输入不同
+## 八、本轮（第二轮）修掉的两处关键差异
 
-同一 query / 同固定熵下，两侧 5 次 sum 的输入（用 `sum()` 入口打桩，Node 侧 patch SM3 类、Python 侧 monkeypatch `SM3Engine.sum`）：
-
-| # | Node | Python | 判定 |
+| # | 位置 | 症状 | 根因与修法 |
 |---|---|---|---|
-| 1 | str len=292（query） | str len=292 | ✅ |
-| 2 | arr len=32（上一步摘要） | arr len=32 | ✅ |
-| 3 | str len=4 `"dhzx"` | str len=4 `'dhzx'` | ✅ |
-| 4 | arr len=32 | arr len=32 | ✅ |
-| 5 | str len=**16** `"9B6/i1FccxYTYE=="` | str len=**148** `'zdg6CfizzToVP/Rb5wow...'` | ❌ 输入完全不同 |
+| 11 | `node_signer.js` / `rerun_sign.js` / `det_one.js` 的全局 shim | Node 参考值与 Python 差 12 字符长度 | **Node 21+ 的 `navigator`/`crypto`/`performance` 是 getter-only 全局**，`global.navigator = {...}` 被静默忽略 —— 实测 `navigator.userAgent` 一直是 `"Node.js/24"`，UA 修正、固定熵 crypto 覆盖**全部没生效**。改为 `Object.defineProperty(globalThis, name, {value, writable:true, configurable:true})` 安装。修好后参考值从 180 → **168 字符，与 Python 同长** |
+| 12 | `abogus_env.RandomSource` | 两次运行的熵序列第 2 个值起就不同 | JS 的 LCG 乘法在 **float64** 上做（`seed*1103515245` 超 2^53 会被舍入），Python 整数精确 → 必然分叉。改为 `float(seed)*1103515245.0+12345.0` 后取低 31 位；另在 `abogus_py` 启动前补 2 次抽取，对齐 bdms webpack 模块加载期消耗的 2 次 Math.random（Node 侧用调用栈证实来自模块 8499/3405）|
 
-第 5 次对应 REPORT §七 的 `qt(undefined, envData, 's3')`（环境派生 base64）。前 4 次一致说明
-SM3 引擎、query 拼接、盐与二次哈希链都对；分歧集中在这个**环境 blob 的生成**（`qt` 及其依赖的 envData）。
-这是目前最短的一条追查线：先让 Node/Python 的 `qt(...)` 返回值对齐，再回到载荷长度差（9 字节）。
+对齐结果（抽签逐次比对，调用点 pc 完全一致）：
 
-## 九、下一步（定位那 9 字节）
+    抽签序号  Node(tid:pc)   Python(帧:pc)   值
+     0,1      ?(模块加载)    预先补抽 2 次     ✅
+     2,3      107:46         146:46           ✅
+     4,5      107:18/5       144:18 / 145:5   ✅
+     6,7      107:46 / 107:5 146:46 / 143:5   ✅
+     8…35     107:70 ×28     148:70 ×28       ✅
+     36       107:196(监控上报 jr 的采样随机) Python 无（非签名路径）
 
-1. **熵消耗计数**：给 Python `RandomSource.next` 与 Node 侧 `Math.random`/`crypto.getRandomValues` 各加计数器，
-   跑同一 query 比较总次数与逐次取值 —— 这是当前最可疑的差异源。
-2. **载荷 dump 对拍**：在 Node 侧注入探针、Python 侧在程序 150 出口打印，把 base64 前的字节数组逐段对齐
-   （模式字节 / 时间戳 / 双周序号 / 校验和 / 熵数组 / pageId / aid / 屏幕 / SM3 摘要），定位少掉或变短的字段。
-3. 收敛后跑 `python3 abogus_py.py` 与 `node rerun_sign.js --fixed-entropy --full` 的字符级 diff（目标 0 差异位），
-   再把该断言写进 `verify_all.sh`（当前为 SKIP，会显示长度差）。
+## 九、剩余 13 字符的根因：环境校验和 bitmask 不同
+
+程序 699（`arity=0, bcLen=147`，环境原生类型校验）把若干探测器结果按位 OR 成校验和：
+
+    node 侧: 142 的入参 = ("129", 14, UA)     ← 校验和 129
+    python : 142 的入参 = (39.0, 14, UA)      ← 校验和 39
+
+    129 = 0b1000_0001 → 置位 bit0、bit7
+     39 = 0b0010_0111 → 置位 bit0、bit1、bit2、bit5
+
+该值进入 env blob（`130(142(校验和, 14, UA), 's3')`，148 字符 base64），再进第 5 次 SM3 sum，
+因此只在载荷前段造成 13 个字符差异（尾部大段一致）。
+
+**下一步最小动作**：逐位对齐这 8 个探测器 —— 在 pid=699 的 8 个 CALL 点（pc=9/20/39/…）分别打印
+被调 pid 与返回布尔值（两侧同样打桩），把 Node 为真而 Python 为假的位找出来，补/改对应 shim
+（这类探测器通常检查原生函数 `toString` 是否含 `native code`、插件/mimeTypes 数量、WebGL 上下文等）。
+对齐后 `python3 abogus_py.py` 应与 `node rerun_sign.js --fixed-entropy --full` **逐字符一致（0 差异位）**。
+
+## 十、旁证：修好 shim 后 Node 侧行为的变化
+
+- `node rerun_sign.js --fixed-entropy --full` 参考值：`mvljXtXiE25fKV/…7d6=`（180，旧）→ `mvUnDtXiE25fKV/…kMg=`（168，新）
+- `baseline_bogus.txt`（作者 8-30 留档）与 `det_one.js` 的旧产出都是在「UA=Node.js/24 + crypto 覆盖未生效」下生成的，
+  不能作为浏览器环境基线；需要浏览器 UA 的对拍请以修好 shim 后的 `rerun_sign.js --fixed-entropy` 为准。

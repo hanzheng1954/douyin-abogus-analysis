@@ -1,6 +1,12 @@
 // 重跑签名：用 node_signer.js 直接产出 a_bogus，验证长度/字符集/非确定性
 // 用法: node rerun_sign.js [--fixed-entropy]
 const path = require('path');
+// Node 21+ 的 crypto/performance/navigator 是「只有 getter」的全局，直接赋值会被静默忽略
+function installGlobal(name, value) {
+  try { Object.defineProperty(globalThis, name, { value, writable: true, configurable: true, enumerable: false }); }
+  catch (e) { global[name] = value; }
+}
+
 const FIXED = process.argv.includes('--fixed-entropy');
 
 if (FIXED) {
@@ -9,7 +15,7 @@ if (FIXED) {
   const T = 1788091256878;
   const RealDate = Date;
   global.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [T])); } static now() { return T; } };
-  global.crypto = { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } };
+  installGlobal('crypto', { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } });
 }
 
 require(path.join(__dirname, 'node_signer.js'));

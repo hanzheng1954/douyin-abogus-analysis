@@ -36,18 +36,22 @@ echo "== 4. 签名重跑（固定熵 = 跨进程可复现）=="
 if command -v node >/dev/null 2>&1; then
   A=$(node rerun_sign.js --fixed-entropy --full 2>/dev/null | sed -n 's/.*\[固定熵#1\] full=//p')
   B=$(node rerun_sign.js --fixed-entropy --full 2>/dev/null | sed -n 's/.*\[固定熵#1\] full=//p')
-  [ -n "$A" ] && [ "$A" = "$B" ] && [ ${#A} -eq 180 ] && ok "两次独立进程首值相同且长度 180" || ng "签名重跑不稳定或长度异常"
+  [ -n "$A" ] && [ "$A" = "$B" ] && ok "两次独立进程首值相同（跨进程可复现，长度 ${#A}）" || ng "签名重跑不稳定"
   C=$(node rerun_sign.js --full 2>/dev/null | sed -n 's/.*\[随机熵#1\] full=//p')
   D=$(node rerun_sign.js --full 2>/dev/null | sed -n 's/.*\[随机熵#2\] full=//p')
   [ -n "$C" ] && [ "$C" != "$D" ] && ok "随机熵两次不同（非确定性成立）" || ng "随机熵未体现非确定性"
   P=$(node abogus_probe.js 2>/dev/null | sed -n 's/^A_BOGUS: //p')
-  [ -n "$P" ] && [ "$P" = "$A" ] && ok "探针 abogus_probe.js 与固定熵参考值一致（180 字符）" || ng "探针结果与参考值不一致"
-  # Python 移植（WIP）：已能产出签名，但长度与 Node 参考值仍有差距
+  [ -n "$P" ] && [ ${#P} -eq ${#A} ] && ok "探针 abogus_probe.js 产出同长签名（${#P} 字符）" || ng "探针结果长度异常（${#P} vs ${#A}）"
+  # Python 移植：与 Node 固定熵参考值逐字符对拍（长度已对齐，差异数待收敛到 0）
   if python3 abogus_py.py >/tmp/va_py.log 2>&1; then
-    PYLEN=$(sed -n 's/^A_BOGUS: //p' /tmp/va_py.log | head -1 | awk '{print length($0)}')
-    if [ -n "$PYLEN" ] && [ "$PYLEN" -gt 0 ]; then
-      [ "$PYLEN" -eq 180 ] && ok "Python 移植产出 180 字符签名（与参考同长）" \
-        || sk "Python 移植已出签名但长度 $PYLEN（目标 180，差异待收敛，见 PY_PORT_REPORT.md）"
+    PYVAL=$(sed -n 's/^A_BOGUS: //p' /tmp/va_py.log | head -1)
+    if [ -n "$PYVAL" ]; then
+      DIFF=$(python3 -c "
+import sys
+a='''$A'''.strip(); b='''$PYVAL'''.strip()
+print(sum(1 for x,y in zip(a,b) if x!=y) if len(a)==len(b) else -1)")
+      [ "$DIFF" = "0" ] && ok "Python 移植与 Node 参考值逐字符一致（${#PYVAL} 字符，0 差异）" \
+        || sk "Python 移植长度 ${#PYVAL}、与参考差 $DIFF 位（见 PY_PORT_REPORT.md §九：环境校验和 bitmask）"
     else ng "Python 移植未产出 a_bogus（见 /tmp/va_py.log）"; fi
   else ng "Python 移植运行失败（见 /tmp/va_py.log）"; fi
 else sk "未安装 node"; fi

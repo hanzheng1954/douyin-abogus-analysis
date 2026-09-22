@@ -3,8 +3,18 @@ const fs = require('fs');
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
 
 // ===== 浏览器 shims =====
+// ⚠️ Node 21+ 的 globalThis 上 navigator / crypto / performance 是「只有 getter」的属性，
+//    直接 `global.navigator = {...}` 会被静默忽略（实测 Node 24：navigator.userAgent 仍是 "Node.js/24"）。
+//    因此统一用 defineProperty 安装，保证 shim 真正生效。
+function installGlobal(name, value, enumerable = false) {
+  try {
+    Object.defineProperty(globalThis, name, { value, writable: true, configurable: true, enumerable });
+  } catch (e) {
+    global[name] = value;
+  }
+}
 global.window = global;
-global.navigator = { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } };
+installGlobal('navigator', { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
 global.location = { href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
 const docShim = {
   cookie: '', title: '', referrer: '', URL: 'https://www.douyin.com/', charset: 'utf-8', readyState: 'complete', hidden: false, visibilityState: 'visible',
@@ -14,7 +24,7 @@ const docShim = {
   createEvent: () => ({ initEvent(){} }),
 };
 global.document = docShim;
-global.performance = { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} };
+installGlobal('performance', { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} });
 global.screen = { width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
 global.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){}, key(){ return null; } };
 global.sessionStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){} };
@@ -34,7 +44,7 @@ global.CustomEvent = class extends Event {};
 global.Blob = class { constructor(parts, opts){ this.parts = parts; this.type = opts && opts.type; } };
 global.FormData = class { append(){} };
 global.Worker = class {};
-global.crypto = global.crypto || { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } };
+installGlobal('crypto', global.crypto || { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } });
 
 // 假 XHR：记录 bdms 对它的修改
 class FakeXHR {

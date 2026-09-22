@@ -3,6 +3,12 @@
 // 只读 bdms_patched.js（原文件不改），运行时字符串注入后 eval。
 // 用法: node abogus_probe.js [--trace-ops=132,0,103,107]
 const fs = require('fs');
+// Node 21+ 的 navigator/crypto/performance 是 getter-only 全局，直接赋值会被静默忽略
+function installGlobal(name, value) {
+  try { Object.defineProperty(globalThis, name, { value, writable: true, configurable: true, enumerable: false }); }
+  catch (e) { global[name] = value; }
+}
+
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
 
 // ===== 固定熵（与 rerun_sign.js 完全一致）=====
@@ -12,11 +18,11 @@ Math.random = RAW_RANDOM;
 const T = 1788091256878;
 const RealDate = Date;
 global.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [T])); } static now() { return T; } };
-global.crypto = { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } };
+installGlobal('crypto', { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } });
 
 // ===== 浏览器 shims（与 node_signer.js 逐项一致）=====
 global.window = global;
-global.navigator = { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } };
+installGlobal('navigator', { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
 global.location = { href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
 global.document = {
   cookie: '', title: '', referrer: '', URL: 'https://www.douyin.com/', charset: 'utf-8', readyState: 'complete', hidden: false, visibilityState: 'visible',
@@ -25,7 +31,7 @@ global.document = {
   documentElement: { style: {}, getAttribute(){ return null; } }, body: { style: {}, appendChild(){}, getAttribute(){ return null; } }, head: { appendChild(){} },
   createEvent: () => ({ initEvent(){} }),
 };
-global.performance = { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} };
+installGlobal('performance', { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} });
 global.screen = { width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
 global.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){}, key(){ return null; } };
 global.sessionStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){} };
