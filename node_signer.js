@@ -53,9 +53,9 @@ global.fetch = async () => ({ ok: true, status: 200, json: async () => ({}), tex
 global.Image = class { set src(v){} };
 
 // ===== 加载 patched bdms（含 VM 表 dump 补丁）=====
-let src = fs.readFileSync('/home/exedev/gan/douyin-re/bdms_patched.js', 'utf-8');
+let src = fs.readFileSync(__dirname + '/bdms_patched.js', 'utf-8');
 // 操作码0调用失败日志
 src = src.replace('var m=n.apply(d,e);', 'var m;try{m=n.apply(d,e);}catch(_xe){console.log("OPCALL0FAIL",typeof n,n&&n.name,_xe.message);throw _xe;}');
-fs.writeFileSync('/home/exedev/gan/douyin-re/bdms_node.js', src);
+fs.writeFileSync(__dirname + '/bdms_node.js', src);
 try { eval(src); } catch (e) { console.log('LOAD ERR:', String(e).slice(0, 300)); }
 console.log('bdms:', !!global.window.bdms, '| z:', Array.isArray(global.__z) ? global.__z.length : 'none');

@@ -11,8 +11,17 @@ Date = class extends RealDate { constructor(...args) { super(...(args.length ? a
 global.performance = { now: () => FIXED_NOW, timing: { navigationStart: 0 } };
 
 global.crypto = { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } };
-require('/home/exedev/gan/douyin-re/node_signer.js');
-const sess = JSON.parse(fs.readFileSync('/home/exedev/gan/douyin-re/session.json', 'utf-8'));
+require(__dirname + '/node_signer.js');
+
+// session.json 含真实 cookie 与签名样本，按 .gitignore 约定不入库（见 README「复现前置」）
+const SESS_PATH = process.env.SESSION_JSON || (__dirname + '/session.json');
+if (!fs.existsSync(SESS_PATH)) {
+  console.error('[det_one] 缺少 session.json: ' + SESS_PATH);
+  console.error('格式: {"cookies":[{"name":"ttwid","value":"..."}],"appends":[{"query":"..."}]}');
+  console.error('可用环境变量 SESSION_JSON=/path/to/session.json 指定其他位置。');
+  process.exit(2);
+}
+const sess = JSON.parse(fs.readFileSync(SESS_PATH, 'utf-8'));
 const cookieStr = sess.cookies.map(c => c.name + '=' + c.value).join('; ');
 global.document.cookie = cookieStr;
 try { global.window.bdms.init({ aid: 6383, pageId: 6241, paths: ['^/webcast/', '^/aweme/v1/', '^/aweme/v2/', '/douplus/', '^/api/ad/v1/inspire', '/v1/message/send', '^/live/', '^/captcha/', '^/ecom/', '^/luna/pc'], boe: false, ddrt: 8.5, ic: 8.5 }); } catch (e) {}
@@ -24,4 +33,10 @@ xhr.send(null);
 const bogus = decodeURIComponent(xhr._url.split('a_bogus=')[1].split('&')[0]);
 console.log('BASELINE a_bogus:', bogus);
 console.log('len:', bogus.length);
-fs.writeFileSync('/home/exedev/gan/douyin-re/baseline_bogus.txt', bogus);
+// 默认只打印，避免误覆盖仓库内的参考基线；显式 BASELINE_WRITE=1 才落盘
+if (process.env.BASELINE_WRITE === '1') {
+  fs.writeFileSync(process.env.BASELINE_OUT || (__dirname + '/baseline_bogus.txt'), bogus);
+  console.log('已写入 baseline_bogus.txt');
+} else {
+  console.log('（未写盘；如需更新参考基线，设 BASELINE_WRITE=1 重跑）');
+}

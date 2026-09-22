@@ -3,8 +3,8 @@ const { chromium } = require('playwright-core');
 const fs = require('fs');
 const path = require('path');
 
-const EXE = '/home/exedev/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
-const OUT = '/home/exedev/gan/douyin-re/capture';
+const EXE = process.env.CHROME_PATH || '/home/exedev/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
+const OUT = __dirname + '/capture';
 fs.mkdirSync(OUT, { recursive: true });
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
 

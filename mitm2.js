@@ -1,10 +1,10 @@
 // MITM v2: 补丁 D 创建与调用，观察签名程序
 const { chromium } = require('playwright-core');
 const fs = require('fs');
-const EXE = '/home/exedev/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
+const EXE = process.env.CHROME_PATH || '/home/exedev/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
 
-const raw = fs.readFileSync('/home/exedev/gan/douyin-re/capture/293_tps___p-pc-weboff.byteimg.com_tos-cn-i-9r5gewecjs_bdms_1.0.1.19_fix.js.js', 'utf-8');
+const raw = fs.readFileSync(__dirname + '/capture/293_tps___p-pc-weboff.byteimg.com_tos-cn-i-9r5gewecjs_bdms_1.0.1.19_fix.js.js', 'utf-8');
 
 const p1 = 'function D(t,r){var e=z[t];';
 const r1 = 'function D(t,r){var _st={};for(var _k=0;_k<24;_k++){try{_st[_k]=r[_k];}catch(_e){}}if(132===t||150===t||135===t||131===t||133===t||134===t||10===t||160===t){console.log("DIN".concat(t),JSON.stringify(_st));}var e=z[t];';
@@ -27,7 +27,7 @@ console.log('patched size:', patched.length);
   await page.waitForTimeout(6000);
   for (let i = 0; i < 5; i++) { await page.mouse.wheel(0, 2500); await page.waitForTimeout(2000); }
   await page.waitForTimeout(3000);
-  fs.writeFileSync('/home/exedev/gan/douyin-re/mitm2_log.txt', logs.join('\n'));
+  fs.writeFileSync(__dirname + '/mitm2_log.txt', logs.join('\n'));
   console.log('logs:', logs.length);
   for (const l of logs.slice(0, 14)) console.log(l.slice(0, 1400));
   await browser.close();

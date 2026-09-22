@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # bdms VM 反汇编器 —— 输出带注释的可读伪码
-import json, sys
+import json, os, sys
 
-Z = json.load(open('/home/exedev/gan/douyin-re/vm_Z.json'))
-z = json.load(open('/home/exedev/gan/douyin-re/vm_z_full.json'))
+BASE = os.path.dirname(os.path.abspath(__file__))
+
+Z = json.load(open(os.path.join(BASE, 'vm_Z.json')))
+z = json.load(open(os.path.join(BASE, 'vm_z_full.json')))
 
 # 操作码语义表（opcode -> (name, n_operands, desc)）
 OPS = {

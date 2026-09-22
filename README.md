@@ -26,25 +26,44 @@
 
     REPORT.md            完整分析报告（算法管线、装配图、移植状态）
     node_signer.js       Node 签名器（可直接 require，已过 Argus 门验证）
+    bdms_patched.js      打好 VM 表 dump 补丁的 bdms（node_signer.js 的加载目标）
     douyin_4k.js         一键 4K/最高画质解析脚本（短链->档位表->直链）
     abogus_full.py       Python 移植：VM 解释器 + SM3 + shims + 装配驱动
     abogus.py            纯 Python VM 核心（76 操作码 + JS 值模型 + SM3）
     abogus_shims.py      浏览器 shims（确定性熵源/Date/FakeXHR）
     abogus_driver.py     装配与驱动（程序132装配 + XHR 钩子）
-    disasm.py            VM 反汇编器（输出带注释伪码）
+    disasm.py            VM 反汇编器（输出带注释伪码，路径自包含）
     vm_Z.json            全局字符串表（1001 项，含 a_bogus / dhzx 盐）
     vm_z_full.json       796 个 VM 程序字节码
-    vm_z_index.json      程序索引（id/arity/长度）
-    gr_class_src.txt     SM3 引擎反混淆源码（与国密标准一致）
+    vm_z_index.json      程序索引（id/arity/bcLen，程序 id 与 bcLen 是两套量纲）
+    gr_class_src.txt     SM3 引擎反混淆源码（与国密标准一致；IV/Tj 为十进制字面量）
     disasm_150.txt       签名核心程序 150 完整反汇编
     disasm_helpers.txt   编码辅助程序反汇编
     trace_full.txt       58K 行帧级 opcode trace（签名全流程）
     baseline_bogus.txt   确定性基线（固定熵源跨进程字节级可复现）
-    det_one.js           确定性基线生成器
+    det_one.js           确定性基线生成器（需自备 session.json，见下）
     init_hooks.js        运行时 hook（URLSearchParams/XHR/Headers）
-    mitm2.js mitm3.js mitm4.js mitm5.js mitm6.js  动态断点与 MITM 分析 harness
-    capture/             运行时抓取的原始 SDK 脚本
+    capture.js           首页脚本抓取 harness（CDP scriptParsed dump）
+    mitm2.js mitm3.js mitm4.js mitm5.js mitm6.js mitm_trace.js  动态断点与 MITM 分析 harness
+    mitm*_log.txt        MITM 原始日志（含 msToken 明文，属分析证据）
+    capture/             运行时抓取的 416 个 SDK 脚本 + scripts.json 清单
+    assets/              首页内联 JSVM 自举运行时（inline_0.js 71KB）与 cookie 读取器
     out_*.js             webcrack 去混淆产物
+
+### 版本对照（capture/ 实证）
+
+    webmssdk_1.0.0.20        capture/048_*.js     X-Bogus（webrt VM）
+    sdk-glue_1.0.0.64-fix.01 capture/050_*.js     风控拦截编排层
+    bdms_1.0.1.19_fix.js     capture/293_*.js     a_bogus 生成器
+    verifycenter 1.0.0.413 / 1.0.0.417            滑块验证码 SDK（同目录并存两版）
+
+## 复现前置
+
+1. `session.json` 含真实 cookie 与签名样本，按 `.gitignore` 约定不入库；跑 `det_one.js` 需自备，
+   或用 `SESSION_JSON=/path/to/session.json` 指定。合成 cookie 无法复现 `baseline_bogus.txt`。
+2. 全部脚本路径自包含（相对脚本目录），无需作者机器的绝对路径；Playwright 浏览器路径可用
+   `CHROME_PATH=<chromium 可执行文件>` 覆盖。
+3. `disasm.py <程序id> [...]` 可直接运行，仅依赖同目录的 `vm_Z.json` / `vm_z_full.json`。
 
 ## 快速使用（Node 签名器）
 
@@ -70,3 +89,8 @@
 4. blob 解码（base64->XOR->inflate）导出 VM 表
 5. 操作码表提取 + 反汇编器 + 帧级 trace
 6. 确定性回放（固定熵源）做字节级对拍验证
+
+## 许可
+
+本仓库未附许可证文件（默认保留所有权利），仅用于安全研究与学习；`capture/`、`out_*.js`、
+`mitm*_log.txt` 中的 SDK 代码与日志版权归字节跳动及其原始权利人。请勿用于侵权或大规模对抗性采集。

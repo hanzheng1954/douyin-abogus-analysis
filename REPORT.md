@@ -11,26 +11,43 @@
 - **webmssdk 1.0.0.20**：`_$webrt_1668687510` VM 运行时（魔数 "HNOJ@?RC"，字节码为 hex 字符串），导出 `window.byted_acrawler`：`frontierSign` 产 **X-Bogus**（16 字符，输入 {"X-MS-STUB": md5("")}）、getReferer/init/isWebmssdk/report/setConfig/setTTWebid/setTTWid/setUserMode。5 个内嵌 VM 程序（签名/行为/环境检测）。
 - **sdk-glue 1.0.0.64-fix.01**：webpack 编排层。blockFetch/blockXhr = 风控拦截队列（BdmsBlock/VerifyCenterBlock/CSRFBlock），动态加载 bdms.js + verify-center/captcha SDK。
 - **bdms 1.0.1.19-fix.01**：真正的 **a_bogus 生成器**。window.bdms = {getReferer, init}。init 配置：`{aid:6383, pageId:6241, paths:["^/aweme/v1/",...], boe:false, ddrt:8.5, ic:8.5}`。
-- 请求拦截链：XHR.open → VM程序(bcLen154) 存 _method/_url → XHR.send → VM程序(bcLen238) 计算 a_bogus 并 append 到 URLSearchParams（参数名 = Z 表[220]="a_bogus"）。
+- 请求拦截链：XHR.open → VM 程序 **105**（bcLen 154）存 _method/_url → XHR.send → VM 程序 **107**（bcLen 238）计算 a_bogus 并 append 到 URLSearchParams（参数名 = Z 表[220]="a_bogus"）。程序 id 与字节码长度是两套量纲，勿混用（见 §三 更正说明）。
 
 ## 三、bdms VM 细节
 - 程序表存储：单一 base64 blob（38KB）→ 8 字节头 → XOR（key=字节4-7和%256=0xFB）→ 内置 inflate → 字节码流。
 - 表结构：Z 全局字符串表 **1001 项**（Z[220]="a_bogus"、Z[247]=base64 字母表、Z[165]="msToken"、Z[182]="x-ms-token"）；z 程序表 **796 项**（[bytecode, arity, flags, exceptionTable]）。
-- 关键程序：132=XHR 钩子初始化（135 op）、238=逐请求签名（154 op）、150=最大程序（1834 op，SM3 核心）、95=请求头处理、154=open 钩子、100=行为采集热循环。
+- 关键程序（id 与 bcLen 已用 `vm_z_index.json` + `disasm.py` 逐条核对）：
+
+  | 程序 id | bcLen | 角色 | 证据 |
+  |---|---|---|---|
+  | 132 | 135 | XHR 钩子初始化（D(133-150,152-155) 入 s 槽位） | 程序 132 反汇编 |
+  | 105 | 154 | XHR.open 钩子（存 _method/_url，构造 URLSearchParams） | 程序 105 反汇编（Z[214]='bdmsInvokeList'） |
+  | 107 | 238 | XHR.send 钩子 → 逐请求签名入口 | 程序 107 反汇编（读 Z[214]/Z[218]='args'）；104 装配 D(107) |
+  | 103 | 203 | 签名器（performance.now 取时间戳后调核心） | 程序 103 反汇编 |
+  | 150 | 1834 | 核心程序（SM3 + 置换 + 载荷装配，9 参数） | 程序 150 反汇编 |
+  | 106 | - | setRequestHeader 钩子 | 104 装配 D(106) |
+
+  说明：本节早期版本写成「238=逐请求签名（154 op）、154=open 钩子」，是把程序 id 与字节码长度（bcLen）混用了 —— 238 的 bcLen 是 105，154 的 bcLen 是 21；逐请求签名入口是 id 107（bcLen 238），open 钩子是 id 105（bcLen 154）。已按上表更正。
 - 解释器入口：`X(t, r, e, n)`，栈式，操作码 0-66（0=call、5=读全局、20=写全局属性、38=压字面量、49=return、52=jump、57/58==/===、59=new、60=读 globalThis、63=D() 创建缓存包装函数等）。完整操作码语义已从去混淆源码提取。
 - 哈希：SM3（FF/GG/Tj 常量与国密标准一致）。
 
-## 四、交付物（/home/exedev/gan/douyin-re/）
-| 文件 | 用途 |
-|---|---|
-| node_signer.js | 浏览器 shims + bdms 加载器（Node 可直接 require） |
-| node_sign_test.js / final_sign.js / detail_test.js | 签名生成与回放验证 |
-| vm_Z.json / vm_z_full.json / vm_z_index.json | VM 全量表 dump（可移植纯算） |
-| out_bdms.js / out_webmssdk.js / out_sdkglue.js | webcrack 去混淆产物 |
-| frontiersign_bytecode.bin | webmssdk frontierSign VM 字节码（3057B） |
-| capture/ | 416 个运行时脚本 + requests.txt + cookies.txt |
-| init_hooks.js / trace*.js / mitm*.js | 动态断点/MITM 分析 harness（可复用） |
-| session.json / feed_sample*.json | 样本数据 |
+## 四、交付物（仓库根目录，全部路径相对仓库）
+
+| 文件 | 入库 | 用途 |
+|---|---|---|
+| node_signer.js | ✅ | 浏览器 shims + bdms_patched 加载器（Node 可直接 require） |
+| bdms_patched.js / out_bdms.js / out_webmssdk.js / out_sdkglue.js | ✅ | 打补丁的运行版 + webcrack 去混淆产物 |
+| vm_Z.json / vm_z_full.json / vm_z_index.json | ✅ | VM 全量表 dump（1001 字符串 + 796 程序，可移植纯算） |
+| disasm.py / disasm_150.txt / disasm_helpers.txt | ✅ | 反汇编器与程序 150/编码辅助程序伪码 |
+| abogus.py / abogus_full.py / abogus_shims.py / abogus_driver.py | ✅ | Python 移植（76 操作码解释器 + SM3 + shims + 装配驱动） |
+| det_one.js / baseline_bogus.txt | ✅ | 确定性基线生成器与基线值（180 字符） |
+| init_hooks.js / mitm2-6.js / mitm_trace.js / capture.js | ✅ | 动态断点 / MITM / 脚本 dump harness |
+| mitm*_log.txt / trace_full.txt | ✅ | 帧级 opcode trace 与 MITM 日志（分析原始证据） |
+| capture/ | ✅ | 416 个运行时脚本 + scripts.json 清单（cookies.txt / requests.txt 未入库） |
+| assets/inline_0.js / inline_1.js | ✅ | 首页内联 71KB JSVM 自举运行时与 cookie 读取器 |
+| session.json / feed_sample*.json / node_sign_test.js / final_sign.js / detail_test.js / frontiersign_bytecode.bin / trace*.js | ❌ | 含真实 cookie 或为一次性验证脚本，按 `.gitignore` 不随仓库分发 |
+
+> 复现说明：`det_one.js` 需要自备 `session.json`（或设 `SESSION_JSON=<path>`），仓库内不含该文件；合成 cookie 无法复现 `baseline_bogus.txt`（会走不通环境校验分支）。
 
 ### 用法（Node 签名器）
 \`\`\`js
@@ -54,7 +71,7 @@ const aBogus = decodeURIComponent(xhr._url.split('a_bogus=')[1].split('&')[0]);
 
 ## 六、遗留工作（可选）
 1. 纯 Python 移植 VM（表已 dump，操作码已提取）→ 免 Node 环境。
-2. 逆向 238/150 程序字节码级流程，还原 SM3+置换+熵的具体管线（学术价值；实用上 Node 签名器已够）。
+2. 逆向 107/103/150 程序字节码级流程，还原 SM3+置换+熵的具体管线（学术价值；实用上 Node 签名器已够）。
 3. 4K 验证需找一条真实 4K 作品（作者上传 4K 源）。
 ## 七、a_bogus 完整算法管线（opcode 级 trace 还原）
 
