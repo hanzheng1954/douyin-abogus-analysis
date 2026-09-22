@@ -68,5 +68,29 @@
   "bytes": 266559,
   "sha256": "a7c43cbd1453794df25e86debe56ccab7d5b1b4031a1f40b6acb14a787c2ede8",
   "version_header": null
+ },
+ {
+  "name": "bdms_stable_bytetos.js",
+  "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js",
+  "http": 200,
+  "bytes": 147530,
+  "sha256": "a0e46f84476d63a1fa57bdcb47223e0e545c6ce0c3dacdd2818180dfa087909e",
+  "version_header": "1.0.1.19-fix.01"
+ },
+ {
+  "name": "bdms_stable_hgfb.js",
+  "url": "https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js",
+  "http": 200,
+  "bytes": 147530,
+  "sha256": "a0e46f84476d63a1fa57bdcb47223e0e545c6ce0c3dacdd2818180dfa087909e",
+  "version_header": "1.0.1.19-fix.01"
+ },
+ {
+  "name": "secsdk.js",
+  "url": "https://lf1-cdn-tos.bytegoofy.com/obj/goofy/secsdk/secsdk-lastest.umd.js",
+  "http": 200,
+  "bytes": 190693,
+  "sha256": "6c724ac65c348157d2111650a332ccdfe5a7a7a434f8be899f3cc4b7b30891aa",
+  "version_header": null
  }
 ]

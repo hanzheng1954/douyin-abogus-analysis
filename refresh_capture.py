@@ -20,6 +20,10 @@ SDK = [
     ('verifycenter_1.0.0.417',   'https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.417/index.js'),
     ('captcha_4.0.28',           'https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/sec_sdk_build/4.0.28/captcha/index.js'),
     ('rmc-nocaptcha_1.0.0.51',   'https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/rmc-nocaptcha/1.0.0.51/setup.js'),
+    # sdk-glue 真正加载 bdms 的 stable 路径（同一份文件的两个 CDN 出口）
+    ('bdms_stable_bytetos',      'https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js'),
+    ('bdms_stable_hgfb',         'https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js'),
+    ('secsdk',                   'https://lf1-cdn-tos.bytegoofy.com/obj/goofy/secsdk/secsdk-lastest.umd.js'),
 ]
 
 
