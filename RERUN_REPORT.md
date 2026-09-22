@@ -123,3 +123,16 @@ URLSearchParams/_method/_url 钩子与 `bdmsInvokeList` 读取的 send 路径。
     python3 disasm.py 277 272 274 251 246 96 > /tmp/b.txt && diff -q disasm_helpers.txt /tmp/b.txt
     node rerun_sign.js --fixed-entropy --full
     python3 track_douyin.py
+
+## 九、本次未能复现的项（附原因）
+
+| 项 | 原因 |
+|---|---|
+| `douyin_4k.js` 端到端出直链 | 需 `playwright-core` + Chromium（本环境 `require('playwright-core')` 失败）+ 真实会话；未做任何业务抓取 |
+| `mitm2-6.js` / `mitm_trace.js` 重放 | 同上（浏览器依赖 + 需真实页面会话） |
+| `trace_full.txt` 原始生成 | 生成器 `drive_trace.js` 与 TRC 注入 harness 按作者意愿未入库；本文件只做**读侧**复核（帧计数、sum 次数） |
+| `baseline_bogus.txt` 逐字节复现 | 需作者 `session.json` 的 `appends[0].query`；本次用合成 query，180 字符中 6 位不同（已定位为 query 差异，非 cookie） |
+| 弱校验窗口复测 | 需住宅 IP + 热 cookie；无签名/无 cookie 的 detail 请求返回 403 `Blocked by ArgusSecurityPlugin Uifid Not Found` |
+
+补充：`track_douyin.py` 首次跑时曾把 CDN 偶发失败（bdms http=0）误判为内容变更；
+现已加 3 次退避重试 + `unreachable` 归类（拉取失败退出码 2 且不刷新基线）。
