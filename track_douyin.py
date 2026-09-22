@@ -33,6 +33,11 @@ TARGETS = [
      'capture/377_hgfb-cn-static.com_obj_rc-verifycenter_verifycenter_1.0.0.417_index.js.js'),
     ('captcha',       'https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/sec_sdk_build/4.0.28/captcha/index.js', None),
     ('rmc-nocaptcha', 'https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/rmc-nocaptcha/1.0.0.51/setup.js', None),
+    # sdk-glue 真正加载 bdms 的 stable 路径（版本号在路径里，换代即 404）
+    ('bdms-stable-bytetos', 'https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js', None),
+    ('bdms-stable-hgfb',    'https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js', None),
+    # secsdk（glue 引用的行为采集 SDK）
+    ('secsdk', 'https://lf1-cdn-tos.bytegoofy.com/obj/goofy/secsdk/secsdk-lastest.umd.js', None),
 ]
 
 # 结构/算法指纹：命中布尔值比 hash 更能说明「哪一层变了」
@@ -53,6 +58,11 @@ FINGERPRINTS = {
         ('bdms_block',  r'BdmsBlock'),
         ('csrf_block',  r'CSRFBlock'),
         ('bdms_url',    r'bdms_1\.\d+\.\d+\.\d+_fix\.js'),   # 它引用的 bdms 版本
+        # glue 内嵌的版本常量：换代时会直接改这里，比 404 更早暴露
+        ('const_bdmsVersion',    r'bdmsVersion\s*=\s*"([^"]+)"'),
+        ('const_captchaVersion', r'captchaVersion\s*=\s*"([^"]+)"'),
+        ('const_sdkGlueVersion', r'sdkGlueVersion\s*=\s*"([^"]+)"'),
+        ('stable_path',          r'/obj/rc-client-security/web/stable/'),
     ],
     'webmssdk': [
         ('acrawler',      r'byted_acrawler'),
@@ -136,11 +146,11 @@ def snapshot(save_bodies=None):
             text = data.decode('utf-8', 'replace')
             for label, pat in FINGERPRINTS.get(name, []):
                 m = re.search(pat, text)
-                if label == 'version_header':
-                    fps[label] = m.group(1) if m else None
-                elif label == 'blob_b64_len':
+                if label.endswith('_len'):                       # 取最长匹配的长度（blob 等）
                     runs = re.findall(pat, text)
                     fps[label] = max((len(r) for r in runs), default=0)
+                elif m and m.groups():                           # 带捕获组 = 提取版本/常量值
+                    fps[label] = m.group(1)
                 else:
                     fps[label] = bool(m)
             if fps:

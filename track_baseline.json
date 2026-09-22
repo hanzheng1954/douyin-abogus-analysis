@@ -76,6 +76,24 @@
     "1.0.1.19-fix.01"
    ]
   },
+  "bdms-stable-bytetos": {
+   "bytes": 147530,
+   "sha256": "a0e46f84476d63a1fa57bdcb47223e0e545c6ce0c3dacdd2818180dfa087909e",
+   "status": 200,
+   "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js",
+   "versions_seen": [
+    "1.0.1.19-fix.01"
+   ]
+  },
+  "bdms-stable-hgfb": {
+   "bytes": 147530,
+   "sha256": "a0e46f84476d63a1fa57bdcb47223e0e545c6ce0c3dacdd2818180dfa087909e",
+   "status": 200,
+   "url": "https://lf-headquarters-speed.yhgfb-cn-static.com/obj/rc-client-security/web/stable/1.0.1.19-fix.01/bdms.js",
+   "versions_seen": [
+    "1.0.1.19-fix.01"
+   ]
+  },
   "captcha": {
    "bytes": 84508,
    "sha256": "b4e97d9734a5dded4de3b64f94ba2dd77610492edd452f9b3326a112ef144c14",
@@ -99,7 +117,11 @@
     "bdms_url": false,
     "block_fetch": true,
     "block_xhr": true,
-    "csrf_block": true
+    "const_bdmsVersion": "1.0.1.19-fix.01",
+    "const_captchaVersion": "4.0.10",
+    "const_sdkGlueVersion": "1.0.0.64-fix.01",
+    "csrf_block": true,
+    "stable_path": true
    },
    "sha256": "0ccf4a589b80bdda1a46efddf84a31ba9ca4826f4ac8a46661c35471d30d16c8",
    "status": 200,
@@ -107,6 +129,15 @@
    "versions_seen": [
     "1.0.0.64-fix.01",
     "1.0.1.19-fix.01"
+   ]
+  },
+  "secsdk": {
+   "bytes": 190693,
+   "sha256": "6c724ac65c348157d2111650a332ccdfe5a7a7a434f8be899f3cc4b7b30891aa",
+   "status": 200,
+   "url": "https://lf1-cdn-tos.bytegoofy.com/obj/goofy/secsdk/secsdk-lastest.umd.js",
+   "versions_seen": [
+    "25.4.3.1"
    ]
   },
   "verifycenter-413": {

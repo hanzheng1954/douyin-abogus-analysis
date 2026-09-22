@@ -14,7 +14,7 @@
 - 请求拦截链：XHR.open → VM 程序 **105**（bcLen 154）存 _method/_url → XHR.send → VM 程序 **107**（bcLen 238）计算 a_bogus 并 append 到 URLSearchParams（参数名 = Z 表[220]="a_bogus"）。程序 id 与字节码长度是两套量纲，勿混用（见 §三 更正说明）。
 
 ## 三、bdms VM 细节
-- 程序表存储：单一 base64 blob（38KB）→ 8 字节头 → XOR（key=字节4-7和%256=0xFB）→ 内置 inflate → 字节码流。
+- 程序表存储：单一 base64 blob（38KB，文件内最长 base64 段）→ 8 字节头 → 逐字节 XOR（`key = Σ bytes[4..8) % 256`，实测 0xFB；掩码为 `(key + key%10*i) % 256`，**随下标变化，不是常量 0xFB**）→ 内置 raw deflate → 字节码流。2026-09-22 已用纯 Python 复现该链路（`dump_vm.py`），解出的表与仓库 `vm_*.json` 完全一致。
 - 表结构：Z 全局字符串表 **1001 项**（Z[220]="a_bogus"、Z[247]=base64 字母表、Z[165]="msToken"、Z[182]="x-ms-token"）；z 程序表 **796 项**（[bytecode, arity, flags, exceptionTable]）。
 - 关键程序（id 与 bcLen 已用 `vm_z_index.json` + `disasm.py` 逐条核对）：
 
@@ -100,15 +100,32 @@ W[132] 消息扩展、Tj=79CC4519/7A879D8A、64 轮压缩、write/sum/_fill 与�
 
 ### 熵源（确定性验证实证）
 Math.random + crypto.getRandomValues + new Date()（真实时钟，Date.now 覆盖无效）
-固定三者后跨进程字节级可复现（基线已保存 baseline_bogus.txt）
+
+复现口径（2026-09-22 重跑校准）：
+- **跨进程**：固定三者后逐进程复现一致 ✅（`node rerun_sign.js --fixed-entropy` 连跑 3 次首值相同）
+- **同进程连续两次**：不同 ❌ —— 程序 107 读 `bdmsInvokeList[0]`，上一次请求留下的状态会参与本次计算，故对拍必须「一进程一次签名」
+- **cookie 不影响结果**：空 cookie / 合成 ttwid+msToken / 改写 ttwid 三者输出 0 位差异（实测）
+- **query 影响结果**：query 变动 1 个参数 → 输出约 5–6 字节变化
+- 与 `baseline_bogus.txt` 的差异：固定熵 + 合成 query 时 180 字符中有 6 位不同（位置 32/37/42/43/177/178），原因即 query 串不同（基线用的是作者真实 `appends[0].query`），**不是**会话 cookie 差异
 
 ### 非确定性结论
 同输入每次输出不同 = 熵字节直接混入载荷，服务端解密/重算校验；字节级复现无意义，能产出有效值即可
 
+### 重跑复核（2026-09-22）
+- trace 实证：`ret=A[32]` 恰好 **5 次** → 本节「5 次 sum 调用」成立，第 5 次输入 `"9B6/i1FccxYTYE=="` 与上文字面一致
+- 钩子链在 trace 中为：`E 105`（open 钩子，第 1 行）→ `E 107`（send 钩子，第 135 行），与 §二/§三 的 id 更正一致
+- VM 表可用纯 Python 独立重建（`dump_vm.py`），与仓库 `vm_*.json` 完全一致，详见 `RERUN_REPORT.md`
+
 ## 八、Python 移植状态（abogus_full.py）
 已完成：76 操作码 VM 解释器、JS 值模型、SM3 引擎、浏览器 shims、装配驱动骨架
+
+2026-09-22 重跑实测：`python3 abogus_full.py` 失败于
+`abogus_full.py:454  if f == 2: raise Exception(jsstr(l))` → `Exception: <JSFunction object>`
+（在 `vm.X(132, None, [], st132)` 装配阶段抛出，即下方遗留项 2），与本节记载一致。
+
 待收尾（机械性工作）：
 1. VM 帧语义修正：v 栈跨帧共享（JS 中 s[1]=v 同一数组，帧切换不重置 p）
-2. y() 异常展开表（f=1 时沿 u 表回溯）
+2. y() 异常展开表（f=1/2 时沿 u 表回溯到 handler pc 并恢复栈）——当前直接抛到顶层
 3. 运行 init 程序 129/700/703/669/706/715/718/721/723/690 以生成 qt/vt/N 真值（当前为占位）
-验证方法：固定随机序列 + Date，与 baseline_bogus.txt 字节对拍
+验证方法：固定随机序列 + Date，与 `rerun_sign.js --fixed-entropy --full` 的输出字节对拍
+（注意：必须一进程一次签名，见 §七 复现口径）

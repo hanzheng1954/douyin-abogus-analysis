@@ -26,8 +26,14 @@
 
     REPORT.md            完整分析报告（算法管线、装配图、移植状态）
     TRACKING.md          更新追踪清单：追哪 8 层信号、变了要改哪个文件、响应 playbook
+    RERUN_REPORT.md      最近一次全量重跑复核报告（逐条结论 + 证据 + 命令）
     track_douyin.py      变更巡检器（只 GET 首页 + 公开静态资源；有变化退出码 1）
     track_baseline.json  巡检基线（2026-09-22 实测指纹：远端 hash + 本地 VM 表统计）
+    refresh_capture.py   重抓首页内联运行时 + 7 个风控 SDK -> capture_YYYYMMDD/ + manifest.json
+    dump_vm.py           纯 Python 解码 bdms blob（base64->XOR->inflate->表），--diff 与仓库 vm_*.json 对拍
+    rerun_dump.js        Node 运行时 dump VM 表（与 dump_vm.py 交叉验证）
+    rerun_sign.js        重跑签名：固定熵 / 随机熵 / cookie 与 query 敏感度实验
+    capture_20260922/    2026-09-22 重抓产物（与 8-30 capture 逐字节一致）
     node_signer.js       Node 签名器（可直接 require，已过 Argus 门验证）
     bdms_patched.js      打好 VM 表 dump 补丁的 bdms（node_signer.js 的加载目标）
     douyin_4k.js         一键 4K/最高画质解析脚本（短链->档位表->直链）
@@ -67,6 +73,19 @@
 2. 全部脚本路径自包含（相对脚本目录），无需作者机器的绝对路径；Playwright 浏览器路径可用
    `CHROME_PATH=<chromium 可执行文件>` 覆盖。
 3. `disasm.py <程序id> [...]` 可直接运行，仅依赖同目录的 `vm_Z.json` / `vm_z_full.json`。
+
+## 重跑全流程（离线可复现）
+
+    python3 refresh_capture.py          # 1. 重抓首页内联运行时 + 7 个风控 SDK -> capture_YYYYMMDD/
+    python3 dump_vm.py --diff           # 2. 纯 Python 解码 bdms blob -> vm_Z/vm_z_full/vm_z_index 并对拍
+    node rerun_dump.js                  # 2'. 交叉验证：Node 运行时 dump 的 VM 表（rebuilt_vm_node/）
+    python3 disasm.py 150 > /tmp/a.txt  # 3. 反汇编复核（与 disasm_150.txt 一致）
+    python3 disasm.py 277 272 274 251 246 96   # 与 disasm_helpers.txt 一致（顺序固定）
+    node rerun_sign.js --fixed-entropy --full  # 4. 固定熵出 180 字符 a_bogus（跨进程稳定）
+    node rerun_sign.js                  # 4'. 随机熵：两次不同（非确定性）
+    python3 track_douyin.py             # 5. 与 track_baseline.json 对拍，有变化退出码 1
+
+最近一次全量重跑结果与偏差口径见 [RERUN_REPORT.md](RERUN_REPORT.md)。
 
 ## 快速使用（Node 签名器）
 

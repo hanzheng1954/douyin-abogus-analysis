@@ -55,3 +55,9 @@ package-lock.json
 frontiersign_bytecode.hex
 frontiersign_bytecode.bin
 bdms_blob.b64
+
+# 重跑产物（体积大且可一键再生；capture_YYYYMMDD/ 只保留 manifest.json）
+capture_20*/*.js
+rebuilt_vm/
+rebuilt_vm_node/
+track_state.json
