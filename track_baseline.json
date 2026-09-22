@@ -1,0 +1,155 @@
+{
+ "homepage": {
+  "bytes": 72914,
+  "has_jsvmprt": true,
+  "inline_count": 2,
+  "inline_scripts": [
+   {
+    "jsvmprt": true,
+    "len": 71725,
+    "sha256": "76bee010ec645500ff8012396694a708c5b38e812d8822544e312485e0002a5b"
+   },
+   {
+    "jsvmprt": false,
+    "len": 1090,
+    "sha256": "eff9c24ff30d0f7f855e7a7fefd136bb59bf4a05b45c6d869cabc6aa8765ba08"
+   }
+  ],
+  "sha256": "9b56a6acdcb27eb620b5ee1ad870ad67964c70131b6fc31e8bd946b39c1e309e",
+  "static_refs": [],
+  "status": 200,
+  "versions_seen": []
+ },
+ "local": {
+  "baseline_bogus.txt": {
+   "bytes": 180,
+   "sha256": "58b4c3ceb8dc135d"
+  },
+  "vm": {
+   "Z_count": 1001,
+   "key_programs": {
+    "103": 203,
+    "105": 154,
+    "106": 95,
+    "107": 238,
+    "132": 135,
+    "150": 1834
+   },
+   "key_strings": {
+    "Z[214]": "bdmsInvokeList",
+    "Z[218]": "args",
+    "Z[220]": "a_bogus",
+    "Z[247]": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    "Z[262]": "dhzx"
+   },
+   "max_bcLen_id": 150,
+   "program_count": 796
+  },
+  "vm_Z.json": {
+   "bytes": 17932,
+   "sha256": "6d79e9828a4ae510"
+  },
+  "vm_z_full.json": {
+   "bytes": 162428,
+   "sha256": "c7680a1f9f594010"
+  },
+  "vm_z_index.json": {
+   "bytes": 71536,
+   "sha256": "cac9df40e540aca5"
+  }
+ },
+ "targets": {
+  "bdms": {
+   "bytes": 147530,
+   "fingerprints": {
+    "blob_b64_len": 38780,
+    "hook_open_src": true,
+    "sm3_iv_dec": true,
+    "version_header": "1.0.1.19-fix.01",
+    "window_bdms": true,
+    "xhr_ref": true
+   },
+   "sha256": "a0e46f84476d63a1fa57bdcb47223e0e545c6ce0c3dacdd2818180dfa087909e",
+   "status": 200,
+   "url": "https://p-pc-weboff.byteimg.com/tos-cn-i-9r5gewecjs/bdms_1.0.1.19_fix.js",
+   "versions_seen": [
+    "1.0.1.19-fix.01"
+   ]
+  },
+  "captcha": {
+   "bytes": 84508,
+   "sha256": "b4e97d9734a5dded4de3b64f94ba2dd77610492edd452f9b3326a112ef144c14",
+   "status": 200,
+   "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/sec_sdk_build/4.0.28/captcha/index.js",
+   "versions_seen": []
+  },
+  "rmc-nocaptcha": {
+   "bytes": 266559,
+   "sha256": "a7c43cbd1453794df25e86debe56ccab7d5b1b4031a1f40b6acb14a787c2ede8",
+   "status": 200,
+   "url": "https://lf-cdn-tos.bytescm.com/obj/rc-verifycenter/rmc-nocaptcha/1.0.0.51/setup.js",
+   "versions_seen": [
+    "1.0.0.51"
+   ]
+  },
+  "sdk-glue": {
+   "bytes": 100348,
+   "fingerprints": {
+    "bdms_block": true,
+    "bdms_url": false,
+    "block_fetch": true,
+    "block_xhr": true,
+    "csrf_block": true
+   },
+   "sha256": "0ccf4a589b80bdda1a46efddf84a31ba9ca4826f4ac8a46661c35471d30d16c8",
+   "status": 200,
+   "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/web/glue/1.0.0.64-fix.01/sdk-glue.js",
+   "versions_seen": [
+    "1.0.0.64-fix.01",
+    "1.0.1.19-fix.01"
+   ]
+  },
+  "verifycenter-413": {
+   "bytes": 60903,
+   "sha256": "d954e0e3901ca1d53331ea1ef956084e1a0e74dd49174e40cd822f7fed97e5b5",
+   "status": 200,
+   "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.413/index.js",
+   "versions_seen": [
+    "1.0.0.119",
+    "1.0.0.20",
+    "1.0.0.3",
+    "1.0.0.413",
+    "1.0.0.51",
+    "1.0.0.8"
+   ]
+  },
+  "verifycenter-417": {
+   "bytes": 63592,
+   "sha256": "c93e7b0ef00019ad9a7447bece0e1379d421b11544f38a539e5b5795255d7531",
+   "status": 200,
+   "url": "https://lf-rc1.yhgfb-cn-static.com/obj/rc-verifycenter/verifycenter/1.0.0.417/index.js",
+   "versions_seen": [
+    "1.0.0.119",
+    "1.0.0.20",
+    "1.0.0.3",
+    "1.0.0.417",
+    "1.0.0.51",
+    "1.0.0.8"
+   ]
+  },
+  "webmssdk": {
+   "bytes": 387196,
+   "fingerprints": {
+    "acrawler": true,
+    "frontier_sign": true,
+    "webrt_magic": true
+   },
+   "sha256": "3c138a74319cf36dd5a63920ecd4624875593c306f2ac68f157a68c465381075",
+   "status": 200,
+   "url": "https://lf-c-flwb.bytetos.com/obj/rc-client-security/c-webmssdk/1.0.0.20/webmssdk.es5.js",
+   "versions_seen": [
+    "1.0.0.20"
+   ]
+  }
+ }
+}

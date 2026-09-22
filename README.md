@@ -25,6 +25,9 @@
 ## 目录结构
 
     REPORT.md            完整分析报告（算法管线、装配图、移植状态）
+    TRACKING.md          更新追踪清单：追哪 8 层信号、变了要改哪个文件、响应 playbook
+    track_douyin.py      变更巡检器（只 GET 首页 + 公开静态资源；有变化退出码 1）
+    track_baseline.json  巡检基线（2026-09-22 实测指纹：远端 hash + 本地 VM 表统计）
     node_signer.js       Node 签名器（可直接 require，已过 Argus 门验证）
     bdms_patched.js      打好 VM 表 dump 补丁的 bdms（node_signer.js 的加载目标）
     douyin_4k.js         一键 4K/最高画质解析脚本（短链->档位表->直链）
