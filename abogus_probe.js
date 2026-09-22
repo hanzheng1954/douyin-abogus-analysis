@@ -3,6 +3,7 @@
 // 只读 bdms_patched.js（原文件不改），运行时字符串注入后 eval。
 // 用法: node abogus_probe.js [--trace-ops=132,0,103,107]
 const fs = require('fs');
+const PROC = process;   // node_signer 会在加载后隐藏 global/process，这里先抓引用
 // Node 21+ 的 navigator/crypto/performance 是 getter-only 全局，直接赋值会被静默忽略
 function installGlobal(name, value) {
   try { Object.defineProperty(globalThis, name, { value, writable: true, configurable: true, enumerable: false }); }
@@ -17,14 +18,15 @@ const RAW_RANDOM = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; retu
 Math.random = RAW_RANDOM;
 const T = 1788091256878;
 const RealDate = Date;
-global.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [T])); } static now() { return T; } };
+globalThis.Date = class extends RealDate { constructor(...a) { super(...(a.length ? a : [T])); } static now() { return T; } };
 installGlobal('crypto', { getRandomValues: (arr) => { for (let i = 0; i < arr.length; i++) arr[i] = Math.floor(Math.random() * 256); return arr; } });
 
 // ===== 浏览器 shims（与 node_signer.js 逐项一致）=====
-global.window = global;
-installGlobal('navigator', { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
-global.location = { href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
-global.document = {
+globalThis.window = global;
+installGlobal('navigator', { [Symbol.toStringTag]: 'Navigator', userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
+globalThis.location = { [Symbol.toStringTag]: 'Location', href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
+globalThis.document = {
+  [Symbol.toStringTag]: 'HTMLDocument',
   cookie: '', title: '', referrer: '', URL: 'https://www.douyin.com/', charset: 'utf-8', readyState: 'complete', hidden: false, visibilityState: 'visible',
   createElement: (tag) => ({ tagName: (tag||'').toUpperCase(), style: {}, setAttribute(){}, getAttribute(){ return null; }, appendChild(){}, removeChild(){}, addEventListener(){}, removeEventListener(){}, getContext: () => null, width: 0, height: 0 }),
   addEventListener(){}, removeEventListener(){}, querySelector: () => null, querySelectorAll: () => [],
@@ -32,25 +34,25 @@ global.document = {
   createEvent: () => ({ initEvent(){} }),
 };
 installGlobal('performance', { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} });
-global.screen = { width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
-global.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){}, key(){ return null; } };
-global.sessionStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){} };
-global.addEventListener = () => {}; global.removeEventListener = () => {};
-global.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 16);
-global.cancelAnimationFrame = (id) => clearTimeout(id);
-global.matchMedia = () => ({ matches: false, addListener(){}, removeListener(){}, addEventListener(){}, removeEventListener(){} });
-global.getComputedStyle = () => ({ getPropertyValue(){ return ''; } });
-global.MutationObserver = class { observe(){} disconnect(){} takeRecords(){ return []; } };
-global.IntersectionObserver = class { observe(){} unobserve(){} disconnect(){} };
-global.history = { pushState(){}, replaceState(){}, state: null, length: 1 };
-global.WebSocket = class { constructor(){} send(){} close(){} addEventListener(){} };
-global.Notification = class { static requestPermission(){ return Promise.resolve('denied'); } static permission = 'denied'; };
-global.indexedDB = { open(){ return { onsuccess: null, onerror: null, onupgradeneeded: null, result: null, error: null }; } };
-global.Event = class { constructor(t){ this.type = t; } };
-global.CustomEvent = class extends Event {};
-global.Blob = class { constructor(parts, opts){ this.parts = parts; this.type = opts && opts.type; } };
-global.FormData = class { append(){} };
-global.Worker = class {};
+globalThis.screen = { [Symbol.toStringTag]: 'Screen', width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
+globalThis.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){}, key(){ return null; } };
+globalThis.sessionStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){} };
+globalThis.addEventListener = () => {}; globalThis.removeEventListener = () => {};
+globalThis.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 16);
+globalThis.cancelAnimationFrame = (id) => clearTimeout(id);
+globalThis.matchMedia = () => ({ matches: false, addListener(){}, removeListener(){}, addEventListener(){}, removeEventListener(){} });
+globalThis.getComputedStyle = () => ({ getPropertyValue(){ return ''; } });
+globalThis.MutationObserver = class { observe(){} disconnect(){} takeRecords(){ return []; } };
+globalThis.IntersectionObserver = class { observe(){} unobserve(){} disconnect(){} };
+globalThis.history = { [Symbol.toStringTag]: 'History', pushState(){}, replaceState(){}, state: null, length: 1 };
+globalThis.WebSocket = class { constructor(){} send(){} close(){} addEventListener(){} };
+globalThis.Notification = class { static requestPermission(){ return Promise.resolve('denied'); } static permission = 'denied'; };
+globalThis.indexedDB = { open(){ return { onsuccess: null, onerror: null, onupgradeneeded: null, result: null, error: null }; } };
+globalThis.Event = class { constructor(t){ this.type = t; } };
+globalThis.CustomEvent = class extends Event {};
+globalThis.Blob = class { constructor(parts, opts){ this.parts = parts; this.type = opts && opts.type; } };
+globalThis.FormData = class { append(){} };
+globalThis.Worker = class {};
 class FakeXHR {
   constructor() { this._url = ''; this._method = 'GET'; this._headers = {}; this.readyState = 0; this._status = 0; this.responseText = ''; this.onreadystatechange = null; this.onload = null; this.onerror = null; this.upload = {}; }
   open(method, url, async = true) { this._method = String(method).toUpperCase(); this._url = String(url); this._async = async; }
@@ -60,14 +62,14 @@ class FakeXHR {
   getResponseHeader(k) { return null; } getAllResponseHeaders() { return ''; }
   get status() { return 200; }
 }
-global.XMLHttpRequest = FakeXHR;
-global.Request = class { constructor(url, init){ this.url = url; } };
-global.Headers = class { append(){} set(){} get(){ return null; } };
-global.fetch = async () => ({ ok: true, status: 200, json: async () => ({}), text: async () => '' });
-global.Image = class { set src(v){} };
+globalThis.XMLHttpRequest = FakeXHR;
+globalThis.Request = class { constructor(url, init){ this.url = url; } };
+globalThis.Headers = class { append(){} set(){} get(){ return null; } };
+globalThis.fetch = async () => ({ ok: true, status: 200, json: async () => ({}), text: async () => '' });
+globalThis.Image = class { set src(v){} };
 
 // ===== 参数 =====
-const args = process.argv.slice(2);
+const args = PROC.argv.slice(2);
 const traceOpsArg = args.find(a => a.startsWith('--trace-ops='));
 const TRACE_OPS = new Set(traceOpsArg ? traceOpsArg.split('=')[1].split(',').filter(Boolean).map(Number) : []);
 const out = [];
@@ -75,7 +77,7 @@ let depth = 0;
 const rndLog = [];
 
 // ===== __TRC：bdms_patched.js 里已经埋好 hook 点 =====
-global.__TRC = {
+globalThis.__TRC = {
   on: true,
   ids: TRACE_OPS,
   zE: null, zidx: null,
@@ -113,28 +115,36 @@ let src = fs.readFileSync(__dirname + '/bdms_patched.js', 'utf-8');
 src = src.replace('function X(t, r, e, n) {', 'function X(t, r, e, n) { globalThis.__XARGS = globalThis.__XARGS || []; try { globalThis.__XARGS.push([z.indexOf(t), r, e && e.length]); if (globalThis.__XARGS.length > 5000) globalThis.__XARGS.splice(0, 2500); } catch(_) {}');
 src = src.replace('globalThis.__z = z.slice();', 'globalThis.__FLAGS = z.map(function(x){return [x[1], x[2]];}); globalThis.__z = z.slice();');
 try { eval(src); } catch (e) { console.log('LOAD ERR:', String(e).slice(0, 400)); }
-console.log('bdms:', !!global.window.bdms, '| z:', Array.isArray(global.__z) ? global.__z.length : 'none');
+console.log('bdms:', !!globalThis.window.bdms, '| z:', Array.isArray(globalThis.__z) ? globalThis.__z.length : 'none');
 
-global.__TRC.zE = global.__z; global.__TRC.zidx = global.__z;
+// 与 node_signer.js 一致：bdms 会通过 global/process 检测 Node 环境（VM 程序 742 → 校验和 bit4），
+// 真实浏览器两者都不存在，这里在加载完成后隐藏，保证探针与参考实现同一套环境语义。
+if (PROC.env.DSH_KEEP_NODE_GLOBALS !== '1') {
+  for (const _hidden of ['global', 'process']) {
+    try { Object.defineProperty(globalThis, _hidden, { value: undefined, writable: true, configurable: true }); } catch (e) {}
+  }
+}
+
+globalThis.__TRC.zE = globalThis.__z; globalThis.__TRC.zidx = globalThis.__z;
 
 // ===== 会话与签名 =====
-global.document.cookie = 'ttwid=1%7C' + 'a'.repeat(43) + '; msToken=' + 'b'.repeat(107) + '; odin_tt=' + 'c'.repeat(32);
+globalThis.document.cookie = 'ttwid=1%7C' + 'a'.repeat(43) + '; msToken=' + 'b'.repeat(107) + '; odin_tt=' + 'c'.repeat(32);
 try {
-  global.window.bdms.init({
+  globalThis.window.bdms.init({
     aid: 6383, pageId: 6241,
     paths: ['^/webcast/', '^/aweme/v1/', '^/aweme/v2/', '/douplus/', '^/api/ad/v1/inspire',
             '/v1/message/send', '^/live/', '^/captcha/', '^/ecom/', '^/luna/pc'],
     boe: false, ddrt: 8.5, ic: 8.5,
   });
 } catch (e) { console.log('init 异常:', e.message); }
-console.log('init2:', !!global.window.bdms);
+console.log('init2:', !!globalThis.window.bdms);
 
 const QUERY = ('device_platform=webapp&aid=6383&channel=channel_pc_web&pc_client_type=1&version_code=170400'
   + '&version_name=17.4.0&cookie_enabled=true&screen_width=1440&screen_height=900&browser_language=zh-CN'
   + '&browser_platform=Win32&browser_name=Chrome&browser_version=138.0.0.0&aweme_id=7000000000000000000');
 
 out.push('=== PRE-OPEN ===');
-const xhr = new global.XMLHttpRequest();
+const xhr = new globalThis.XMLHttpRequest();
 xhr.open('GET', 'https://www.douyin.com/aweme/v1/web/aweme/detail/?' + QUERY);
 out.push('=== POST-OPEN ===');
 xhr.send(null);
@@ -144,8 +154,8 @@ const m = url.match(/a_bogus=([^&]*)/);
 console.log(out.join('\n'));
 console.log('URL:', url.slice(0, 160));
 if (m) console.log('A_BOGUS:', decodeURIComponent(m[1]));
-console.log("XARGS count:", (global.__XARGS || []).length);
-console.log("TABLECHK", JSON.stringify({l232: global.__z[232][0].length, b86: global.__z[232][0][86], b87: global.__z[232][0][87], b88: global.__z[232][0][88], b94: global.__z[232][0][94], b95: global.__z[232][0][95], l242: global.__z[242][0].length, l244: global.__z[244][0].length, eq242_244: String(global.__z[242][0])===String(global.__z[244][0])}));
-console.log("FLAGS:", JSON.stringify([0,1,2,132,103,105,107,150,280,689].map(function(i){return [i, (global.__FLAGS||[])[i]];})));
-console.log("FLAGS-all-strinct:", JSON.stringify((global.__FLAGS||[]).filter(function(f){return f[1]!==true;}).length));
-process.exit(0);
+console.log("XARGS count:", (globalThis.__XARGS || []).length);
+console.log("TABLECHK", JSON.stringify({l232: globalThis.__z[232][0].length, b86: globalThis.__z[232][0][86], b87: globalThis.__z[232][0][87], b88: globalThis.__z[232][0][88], b94: globalThis.__z[232][0][94], b95: globalThis.__z[232][0][95], l242: globalThis.__z[242][0].length, l244: globalThis.__z[244][0].length, eq242_244: String(globalThis.__z[242][0])===String(globalThis.__z[244][0])}));
+console.log("FLAGS:", JSON.stringify([0,1,2,132,103,105,107,150,280,689].map(function(i){return [i, (globalThis.__FLAGS||[])[i]];})));
+console.log("FLAGS-all-strinct:", JSON.stringify((globalThis.__FLAGS||[]).filter(function(f){return f[1]!==true;}).length));
+PROC.exit(0);

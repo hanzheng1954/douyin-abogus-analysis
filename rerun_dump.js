@@ -1,13 +1,14 @@
 // 从 bdms_patched.js（经 node_signer 加载）把运行时 VM 表 dump 成 JSON，用于与 dump_vm.py 交叉对拍
 const fs = require('fs');
+const PROC = process;   // node_signer 加载后会隐藏 global/process
 const path = require('path');
 const dir = __dirname;
 require(path.join(dir, 'node_signer.js'));
 
-const Z = global.__Z, z = global.__z;
+const Z = globalThis.__Z, z = globalThis.__z;
 if (!Array.isArray(Z) || !Array.isArray(z)) {
   console.error('未拿到 __Z/__z —— patched bdms 的 dump 钩子可能已变');
-  process.exit(1);
+  PROC.exit(1);
 }
 const out = path.join(dir, 'rebuilt_vm_node');
 fs.mkdirSync(out, { recursive: true });
@@ -23,4 +24,4 @@ console.log('node 运行时 dump: Z=' + Z.length + ' 程序=' + z.length);
 console.log('关键串', JSON.stringify(key));
 console.log('关键程序 bcLen', JSON.stringify(progs));
 console.log('写出 -> rebuilt_vm_node/');
-process.exit(0);
+PROC.exit(0);

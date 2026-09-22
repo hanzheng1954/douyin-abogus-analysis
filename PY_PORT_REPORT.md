@@ -46,26 +46,43 @@
      8…35     107:70 ×28     148:70 ×28       ✅
      36       107:196(监控上报 jr 的采样随机) Python 无（非签名路径）
 
-## 九、剩余 13 字符的根因：环境校验和 bitmask 不同
+## 九、环境校验和已对齐（Node 侧三处保真修复）
 
-程序 699（`arity=0, bcLen=147`，环境原生类型校验）把若干探测器结果按位 OR 成校验和：
+排查链（每一步都用「同一处打桩、两侧对拍」确认）：程序 150 pc=99 → **699** 环境校验和 →
+`if (call(state[0][0]))` 首个探测器 → **730**（检查 navigator/document/location/history 的
+`Object.prototype.toString` 标签）→ 分支 6 个探测器（730/733/756/744/**742**/737/735），
+其中 742 = **Node 环境检测**（`typeof global`、`global.process`、`process.title === 'node'`）。
 
-    node 侧: 142 的入参 = ("129", 14, UA)     ← 校验和 129
-    python : 142 的入参 = (39.0, 14, UA)      ← 校验和 39
+修掉的三处 Node 侧保真问题（都在 harness，不在 VM 移植里）：
 
-    129 = 0b1000_0001 → 置位 bit0、bit7
-     39 = 0b0010_0111 → 置位 bit0、bit1、bit2、bit5
+1. **宿主对象缺 `Symbol.toStringTag`** → `Object.prototype.toString.call(document)` 得到 `[object Object]`，
+   浏览器是 `[object HTMLDocument]`。已给 navigator/document/location/history/screen/performance 补标签。
+2. **Node 专有全局泄漏**：`typeof global`、`process.title === 'node'` 让 742 判成 Node（校验和 55），
+   真实浏览器没有这两个全局（39）。已在 `node_signer.js` / `abogus_probe.js` 加载完成后
+   `defineProperty(globalThis, name, {value: undefined})` 隐藏（可用 `DSH_KEEP_NODE_GLOBALS=1` 关闭）；
+   harness 改用 `globalThis.` 并在文件头 `const PROC = process;` 先抓引用。
+3. 隐藏动作必须发生在**签名之前**：探针把签名放在同文件末尾，最初把隐藏块追加到末尾导致仍读到 55，
+   移到 `bdms 加载完成` 之后即修复（Node 39 ✅、Python 39 ✅）。
 
-该值进入 env blob（`130(142(校验和, 14, UA), 's3')`，148 字符 base64），再进第 5 次 SM3 sum，
-因此只在载荷前段造成 13 个字符差异（尾部大段一致）。
+对齐后的硬证据：
 
-**下一步最小动作**：逐位对齐这 8 个探测器 —— 在 pid=699 的 8 个 CALL 点（pc=9/20/39/…）分别打印
-被调 pid 与返回布尔值（两侧同样打桩），把 Node 为真而 Python 为假的位找出来，补/改对应 shim
-（这类探测器通常检查原生函数 `toString` 是否含 `native code`、插件/mimeTypes 数量、WebGL 上下文等）。
-对齐后 `python3 abogus_py.py` 应与 `node rerun_sign.js --fixed-entropy --full` **逐字符一致（0 差异位）**。
+| 对拍项 | 结果 |
+|---|---|
+| 5 次 SM3 sum 输入 | 完全一致（第 5 次都是 `zdg6CfizzToVP/Rb5wowDN2gJlU8bsN4ruqR+sYwEEWLX9IaWN`，148） |
+| 熵序列 37 次抽取 | 调用点与数值完全一致 |
+| 程序 280 入参 | 一致（`[0,39,14]` 与 `[211]`） |
+| a_bogus 长度 | 两侧都是 168 |
 
-## 十、旁证：修好 shim 后 Node 侧行为的变化
+## 九之二、剩余差异：9 个字符 / 125 字节中 11 个字节
 
-- `node rerun_sign.js --fixed-entropy --full` 参考值：`mvljXtXiE25fKV/…7d6=`（180，旧）→ `mvUnDtXiE25fKV/…kMg=`（168，新）
-- `baseline_bogus.txt`（作者 8-30 留档）与 `det_one.js` 的旧产出都是在「UA=Node.js/24 + crypto 覆盖未生效」下生成的，
-  不能作为浏览器环境基线；需要浏览器 UA 的对拍请以修好 shim 后的 `rerun_sign.js --fixed-entropy` 为准。
+    node rerun_sign.js --fixed-entropy --full  (修好保真后)  mvUnDtXiE25fKV/SYCcCHG/lc62ArBLfsa4dYfxTHxzTLhzbTuPnOTFOnoFusOcLO8pTi917zflAbxxcp4XspC9kompkuhtWu5AcVufohHxUTTvhHNLkKYtEwJ4FUSTY/AAviBi11UUn2Lc3qNcTA1PVi5gz5cjvQrZ8kgb=
+    python3 abogus_py.py                                    mvUnDtXiE25fK5/uYCcCHG/lc62ArBLfsaskPfxTHxzTLhzbTuPnOPeOnoFusOcLO8pTi917zflAbxxcp4XspC9kompkuhtWu5AcVufohHxUTTvhHNLkKYtEwJ4FUSTY/AAviBi11UUn2Lc3qNcTA1PVi5gz5cjvQrZ8kMg=
+
+base64 字符差异位 `[13,15,34,35,36,53,54,165,166]` → 解码后字节差异 `[9,10,11, 25,26,27, 39,40,41, 123,124]`
+（四段：三处 3 字节簇 + 末尾 2 字节）。前 9 字节（含模式字节与校验和 39）两侧完全一致，
+SM3 摘要有序嵌入的部分也一致 → 差异在**未哈希的原始字段**（时间戳/双周序号/熵数组/屏幕窗口尺寸一类），
+且以「3 字节簇」形式出现，很可能是载荷里几个 3 字节编码的数值字段。
+
+**下一步最小动作**：在程序 150 的载荷装配处（把原始字段拼成字节数组那一段，约 pc 900–1300）两侧同时
+dump 该数组，逐字节对齐即可定位到具体字段；或者直接对二进制搜索：把两侧的字节簇 09-11/25-27/39-41
+与 150 中 `Date.now()`、`pageId`、`aid`、`screen.*`、`window.*` 的入栈值对上。

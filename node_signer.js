@@ -14,9 +14,10 @@ function installGlobal(name, value, enumerable = false) {
   }
 }
 global.window = global;
-installGlobal('navigator', { userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
-global.location = { href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
+installGlobal('navigator', { [Symbol.toStringTag]: 'Navigator', userAgent: UA, platform: 'Win32', language: 'zh-CN', languages: ['zh-CN','zh','en'], cookieEnabled: true, onLine: true, hardwareConcurrency: 8, deviceMemory: 8, maxTouchPoints: 0, vendor: 'Google Inc.', webdriver: false, sendBeacon: () => true, mediaDevices: { enumerateDevices: async () => [] }, permissions: { query: async () => ({ state: 'prompt' }) } });
+global.location = { [Symbol.toStringTag]: 'Location', href: 'https://www.douyin.com/', origin: 'https://www.douyin.com', protocol: 'https:', host: 'www.douyin.com', hostname: 'www.douyin.com', pathname: '/', search: '', hash: '', port: '', assign(){}, reload(){} };
 const docShim = {
+  [Symbol.toStringTag]: 'HTMLDocument',
   cookie: '', title: '', referrer: '', URL: 'https://www.douyin.com/', charset: 'utf-8', readyState: 'complete', hidden: false, visibilityState: 'visible',
   createElement: (tag) => ({ tagName: (tag||'').toUpperCase(), style: {}, setAttribute(){}, getAttribute(){ return null; }, appendChild(){}, removeChild(){}, addEventListener(){}, removeEventListener(){}, getContext: () => null, width: 0, height: 0 }),
   addEventListener(){}, removeEventListener(){}, querySelector: () => null, querySelectorAll: () => [],
@@ -24,8 +25,8 @@ const docShim = {
   createEvent: () => ({ initEvent(){} }),
 };
 global.document = docShim;
-installGlobal('performance', { now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} });
-global.screen = { width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
+installGlobal('performance', { [Symbol.toStringTag]: 'Performance', now: () => Date.now(), timing: { navigationStart: 0 }, getEntriesByType: () => [], mark(){}, measure(){} });
+global.screen = { [Symbol.toStringTag]: 'Screen', width: 1440, height: 900, availWidth: 1440, availHeight: 900, colorDepth: 24, pixelDepth: 24, orientation: { angle: 0, type: 'landscape-primary' } };
 global.localStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){}, key(){ return null; } };
 global.sessionStorage = { getItem(){ return null; }, setItem(){}, removeItem(){}, clear(){} };
 global.addEventListener = () => {}; global.removeEventListener = () => {};
@@ -35,7 +36,7 @@ global.matchMedia = () => ({ matches: false, addListener(){}, removeListener(){}
 global.getComputedStyle = () => ({ getPropertyValue(){ return ''; } });
 global.MutationObserver = class { observe(){} disconnect(){} takeRecords(){ return []; } };
 global.IntersectionObserver = class { observe(){} unobserve(){} disconnect(){} };
-global.history = { pushState(){}, replaceState(){}, state: null, length: 1 };
+global.history = { [Symbol.toStringTag]: 'History', pushState(){}, replaceState(){}, state: null, length: 1 };
 global.WebSocket = class { constructor(){} send(){} close(){} addEventListener(){} };
 global.Notification = class { static requestPermission(){ return Promise.resolve('denied'); } static permission = 'denied'; };
 global.indexedDB = { open(){ return { onsuccess: null, onerror: null, onupgradeneeded: null, result: null, error: null }; } };
@@ -69,3 +70,14 @@ src = src.replace('var m=n.apply(d,e);', 'var m;try{m=n.apply(d,e);}catch(_xe){c
 fs.writeFileSync(__dirname + '/bdms_node.js', src);
 try { eval(src); } catch (e) { console.log('LOAD ERR:', String(e).slice(0, 300)); }
 console.log('bdms:', !!global.window.bdms, '| z:', Array.isArray(global.__z) ? global.__z.length : 'none');
+
+// ===== 伪装成浏览器：隐藏 Node 专有全局 =====
+// bdms 的 VM 程序 742 会检测 Node 运行环境（typeof global / process、process.title === 'node'），
+// 命中后环境校验和变成 Node 的 55，而真实浏览器是 39（实测两侧因此差 16 个字符）。
+// 放在文件末尾执行，避免影响上面的 `global.xxx = ...` shim 赋值。
+// 需要保留 Node 全局（例如自写脚本要用 process）时设 DSH_KEEP_NODE_GLOBALS=1。
+if (process.env.DSH_KEEP_NODE_GLOBALS !== '1') {
+  for (const _hidden of ['global', 'process']) {
+    try { Object.defineProperty(globalThis, _hidden, { value: undefined, writable: true, configurable: true }); } catch (e) {}
+  }
+}
