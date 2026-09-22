@@ -1,9 +1,18 @@
-# 纯 Python 移植 abogus 报告（本轮：忠实解释器重写 + 逐点对拍）
+# 纯 Python 移植 abogus 报告（忠实解释器 + 逐点对拍）
 
-> 结论一句话：**没有跑通**。参考值已能稳定复现（Node 侧），Python 侧新建了一条忠实移植路线
-> （`abogus_vm.py` / `abogus_env.py` / `abogus_py.py` + 自动生成的 `vm_boot.py`），
-> 已修掉 7 处解释器语义错误，目前卡在**引导第 1 个程序 J(232) 的子调用（程序 244）**上，
-> 尚未产出任何 a_bogus。
+> 最新状态（本轮续修）：**已能全流程产出 a_bogus** —— boot → bdms.init → XHR.open → send
+> 全程无异常，输出 168 字符（目标 180，差 12 字符 = 9 字节），**字节级对拍尚未通过**。
+> 本轮又修掉 10 处语义/移植错误（见 §七），其中 4 处是「跑不通 → 跑得通」的关键。
+
+> 历史状态（上一轮）：卡在引导第 1 个程序 J(232) 的子调用（程序 244），未产出任何 a_bogus。
+
+## 零、当前差距（一句话）
+
+    node rerun_sign.js --fixed-entropy --full → 180 字符（参考值，跨进程稳定）
+    python3 abogus_py.py                       → 168 字符（已出签名，长度偏短）
+
+长度差 12 base64 字符 = 9 字节载荷；UA、query、cookie、固定时间（1788091256878）两侧已核对一致，
+差异最可能来自熵消耗次数或程序 150 载荷装配中的某个字段（下一步定位方案见 §八）。
 
 ## 一、参考基准（可复现）
 
@@ -85,3 +94,27 @@ abogus_vm.JSThrow: undefined
 * **可删**：`/tmp/dbg*.py`（一次性调试脚本，在 /tmp，不在仓库）；`vm_boot.py` 是可再生产物
   （`python3 gen_boot.py` 重新生成），但建议保留。
 * **不要删**：`abogus_vm.py` / `abogus_env.py` / `abogus_py.py` / `gen_boot.py` / `vm_boot.py`。
+
+## 七、本轮续修（10 处，每处都"跑一次 → 变红/变绿"验证）
+
+| # | 位置 | 症状 | 根因与修法 |
+|---|---|---|---|
+| 1 | `abogus_env.o_defineProperty` | 引导首个程序 244 抛 `TypeError: Cannot call a class as a function`，最终 `JSThrow: undefined` | 描述符没有 `value` 时**不应写回属性**。Babel 的 `Object.defineProperty(C,"prototype",{writable:false})` 被旧实现写成 `prototype = undefined`，于是 `new`/`instanceof` 全错。改为「有 get/set 走访问器；有 value 才写值；只给特性时保持原值」 |
+| 2 | `abogus_vm` op 54/61/74 帧链遍历 | 状态链取到错误对象 | JS 是 `U = U[0]`（普通属性访问，会触发 state 上的 getter）；旧实现 `U.items[0]` 只能在 JSArray 上工作。改为 `getprop(U, '0')` |
+| 3 | `abogus_vm.unwind`（f=2/f=3 回帧） | 回帧后 trace/判定仍沿用被调程序 | JS 的程序身份隐含在字节码数组里，Python 需单独存：帧元组补第 9 项 `pid`，两处回帧一并恢复 |
+| 4 | `abogus_py` StateObj spec 构造 | `state[18]` 恒为 undefined → init 读 `.aid` 报错 | 同一槽位常同时有 get/set（`get 18(){return vr}` / `set 18(t){vr=t}`），dict 推导式被后一条覆盖。改为 `spec[slot]=(getter,setter)` 并同步 `StateObj.own_get/own_set` |
+| 5 | `abogus_env` 缺 `import re` | 所有 `new URL(...)` 都报 `Invalid URL` | `_has_scheme` 里 `re.match` NameError 被 `except Exception` 吞掉。补 import，并把宽 except 收窄为 `(ValueError, TypeError, AttributeError)`，避免再掩盖真因 |
+| 6 | `abogus_py` 宿主对象原型 | 程序 154 写 `navigator.__proto__.vendorSubs` 报 "Cannot set properties of undefined" | 宿主对象 `proto=None` → `__proto__` 是 undefined。给 navigator/location/document/screen/history/performance/storage/crypto/XHR 各补一个 prototype 对象 |
+| 7 | `abogus_env.SM3Class` | 核心 150 调 `obj.sum(...)` 报 "undefined is not a function" | `construct()` 返回的实例没挂到类的 prototype 上，方法找不到。改为实例 `proto = self.props['prototype']` |
+| 8 | `abogus_env.SM3Engine.write/_compress` | `unsupported operand type(s) for <<: 'float' and 'int'` | VM 里字节是 JS number（Python float）。write 与 _compress 入口统一 `int(v) & 255` |
+| 9 | `abogus_env.JSURL` | 全流程跑通但 URL 上没有 a_bogus | JS 的 `searchParams` 是**活**的：`append()` 必须反映到 `href/search`。旧 shim 的 `_u` 是快照。改为 `query_string()/live_href()` 按 pairs 实时重建，`toString/toJSON` 同步 |
+| 10 | `abogus_py` 取值口径 | 与参考值比较时长度/内容对不上 | 提取 a_bogus 时补 `unquote()`，与 `rerun_sign.js` 的 `decodeURIComponent` 对齐 |
+
+## 八、下一步（定位那 9 字节）
+
+1. **熵消耗计数**：给 Python `RandomSource.next` 与 Node 侧 `Math.random`/`crypto.getRandomValues` 各加计数器，
+   跑同一 query 比较总次数与逐次取值 —— 这是当前最可疑的差异源。
+2. **载荷 dump 对拍**：在 Node 侧注入探针、Python 侧在程序 150 出口打印，把 base64 前的字节数组逐段对齐
+   （模式字节 / 时间戳 / 双周序号 / 校验和 / 熵数组 / pageId / aid / 屏幕 / SM3 摘要），定位少掉或变短的字段。
+3. 收敛后跑 `python3 abogus_py.py` 与 `node rerun_sign.js --fixed-entropy --full` 的字符级 diff（目标 0 差异位），
+   再把该断言写进 `verify_all.sh`（当前为 SKIP，会显示长度差）。

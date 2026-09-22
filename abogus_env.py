@@ -6,6 +6,7 @@
 Date/performance.now 固定为 T=1788091256878，与 rerun_sign.js --fixed-entropy 一致。
 """
 import math
+import re
 import abogus_vm as V
 from abogus_vm import (JSObj, JSArray, JSFunction, Builtin, DWrapper, JSError, OBJECT_PROTO,
                        ARRAY_PROTO, STRING_PROTO, NUMBER_PROTO, BOOL_PROTO, REGEXP_PROTO, FUNC_PROTO,
@@ -87,6 +88,8 @@ class SM3Engine(JSObj):
             r = [x for x in t.items]
         else:
             r = [x for x in t]
+        # VM 里字节是 JS number（Python float），压缩函数用 << / & 运算，必须先归一到 int
+        r = [int(x) & 255 for x in r]
         self.size += len(r)
         e = 64 - len(self.chunk)
         if len(r) < e:
@@ -131,6 +134,7 @@ class SM3Engine(JSObj):
     def _compress(self, t):
         if len(t) < 64:
             return
+        t = [int(v) & 255 for v in t]          # 见 write()：字节统一为 int
         W = [0] * 132
         for e in range(16):
             x = (t[e * 4] << 24) | (t[e * 4 + 1] << 16) | (t[e * 4 + 2] << 8) | t[e * 4 + 3]
@@ -194,11 +198,18 @@ class SM3Class(JSFunction):
         proto.props['_fill'] = JSFunction('_fill', lambda th, a: th._fill())
         self.props['prototype'] = proto
 
+    def _instance(self):
+        # 实例必须挂到类的 prototype 上，否则 getprop(inst, 'sum') 找不到方法
+        # （表现为核心程序 150 调用 obj.sum(...) 报 "undefined is not a function"）
+        e = SM3Engine()
+        e.proto = self.props['prototype']
+        return e
+
     def call(self, this, args):
-        return SM3Engine()
+        return self._instance()
 
     def construct(self, args):
-        return SM3Engine()
+        return self._instance()
 
 
 # ---------------------------------------------------------------- 其他原生 shim
@@ -266,13 +277,29 @@ class JSURL(JSObj):
             self.query = sp.query
             self.fragment = sp.fragment
             self._sp = JSURLSearchParams(sp.query)
-        except Exception:
-            raise JSError('TypeError', 'Invalid URL')
+        except (ValueError, TypeError, AttributeError) as _e:
+            # 只把「URL 本身不合法」映射成 JS 的 TypeError；其它异常（例如 shim 自身的
+            # NameError/KeyError）必须原样抛出，否则会被误报成 Invalid URL 而掩盖真因。
+            raise JSError('TypeError', 'Invalid URL: %s' % _e)
+
+    # ---- URLSearchParams 是「活」的：append/set/delete 必须反映到 href/search 上 ----
+    def query_string(self):
+        import urllib.parse as up
+        return '&'.join(up.quote(k, safe='') + '=' + up.quote('' if v is None else str(v), safe='')
+                        for k, v in self._sp.pairs)
+
+    def live_href(self):
+        qs = self.query_string()
+        u = '%s://%s%s' % (self.scheme, self.netloc, self.path or '/')
+        if qs:
+            u += '?' + qs
+        if self.fragment:
+            u += '#' + self.fragment
+        return u
 
     def own_get(self, k):
         if k == 'href':
-            u = self._u
-            return u
+            return self.live_href()
         if k == 'origin':
             return '%s://%s' % (self.scheme, self.netloc)
         if k == 'protocol':
@@ -287,7 +314,8 @@ class JSURL(JSObj):
         if k == 'pathname':
             return self.path if self.path else '/'
         if k == 'search':
-            return ('?' + self.query) if self.query else ''
+            qs = self.query_string()
+            return ('?' + qs) if qs else ''
         if k == 'hash':
             return ('#' + self.fragment) if self.fragment else ''
         if k == 'searchParams':
@@ -608,13 +636,19 @@ def install_builtins(globs, vm):
         tgt, key, desc = a[0], js_key(a[1]), a[2]
         if not isinstance(tgt, JSObj):
             raise JSError('TypeError', 'Object.defineProperty called on non-object')
-        dv = getprop(desc, 'value')
-        dg = getprop(desc, 'get')
-        ds = getprop(desc, 'set')
-        if dg is not None or ds is not None:
-            V._define_accessor(tgt, key, dg, ds)
-        else:
-            setprop(tgt, key, dv)
+        # JS 语义：描述符里没有 value/get/set 时只改属性特性（writable/enumerable/configurable），现值不变。
+        # 旧实现无条件 setprop(tgt, key, getprop(desc,'value'))：Babel 的
+        # `Object.defineProperty(C, "prototype", { writable: false })` 会把 prototype 覆盖成 undefined，
+        # 进而 new / instanceof 语义全错（表现为 _classCallCheck 抛 "Cannot call a class as a function"）。
+        has_val = isinstance(desc, JSObj) and desc.own_get('value') is not MISSING
+        has_get = isinstance(desc, JSObj) and desc.own_get('get') is not MISSING
+        has_set = isinstance(desc, JSObj) and desc.own_get('set') is not MISSING
+        if has_get or has_set:
+            V._define_accessor(tgt, key,
+                               getprop(desc, 'get') if has_get else None,
+                               getprop(desc, 'set') if has_set else None)
+        elif has_val:
+            setprop(tgt, key, getprop(desc, 'value'))
         return tgt
 
     def o_keys(t, a):

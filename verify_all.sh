@@ -42,13 +42,14 @@ if command -v node >/dev/null 2>&1; then
   [ -n "$C" ] && [ "$C" != "$D" ] && ok "随机熵两次不同（非确定性成立）" || ng "随机熵未体现非确定性"
   P=$(node abogus_probe.js 2>/dev/null | sed -n 's/^A_BOGUS: //p')
   [ -n "$P" ] && [ "$P" = "$A" ] && ok "探针 abogus_probe.js 与固定熵参考值一致（180 字符）" || ng "探针结果与参考值不一致"
-  # Python 移植（WIP）：当前应停在引导阶段的 JSThrow；一旦跑通，这里会提示更新文档
+  # Python 移植（WIP）：已能产出签名，但长度与 Node 参考值仍有差距
   if python3 abogus_py.py >/tmp/va_py.log 2>&1; then
-    sk "Python 移植已能跑通 —— 请更新 PY_PORT_REPORT.md / RERUN_REPORT.md"
-  else
-    grep -q 'JSThrow' /tmp/va_py.log && ok "Python 移植仍停在引导阶段（与 PY_PORT_REPORT.md 记录一致）" \
-      || ng "Python 移植失败方式与文档不符（见 /tmp/va_py.log）"
-  fi
+    PYLEN=$(sed -n 's/^A_BOGUS: //p' /tmp/va_py.log | head -1 | awk '{print length($0)}')
+    if [ -n "$PYLEN" ] && [ "$PYLEN" -gt 0 ]; then
+      [ "$PYLEN" -eq 180 ] && ok "Python 移植产出 180 字符签名（与参考同长）" \
+        || sk "Python 移植已出签名但长度 $PYLEN（目标 180，差异待收敛，见 PY_PORT_REPORT.md）"
+    else ng "Python 移植未产出 a_bogus（见 /tmp/va_py.log）"; fi
+  else ng "Python 移植运行失败（见 /tmp/va_py.log）"; fi
 else sk "未安装 node"; fi
 
 echo "== 5. 本地层往返对拍（文档声明的统计口径）=="

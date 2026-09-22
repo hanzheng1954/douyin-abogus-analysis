@@ -22,7 +22,7 @@ sys.path.insert(0, DIR)
 import abogus_vm as V
 from abogus_vm import (JSObj, JSArray, JSFunction, JSError, DWrapper, getprop, setprop,
                        call_fn, js_str, js_num, js_bool, to_int32, num_to_str, strict_eq,
-                       MISSING, Trace)
+                       MISSING, Trace, OBJECT_PROTO)
 import abogus_env as E
 from vm_boot import BOOT
 
@@ -197,6 +197,15 @@ def build_env(vm):
     # 带原型链的 XHR
     store['XMLHttpRequest'] = _make_xhr_class()
 
+    # 浏览器宿主对象都有自己的 prototype：VM 会往 navigator.__proto__ / screen.__proto__ 上打补丁
+    # （例如程序 154 写 navigator.__proto__.vendorSubs）。若 proto 为 None，__proto__ 就是 undefined，
+    # 赋值会抛 "Cannot set properties of undefined"。这里给每个宿主对象补一个 prototype 对象。
+    for _k in ('navigator', 'location', 'document', 'screen', 'history', 'performance',
+               'localStorage', 'sessionStorage', 'crypto', 'XMLHttpRequest'):
+        _o = store.get(_k)
+        if isinstance(_o, JSObj) and not isinstance(_o, V.Builtin) and _o.proto is None:
+            _o.proto = JSObj(tag='%sPrototype' % (getattr(_o, '_tag', 'Object'),), proto=OBJECT_PROTO)
+
     vm.rnd = E.RandomSource(12345)
     return store, proxy
 
@@ -252,8 +261,8 @@ def _install_url_protos(store):
     E.JSURLSearchParams.__init__ = usp_init
 
     url_proto = V.Builtin()
-    url_proto.props['toString'] = JSFunction('toString', lambda t, a: t._u)
-    url_proto.props['toJSON'] = JSFunction('toJSON', lambda t, a: t._u)
+    url_proto.props['toString'] = JSFunction('toString', lambda t, a: t.live_href())
+    url_proto.props['toJSON'] = JSFunction('toJSON', lambda t, a: t.live_href())
     E.JSURL.__bases__ = (JSObj,)
     _orig_url_init = E.JSURL.__init__
 
@@ -439,7 +448,12 @@ def run(trace_on=False, stop_phase=None, limit=None):
         if entry[0] == 'alias':
             ns[entry[1]] = ns.get(entry[2])
         else:
-            spec = {str(slot): (kind, name) for slot, kind, name in entry[2]}
+            # 同一槽位常常同时有 getter 与 setter（JS: get 18(){return vr} / set 18(t){vr=t}），
+            # 必须两个都留；旧写法用 dict 推导式会被后一条覆盖，导致读状态槽恒为 undefined。
+            spec = {}
+            for slot, kind, name in entry[2]:
+                g, s = spec.get(str(slot), (None, None))
+                spec[str(slot)] = (name, s) if kind == 'get' else (g, name)
             st = V.StateObj(ns, spec)
             vm.X(entry[1], None, [], st)
     if stop_phase == 'boot':
@@ -466,7 +480,9 @@ def run(trace_on=False, stop_phase=None, limit=None):
     url = xhr.props.get('_url', '')
     bogus = None
     if 'a_bogus=' in url:
-        bogus = url.split('a_bogus=', 1)[1].split('&', 1)[0]
+        # 与 rerun_sign.js 的对拍口径一致：先 decodeURIComponent 再比较
+        from urllib.parse import unquote
+        bogus = unquote(url.split('a_bogus=', 1)[1].split('&', 1)[0])
     return {'trace': tr, 'ns': ns, 'vm': vm, 'store': store, 'xhr': xhr, 'url': url, 'bogus': bogus}
 
 

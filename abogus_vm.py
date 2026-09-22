@@ -435,7 +435,10 @@ class GlobalRef(JSObj):
 
 
 class StateObj(JSObj):
-    """模块级 J(pid, undefined, arguments, {...}) 状态对象（槽位走模块变量）。"""
+    """模块级 J(pid, undefined, arguments, {...}) 状态对象（槽位走模块变量）。
+
+    spec[slot] = (getter 变量名 or None, setter 变量名 or None) —— 同一槽位可同时有 get/set。
+    """
     _tag = 'Object'
 
     def __init__(self, ns, spec):
@@ -447,17 +450,20 @@ class StateObj(JSObj):
         sp = self.spec.get(k)
         if sp is None:
             return MISSING
-        return self.ns.get(sp[1]) if sp[0] == 'get' else None
+        gname = sp[0]
+        if gname is None:
+            return None                     # 只有 setter 时，JS 读该属性得 undefined
+        return self.ns.get(gname)
 
     def own_set(self, k, v):
         sp = self.spec.get(k)
         if sp is None:
             self.props[k] = v
             return
-        if sp[0] == 'set':
-            self.ns[sp[1]] = v
-            return
-        raise JSError('TypeError', 'Cannot set property ' + k + ' of #<Object> which has only a getter')
+        sname = sp[1]
+        if sname is None:
+            raise JSError('TypeError', 'Cannot set property ' + k + ' of #<Object> which has only a getter')
+        self.ns[sname] = v
 
     def own_keys(self):
         return []
@@ -690,7 +696,8 @@ class Ctx(object):
 
     # --- g(t, r, e, n)：就地切帧（调用方保存 8 元组） ---
     def enter_frame(self, pid, this, args, state):
-        self.h.append([self.o, self.i, self.u, self.s, self.c, self.a, self.f, self.l])
+        # 第 9 项 pid 是 Python 侧簿记：JS 里程序身份隐含在 o（字节码数组）里，移植后单独保存
+        self.h.append([self.o, self.i, self.u, self.s, self.c, self.a, self.f, self.l, self.pid])
         entry = ZT[pid]
         arity = entry[1]
         n = min(len(args), arity)
@@ -767,7 +774,7 @@ class Ctx(object):
             if self.h:
                 g = self.h.pop()
                 self.push(self.l)
-                (self.o, self.i, self.u, self.s, self.c, self.a, self.f, self.l) = g
+                (self.o, self.i, self.u, self.s, self.c, self.a, self.f, self.l, self.pid) = g
                 return True
             return False
         if self.f == 3:
@@ -785,7 +792,7 @@ class Ctx(object):
                         return True
             if self.h:
                 g = self.h.pop()
-                (self.o, self.i, self.u, self.s, self.c, self.a) = g[:6]
+                (self.o, self.i, self.u, self.s, self.c, self.a, self.pid) = g[:6] + g[8:]
                 return self.unwind()
             raise JSThrow(self.l)
         return True
@@ -1037,7 +1044,9 @@ class Ctx(object):
                 N = o[self.a]; x = o[self.a + 1]; self.a += 2
                 U = self.s
                 while N > 0:
-                    U = U.items[0]
+                    # JS 是 U = U[0]（普通属性访问，会触发 state 对象上的 getter）；
+                    # 旧实现 U.items[0] 只能在 JSArray 上工作，遇到带 accessor 的 state 就会走错链。
+                    U = getprop(U, '0')
                     N -= 1
                 setprop(U, str(x), self.pop())
             elif op == 55:
@@ -1070,7 +1079,9 @@ class Ctx(object):
                 N = o[self.a]; x = o[self.a + 1]; self.a += 2
                 U = self.s
                 while N > 0:
-                    U = U.items[0]
+                    # JS 是 U = U[0]（普通属性访问，会触发 state 对象上的 getter）；
+                    # 旧实现 U.items[0] 只能在 JSArray 上工作，遇到带 accessor 的 state 就会走错链。
+                    U = getprop(U, '0')
                     N -= 1
                 self.push(U)
                 self.push(str(x))
@@ -1120,7 +1131,9 @@ class Ctx(object):
                 N = o[self.a]; x = o[self.a + 1]; self.a += 2
                 U = self.s
                 while N > 0:
-                    U = U.items[0]
+                    # JS 是 U = U[0]（普通属性访问，会触发 state 对象上的 getter）；
+                    # 旧实现 U.items[0] 只能在 JSArray 上工作，遇到带 accessor 的 state 就会走错链。
+                    U = getprop(U, '0')
                     N -= 1
                 self.push(getprop(U, str(x)))
             elif op == 75:
