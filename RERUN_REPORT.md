@@ -136,3 +136,19 @@ URLSearchParams/_method/_url 钩子与 `bdmsInvokeList` 读取的 send 路径。
 
 补充：`track_douyin.py` 首次跑时曾把 CDN 偶发失败（bdms http=0）误判为内容变更；
 现已加 3 次退避重试 + `unreachable` 归类（拉取失败退出码 2 且不刷新基线）。
+
+## 十、从公开仓库「零起点」复现验证
+
+把已推送的仓库重新 clone 到干净目录后，逐条跑通（不依赖本机任何残留状态）：
+
+    git clone https://github.com/hanzheng1954/douyin-abogus-analysis.git /tmp/verify_clone
+    cd /tmp/verify_clone
+    python3 dump_vm.py --diff        # vm_Z 1001 / vm_z_full 796 / vm_z_index 796 全部一致 ✅
+    node rerun_dump.js               # 程序映射 103:203 105:154 106:95 107:238 132:135 150:1834 ✅
+    python3 disasm.py 150            # 与 disasm_150.txt 一致 ✅
+    python3 disasm.py 277 272 274 251 246 96   # 与 disasm_helpers.txt 一致 ✅
+    node rerun_sign.js --fixed-entropy --full  # 180 字符，前缀 mvljXtXiE25fKV/SYCaK7G/l… ✅
+    python3 track_douyin.py          # 本地层 Z=1001/796、无变化 ✅
+
+结论：仓库自身即自包含可复现（Node 侧仅需 `node`，Python 侧仅需标准库），
+不再依赖作者机器的绝对路径与未入库脚本。
