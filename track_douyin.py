@@ -10,7 +10,7 @@
 
 只做 GET，不调用任何业务接口、不带 cookie；仅用于公开静态资源与首页的版本巡检。
 """
-import argparse, hashlib, json, os, re, ssl, sys, urllib.request, urllib.error
+import argparse, hashlib, json, os, re, ssl, sys, time, urllib.request, urllib.error
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BASELINE = os.path.join(BASE, 'track_baseline.json')
@@ -79,7 +79,7 @@ KEY_STRINGS = {'Z[220]': 220, 'Z[247]': 247, 'Z[262]': 262, 'Z[214]': 214, 'Z[21
 VERSION_RE = re.compile(r'\b\d+\.\d+\.\d+\.\d+(?:-fix\.\d+)?\b')
 
 
-def fetch(url, timeout=30):
+def _fetch_once(url, timeout=30):
     ctx = ssl.create_default_context()
     req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': '*/*'})
     try:
@@ -93,6 +93,18 @@ def fetch(url, timeout=30):
 
 def sha(b):
     return hashlib.sha256(b).hexdigest()
+
+
+def fetch(url, timeout=30, attempts=3, pause=(2, 5)):
+    """带重试的 GET；彻底失败返回 (0, err)。CDN 偶发 0 状态不应被当成内容变更。"""
+    code, data = 0, b''
+    for k in range(attempts):
+        code, data = _fetch_once(url, timeout)
+        if code == 200 and data:
+            return code, data
+        if k < attempts - 1:
+            time.sleep(pause[min(k, len(pause) - 1)])
+    return code, data
 
 
 def local_structure():
@@ -139,33 +151,36 @@ def snapshot(save_bodies=None):
     for name, url, local in TARGETS:
         code, data = fetch(url)
         entry = {'url': url, 'status': code, 'bytes': len(data)}
-        if data and not data.startswith(b'ERR'):
-            entry['sha256'] = sha(data)
-            entry['versions_seen'] = sorted(set(VERSION_RE.findall(data.decode('utf-8', 'replace'))))[:12]
-            fps = {}
-            text = data.decode('utf-8', 'replace')
-            for label, pat in FINGERPRINTS.get(name, []):
-                m = re.search(pat, text)
-                if label.endswith('_len'):                       # 取最长匹配的长度（blob 等）
-                    runs = re.findall(pat, text)
-                    fps[label] = max((len(r) for r in runs), default=0)
-                elif m and m.groups():                           # 带捕获组 = 提取版本/常量值
-                    fps[label] = m.group(1)
-                else:
-                    fps[label] = bool(m)
-            if fps:
-                entry['fingerprints'] = fps
-            if save_bodies:
-                os.makedirs(save_bodies, exist_ok=True)
-                with open(os.path.join(save_bodies, name + '.js'), 'wb') as fh:
-                    fh.write(data)
+        if code != 200 or not data or data.startswith(b'ERR'):
+            entry['unreachable'] = True
+            state['targets'][name] = entry
+            continue
+        entry['sha256'] = sha(data)
+        entry['versions_seen'] = sorted(set(VERSION_RE.findall(data.decode('utf-8', 'replace'))))[:12]
+        fps = {}
+        text = data.decode('utf-8', 'replace')
+        for label, pat in FINGERPRINTS.get(name, []):
+            m = re.search(pat, text)
+            if label.endswith('_len'):                       # 取最长匹配的长度（blob 等）
+                runs = re.findall(pat, text)
+                fps[label] = max((len(r) for r in runs), default=0)
+            elif m and m.groups():                           # 带捕获组 = 提取版本/常量值
+                fps[label] = m.group(1)
+            else:
+                fps[label] = bool(m)
+        if fps:
+            entry['fingerprints'] = fps
+        if save_bodies:
+            os.makedirs(save_bodies, exist_ok=True)
+            with open(os.path.join(save_bodies, name + '.js'), 'wb') as fh:
+                fh.write(data)
         state['targets'][name] = entry
     state['local'] = local_structure()
     return state
 
 
 def diff(old, new):
-    rows = []
+    rows, fails = [], []
     oh, nh = old.get('homepage', {}), new.get('homepage', {})
     if oh.get('sha256') != nh.get('sha256'):
         rows.append(('homepage', 'sha256', oh.get('sha256', '-')[:16], nh.get('sha256', '-')[:16]))
@@ -182,6 +197,13 @@ def diff(old, new):
     for name in sorted(set(old.get('targets', {})) | set(new.get('targets', {}))):
         o = old.get('targets', {}).get(name, {})
         n = new.get('targets', {}).get(name, {})
+        # 拉取失败（CDN 抖动/限流）不算内容变更，单独归入 fails
+        if n.get('unreachable') or (n and not n.get('sha256')):
+            fails.append((name, '拉取失败', o.get('status', '-'), n.get('status', '-')))
+            continue
+        if o.get('unreachable'):
+            fails.append((name, '旧基线不可达，跳过对比', o.get('status', '-'), n.get('status', '-')))
+            continue
         if o.get('status') != n.get('status'):
             rows.append((name, 'http', o.get('status', '-'), n.get('status', '-')))
         if o.get('sha256') != n.get('sha256'):
@@ -212,7 +234,7 @@ def diff(old, new):
         a, b = ovm.get('key_programs', {}).get(key), nvm.get('key_programs', {}).get(key)
         if a != b:
             rows.append(('local/vm', f'bcLen 程序 {key}', a, b))
-    return rows
+    return rows, fails
 
 
 def main():
@@ -246,22 +268,31 @@ def main():
 
     if not old:
         print('\n[!] 无基线，用 --update 建立基线')
-        rows = []
+        rows, fails = [], []
     else:
-        rows = diff(old, new)
+        rows, fails = diff(old, new)
         print('\n== 变化 ==')
         if not rows:
             print('无变化 ✅')
         else:
             for r in rows:
                 print(f"  [{r[0]}] {r[1]}: {r[2]} -> {r[3]}")
+        if fails:
+            print('\n== 拉取失败（不计入变更）==')
+            for f in fails:
+                print(f"  [{f[0]}] {f[1]}: http {f[2]} -> {f[3]}")
 
     if args.json:
         json.dump(new, open(args.json, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, sort_keys=True)
     if args.update:
-        json.dump(new, open(BASELINE, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, sort_keys=True)
-        print(f'\n已更新基线 {os.path.relpath(BASELINE, BASE)}')
-    return 1 if rows else 0
+        if fails:
+            print('\n[!] 有目标拉取失败，本次不刷新基线（避免把失败写进基线）')
+        else:
+            json.dump(new, open(BASELINE, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, sort_keys=True)
+            print(f'\n已更新基线 {os.path.relpath(BASELINE, BASE)}')
+    if rows:
+        return 1
+    return 2 if fails else 0
 
 
 if __name__ == '__main__':
