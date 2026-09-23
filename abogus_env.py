@@ -657,6 +657,13 @@ def install_builtins(globs, vm):
                                getprop(desc, 'set') if has_set else None)
         elif has_val:
             setprop(tgt, key, getprop(desc, 'value'))
+        # 记录属性特性（value/get/set 之外的 writable/enumerable/configurable）
+        _kw = {}
+        for _name in ('writable', 'enumerable', 'configurable'):
+            if isinstance(desc, JSObj) and desc.own_get(_name) is not MISSING:
+                _kw[_name] = js_bool(getprop(desc, _name))
+        if _kw and isinstance(tgt, JSObj):
+            tgt.set_attrs(key, **_kw)
         return tgt
 
     def o_keys(t, a):
@@ -675,16 +682,18 @@ def install_builtins(globs, vm):
         if not isinstance(o, JSObj):
             return None
         if k in o.accessors:
+            at = o.attrs_of(k)
             d.props['get'] = o.accessors[k][0]
             d.props['set'] = o.accessors[k][1]
-            d.props['enumerable'] = True
-            d.props['configurable'] = True
+            d.props['enumerable'] = at[1]
+            d.props['configurable'] = at[2]
             return d
         if k in o.props:
+            at = o.attrs_of(k)
             d.props['value'] = o.props[k]
-            d.props['writable'] = True
-            d.props['enumerable'] = True
-            d.props['configurable'] = True
+            d.props['writable'] = at[0]
+            d.props['enumerable'] = at[1]
+            d.props['configurable'] = at[2]
             return d
         return None
 

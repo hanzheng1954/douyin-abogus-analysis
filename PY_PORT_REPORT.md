@@ -177,8 +177,43 @@ Python 侧那 50 个值（栈切片，逆序后即为 slot 88 的前 50 字节�
 Node `[0,0,0,0,79]` / Python `[0,0,0,0,75]` —— 差异仍在第 5 个字节（随机值），
 且该值不是直接 `floor(Math.random()*256)`（36 次抽签里都找不到 75/79），需继续往 697 内部追。
 
-**下一步最小动作**：
-1. 给 Python 的 `JSObj` 加属性特性位（writable/configurable/enumerable），让 `Object.defineProperty`
-   与 `getOwnPropertyDescriptor` 如实反映；再把 SDK 里把 `_Ax` 置为不可写的那条路径补上（对齐后 s[12] 变 3）。
-2. 在程序 697 内对 `s[4..7]`（即返回数组的前 4 个 0 与第 5 个随机值）打点，找到第 5 个元素的产出指令
-   与其随机来源（`Math.random` / `crypto.getRandomValues` / 时间派生），两侧对齐后即可收口到 0 差异。
+### 九之七、属性特性位已实现 → 差异 9 → **4 位**
+
+按 §九之六 的结论给对象模型补上属性特性（`JSObj.attrs`：writable/enumerable/configurable），
+并让 `Object.defineProperty` 记录、`Object.getOwnPropertyDescriptor` 如实报告、赋值尊重 writable：
+
+```
+abogus_vm.JSObj      + attrs / attrs_of / set_attrs / is_writable；own_set 对非可写属性静默忽略
+abogus_env.o_defineProperty  + 记录 writable/enumerable/configurable（只给特性时不再改动现值）
+abogus_env.o_gopd            + 报告记录的特性（此前恒为 true）
+```
+
+效果（同一对拍命令）：
+
+    修前：字符差异 9 位（字节 11/125）
+    修后：字符差异 **4 位**（字节 6/125：25, 39, 40, 41, 123, 124）
+
+说明 `window.onwheelx._Ax` 的 `writable:false` 现在两侧一致，可写性探针给出同样的 s[12]=3。
+
+### 九之八、剩余 4 位仍集中在辅助程序 697 的输出上
+
+两侧 150 的槽 88/90 再次逐字节比对（属性特性修复后）：
+
+    slot 88 (85B): 差异位 [10, 21, 84]   → node 79/8/20  vs py 75/44/52
+    slot 90 (113B): 差异位 [13, 28, 112] → node 77/137/20 vs py 73/173/52
+
+注意 `79 vs 75`（slot 88 idx10）与 `77 vs 73`（slot 90 idx13）是同一个源值加了不同常量，
+即**根因仍是一个值**。程序 697 的执行结构已完整读出：
+
+    s[2] = 701()            → [0,0,0,0]
+    s[3] = 691(s[2], 4)     → [0,0,0,0]
+    s[4..7] = s[3][0..3]
+    s[8..14] = 716()/704()/724()/722()/714()/727()/720()   ← 7 个环境能力布尔
+    s[15] = 1
+
+Python 侧这 7 个布尔为 `[T, F, T, F, F, T, F]`；Node 侧的对应返回值因打点被同 pid 的其他调用淹没，
+尚未逐项拿到（下一步用「CALL697 序列 + 紧随其后的 RET 值」配对即可，已确认两侧调用序列一致：
+701→691→716→704→724→722→714→727→720）。
+
+**下一步最小动作**：在 Node 侧把 697 调用的 7 个能力布尔按顺序取出来与 `[T,F,T,F,F,T,F]` 对齐，
+差异位对应的能力检测（多半又是某个 shim 面：Worker/WebGL/plugins/权限一类）补上后即可收口到 0 差异。

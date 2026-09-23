@@ -277,9 +277,32 @@ class JSObj(object):
     def __init__(self, props=None, proto=None, tag=None):
         self.props = dict(props) if props else {}
         self.accessors = {}
+        # 属性特性表：key -> [writable, enumerable, configurable]
+        # 普通赋值/字面量属性默认 (True, True, True)；Object.defineProperty 会写入真实特性。
+        # 之所以需要它：bdms 会用 getOwnPropertyDescriptor(window.onwheelx,'_Ax').writable === false
+        # 来判断属性是否被锁死（可写性探针），缺失特性位会让环境校验分支走错。
+        self.attrs = {}
         self.proto = proto
         if tag:
             self._tag = tag
+
+    def attrs_of(self, k, default=(True, True, True)):
+        a = self.attrs.get(k)
+        return list(a) if a else list(default)
+
+    def set_attrs(self, k, **kw):
+        a = self.attrs_of(k)
+        for i, name in enumerate(('writable', 'enumerable', 'configurable')):
+            if name in kw and kw[name] is not None:
+                a[i] = bool(kw[name])
+        if any(a):
+            self.attrs[k] = a
+        else:
+            self.attrs[k] = a
+        return a
+
+    def is_writable(self, k):
+        return self.attrs_of(k)[0]
 
     def own_get(self, k):
         if k in self.accessors:
@@ -296,6 +319,8 @@ class JSObj(object):
                 raise JSError('TypeError', "Cannot set property %s of #<Object> which has only a getter" % k)
             call_fn(st, self, [v])
             return
+        if k in self.props and not self.is_writable(k):
+            return          # 非可写属性：静默忽略（非严格模式语义）
         self.props[k] = v
 
     def own_del(self, k):
