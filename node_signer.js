@@ -81,3 +81,16 @@ if (process.env.DSH_KEEP_NODE_GLOBALS !== '1') {
     try { Object.defineProperty(globalThis, _hidden, { value: undefined, writable: true, configurable: true }); } catch (e) {}
   }
 }
+
+// ===== 伪装 Error.stack：bdms 会用 new Error().stack 检测 Node =====
+// 程序 704 用正则匹配 localhost / IPv4/IPv6 / `Module._compile|Object.Module|Module.load|Function.Module._load`
+// 来判断是否跑在 Node 里；浏览器的 stack 不含这些帧。不伪装会让环境能力位多出一位（校验和 79 vs 75）。
+try {
+  Object.defineProperty(Error.prototype, 'stack', {
+    configurable: true,
+    get() { return 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1'; },
+    set(_v) {},
+  });
+} catch (e) {}
+try { Error.captureStackTrace = undefined; } catch (e) {}
+try { Error.prepareStackTrace = undefined; } catch (e) {}

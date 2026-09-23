@@ -117,6 +117,17 @@ src = src.replace('globalThis.__z = z.slice();', 'globalThis.__FLAGS = z.map(fun
 try { eval(src); } catch (e) { console.log('LOAD ERR:', String(e).slice(0, 400)); }
 console.log('bdms:', !!globalThis.window.bdms, '| z:', Array.isArray(globalThis.__z) ? globalThis.__z.length : 'none');
 
+// 与 node_signer.js 一致：伪装 Error.stack，避免 bdms 的程序 704 通过 stack 检测出 Node
+try {
+  Object.defineProperty(Error.prototype, 'stack', {
+    configurable: true,
+    get() { return 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1'; },
+    set(_v) {},
+  });
+} catch (e) {}
+try { Error.captureStackTrace = undefined; } catch (e) {}
+try { Error.prepareStackTrace = undefined; } catch (e) {}
+
 // 与 node_signer.js 一致：bdms 会通过 global/process 检测 Node 环境（VM 程序 742 → 校验和 bit4），
 // 真实浏览器两者都不存在，这里在加载完成后隐藏，保证探针与参考实现同一套环境语义。
 if (PROC.env.DSH_KEEP_NODE_GLOBALS !== '1') {

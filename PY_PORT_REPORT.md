@@ -242,3 +242,34 @@ Python 侧这 7 个布尔为 `[T, F, T, F, F, T, F]`；Node 侧的对应返回�
 1. 在 Python 侧对 pid=697 同时打点 op 16 / op 20（数组下标写入），拿到下标 0..4 的写入值与 pc；
 2. 找到第 5 个元素（rand，Node 79 / Python 75）的产出指令后，把它的输入端（很可能是时间戳/另一个 helper
    返回值）在 Node 侧用现有可用锚点（CALL 分支 / `v[++p] = m` / 弹帧分支）取出并逐项对齐。
+
+### 九之十一、根因锁定：能力位图里 bit2 = 探测器 704（Error.stack 检测 Node）
+
+697 的尾段是**位图打包**（`op 16 SET_TOP` 打点逐条可见）：
+
+    s[15] = 1
+    s[15] |= (+s[8])  << 1     … s[11] << 4
+    s[15] |= (+s[12]) << 5
+    s[15] |= (+s[13]) << 6
+    s[15] |= (+s[14]) << 7
+    → 返回 [0,0,0,0, s[15]]
+
+Python 侧：`s[8..14] = [T,F,T,F,F,T,F]` → `1+2+8+64 = 75` ✓（= 实测的 75）
+Node 侧 79 = 75 + 4 → **bit2 = s[9] = 探测器 704 在 Node 里返回 True**。
+
+程序 704 就是「是否跑在 Node 里」的经典检测：用 `new Error().stack` 匹配
+`((file|https?)://localhost)`、IPv4/IPv6、`Module._compile|Object.Module|Module.load|Function.Module._load`。
+
+**已做的保真修复**：在 `node_signer.js` / `abogus_probe.js` 里把 `Error.prototype.stack` 伪装成浏览器形态
+（返回 `Error\n    at https://www.douyin.com/...` 且不写回），并把 `Error.captureStackTrace` /
+`Error.prepareStackTrace` 置空。
+
+**效果与遗留**：参考值随之改变，但差异仍停在 **4 字符 / 6 字节**（位置不变），且探针侧 `s[37]` 仍是
+`[0,0,0,0,79]` → 说明该伪装**没有在 VM 内部生效**（很可能 bundler 在模块初始化时就取了
+`Error`/`Error.prototype.stack` 的快照，或者用了 `Error.captureStackTrace` 的本地引用）。
+下一步：在伪装生效的前提下打印 `new Error().stack` 自检（确认 `typeof Error.captureStackTrace === 'undefined'`
+与 stack 文本），必要时改为在 **eval 之前**就把 `Error.prototype.stack` 覆盖掉（即在 node_signer 里
+注入到 `src` 顶部，而不是 eval 之后再改）。
+
+至此整条链已完整：`[0,0,0,0,rand]` 的 rand 不是随机数，而是 **7 个环境能力位的位图**，
+剩余差异 = 其中的 Node 环境检测位（bit2）。
