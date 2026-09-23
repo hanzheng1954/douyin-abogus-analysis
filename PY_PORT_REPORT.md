@@ -145,6 +145,40 @@ Python 侧那 50 个值（栈切片，逆序后即为 slot 88 的前 50 字节�
 顺带做了一处真实性修复并保留：bdms 的 `jr()`（监控上报）首行 `if (Math.random() <= t)` 每次调用都会消耗一次
 `Math.random`，移植里原先不消耗；已让 `_make_jr` 同步消耗一次（实测对本例签名无影响，属正确的熵流对齐）。
 
-**下一步最小动作**：在 150 里对 `s[37]`（熵数组）的填充处打点 —— 它既不是 `SET`（op14）写的，也不是帧参数，
-大概率由某个辅助程序返回或 `concat` 构造；把两侧该处的随机值来源（`Math.random` / `crypto.getRandomValues`）
-与抽取序号对上，同时确认 `s[12]` 的产出指令，即可收口到 0 差异。
+### 九之六、两条分歧的产出点已各自定位（都能落到具体指令）
+
+`SW37` 打点（S_WRITE chain=0 slot=12/37）给出两个产出点：
+
+    150 pc=74/75   s[12] = 3 或 12      ← 可写性探针的结果
+    150 pc=503/504 s[37] = 辅助程序返回的 [0,0,0,0,rand]
+
+**(a) s[12]：`window.onwheelx._Ax` 的属性描述符不一致**
+
+150 pc=24~74 的逻辑是：
+
+    d = Object.getOwnPropertyDescriptor(window.onwheelx, '_Ax')
+    s[12] = (d.writable === false) ? 3 : 12
+
+两侧实测（同一处打点）：
+
+| 环境 | 描述符 | 结果 |
+|---|---|---|
+| Node | `{value:'0X21', writable:false, enumerable:true, configurable:true}` | s[12] = **3** |
+| Python | `{value:'0X21', writable:True, enumerable:True, configurable:True}` | s[12] = **12** |
+
+即 **Python 的对象模型没有实现属性特性（writable）**：VM 的 `DEF_VAL`(op 67) 在 JS 里虽然写的是
+`writable:true`，但 SDK 另有一条把 `_Ax` 定义成不可写的路径（Node 侧生效），Python 侧只当作普通属性，
+`getOwnPropertyDescriptor` 一律报 `writable:true`。
+
+**(b) s[37]：熵数组来自辅助程序 697**
+
+150 pc=497-503 是 `s[37] = call(s[0][0][0])`，被调 pid = **697**（arity=0，bcLen=253；
+内部先调 `s[0][0][0]`，再 `fn(arr, 4)` 构造 5 元素数组）。两侧返回值：
+Node `[0,0,0,0,79]` / Python `[0,0,0,0,75]` —— 差异仍在第 5 个字节（随机值），
+且该值不是直接 `floor(Math.random()*256)`（36 次抽签里都找不到 75/79），需继续往 697 内部追。
+
+**下一步最小动作**：
+1. 给 Python 的 `JSObj` 加属性特性位（writable/configurable/enumerable），让 `Object.defineProperty`
+   与 `getOwnPropertyDescriptor` 如实反映；再把 SDK 里把 `_Ax` 置为不可写的那条路径补上（对齐后 s[12] 变 3）。
+2. 在程序 697 内对 `s[4..7]`（即返回数组的前 4 个 0 与第 5 个随机值）打点，找到第 5 个元素的产出指令
+   与其随机来源（`Math.random` / `crypto.getRandomValues` / 时间派生），两侧对齐后即可收口到 0 差异。

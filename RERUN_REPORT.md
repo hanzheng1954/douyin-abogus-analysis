@@ -17,7 +17,7 @@
 | 8 | SM3 管线 | trace 复核 | ✅ `ret=A[32]` 恰好 5 次，第 5 次输入 `"9B6/i1FccxYTYE=="` 与报告一致 |
 | 9 | 钩子链 id | trace 复核 | ✅ `E 105`（open，第 1 行）→ `E 107`（send，第 135 行） |
 | 10 | 风控现状 | 单次无签名 detail 请求 | 403 `Blocked by ArgusSecurityPlugin Uifid Not Found`（与报告「需 uifid」一致） |
-| 11 | Python 移植 | `python3 abogus_py.py`（忠实路线）/ `abogus_full.py`（旧路线） | ⏳ 长度 168 两侧一致；5 次 SM3 输入、37 次熵抽取、程序 280 入参均已逐一对齐，**仅剩 9 个字符差异**（已定位到 150 的熵数组 `[0,0,0,0,rand]`：Node 79 / Python 75，见 §五 与 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) §九之二~九之五） |
+| 11 | Python 移植 | `python3 abogus_py.py`（忠实路线）/ `abogus_full.py`（旧路线） | ⏳ 长度 168 两侧一致；5 次 SM3 输入、37 次熵抽取、程序 280 入参均已逐一对齐，**仅剩 9 个字符差异**（已定位到两处产出点：`s[12]`=可写性探针 3/12（属性特性 writable 未建模）、`s[37]`=辅助程序 697 返回的熵数组 `[0,0,0,0,79/75]`，见 §五 与 [PY_PORT_REPORT.md](PY_PORT_REPORT.md) §九之二~九之六） |
 
 ## 一、线上重抓（第 1 项）
 
