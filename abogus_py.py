@@ -438,7 +438,7 @@ def run(trace_on=False, stop_phase=None, limit=None):
     vm.trace = tr
     ns = {}
     ns['gr'] = E.SM3Class()
-    ns['jr'] = _make_jr(ns)
+    ns['jr'] = _make_jr(ns, vm)
     bdms_mod = JSObj()
     bdms_mod.props['getReferer'] = JSFunction('Or', lambda t, a: '')
     store['bdms'] = bdms_mod
@@ -497,10 +497,15 @@ def construct_xhr(store):
     return E.FakeXHRInstance(proto)
 
 
-def _make_jr(ns):
+def _make_jr(ns, vm=None):
     def jr(this, a):
         thr = js_num(a[0]) if a else 0.001
         payload = a[1] if len(a) > 1 else None
+        # 真实性对齐：bdms 的 jr() 首行是 `if (Math.random() <= t)`，即**每次调用都会消耗一次
+        # Math.random**（监控上报采样）。移植里若不消耗，后续熵数组会整体错位一位，
+        # 表现为载荷 [0,0,0,0,rand] 的 rand 取到相邻随机值（实测 Node 79 / Python 75）。
+        if vm is not None and getattr(vm, 'rnd', None) is not None:
+            vm.rnd.random()
         vr = ns.get('vr')
         if not isinstance(vr, JSObj):
             raise JSError('TypeError', "Cannot read properties of undefined (reading 'slU')")
