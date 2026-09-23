@@ -109,6 +109,26 @@ function summ1(x) {
 }
 function summ(e) { if (!e) return ''; const a = []; for (let i = 0; i < Math.min(e.length, 6); i++) a.push(summ1(e[i])); return a.join(' , '); }
 
+// ===== 伪装 Error.stack：bdms 会用 new Error().stack 检测 Node（程序 704）=====
+// V8 里 stack 是每个 Error 实例自带的属性，光改 Error.prototype 无效，必须替换构造器。
+// 浏览器 stack 不含 localhost/IP/`Module._compile` 这些帧 —— 不伪装会让能力位图多出 bit2（校验和 79 vs 75）。
+(function () {
+  const RealError = Error;
+  function BrowserError(...args) {
+    const e = new RealError(...args);
+    Object.defineProperty(e, 'stack', {
+      value: 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1',
+      writable: true, configurable: true, enumerable: false,
+    });
+    return e;
+  }
+  BrowserError.prototype = RealError.prototype;
+  BrowserError.captureStackTrace = undefined;
+  BrowserError.prepareStackTrace = undefined;
+  try { Object.defineProperty(globalThis, 'Error', { value: BrowserError, writable: true, configurable: true }); }
+  catch (e) { globalThis.Error = BrowserError; }
+})();
+
 // ===== 加载（注入 X 入口日志）=====
 let src = fs.readFileSync(__dirname + '/bdms_patched.js', 'utf-8');
 // 在解释器入口记录 X 调用（_tid 由 __TRC.enter 已给出，这里只记录原始 arguments 快照）

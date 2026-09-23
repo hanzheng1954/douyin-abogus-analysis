@@ -1,10 +1,11 @@
 # 纯 Python 移植 abogus 报告（忠实解释器 + 逐点对拍）
 
-> 最新状态（第二轮续修）：**长度已对齐、熵已对齐，仅剩 13/168 字符差异**。
-> `python3 abogus_py.py` 与 `node rerun_sign.js --fixed-entropy --full` 现在都是 168 字符，
-> 差异集中在环境校验和（bitmask）派生的一段。
+> 最新状态：**已完成** —— `python3 abogus_py.py` 与 `node rerun_sign.js --fixed-entropy --full`
+> 输出**逐字符完全一致（168 字符，0 差异）**，三次独立进程复现一致；`./verify_all.sh` 全绿
+> （PASS=10 FAIL=0）。
 
-> 历史轨迹：卡在引导 J(232)→244 → 修 10 处后跑通并产出 168 字符 → 本轮再修 2 处关键差异。
+> 关键转折：载荷里的「熵字节」并不是随机数，而是 **7 个环境能力位的位图**；
+> 最后一个差异位来自 bdms 用 `new Error().stack` 检测 Node（程序 704）。
 
 ## 零、当前差距（一句话）
 
@@ -273,3 +274,45 @@ Node 侧 79 = 75 + 4 → **bit2 = s[9] = 探测器 704 在 Node 里返回 True**
 
 至此整条链已完整：`[0,0,0,0,rand]` 的 rand 不是随机数，而是 **7 个环境能力位的位图**，
 剩余差异 = 其中的 Node 环境检测位（bit2）。
+
+### 九之十二、收口：替换 Error 构造器 → **0 差异**
+
+§九之十一 里只改 `Error.prototype.stack` 无效，原因已查明：**V8 的 stack 是每个 Error 实例自带的属性**，
+`Error.prototype` 上并没有它，所以必须替换构造器本身。最终实现（`node_signer.js` / `abogus_probe.js`，
+均插在 `eval(src)` **之前**）：
+
+```js
+(function () {
+  const RealError = Error;
+  function BrowserError(...args) {
+    const e = new RealError(...args);
+    Object.defineProperty(e, 'stack', {
+      value: 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1',
+      writable: true, configurable: true, enumerable: false });
+    return e;
+  }
+  BrowserError.prototype = RealError.prototype;      // instanceof 仍成立
+  BrowserError.captureStackTrace = undefined;        // 浏览器没有
+  BrowserError.prepareStackTrace = undefined;
+  Object.defineProperty(globalThis, 'Error', { value: BrowserError, writable: true, configurable: true });
+})();
+```
+
+结果：
+
+    node rerun_sign.js --fixed-entropy --full   → mvUnDtXiE25fKV/SYCcCHG/lc62ArBLfsasdYfx…QrZ8k2b=
+    python3 abogus_py.py                        → mvUnDtXiE25fKV/SYCcCHG/lc62ArBLfsasdYfx…QrZ8k2b=
+    逐字符差异 0；三次独立进程复现一致；verify_all.sh PASS=10 FAIL=0
+
+### 九之十三、整条根因链（回顾）
+
+| 轮次 | 现象 | 根因 | 修法 |
+|---|---|---|---|
+| 1 | 引导 J(232)→244 抛 `JSThrow: undefined` | `defineProperty` 描述符无 value 时被写成 undefined（Babel 锁 prototype） | 描述符语义修正 |
+| 2 | 跑通但不出签名 / 长度差 12 | Node 全局 shim 静默失效（getter-only）+ LCG 未复刻 float64 | defineProperty 安装 + float64 语义 |
+| 3 | 差 13 字符 | 宿主对象缺 `Symbol.toStringTag`；Node 专有全局泄漏（global/process） | 补标签、隐藏 Node 全局 |
+| 4 | 差 9 字符 | 对象模型缺属性特性（writable），可写性探针判错 | `JSObj.attrs` + defineProperty/gopd 如实反映 |
+| 5 | 差 4 字符 | 能力位图 bit2 = 程序 704 的 `Error.stack` Node 检测 | 替换 `Error` 构造器，stack 伪装成浏览器形态 |
+
+结论：移植与原实现**字节级等价**（同 query、同固定熵、一进程一次签名）。真实浏览器环境下
+只需保证同样的环境语义（UA/屏幕/能力位），产出即为同一算法结果。

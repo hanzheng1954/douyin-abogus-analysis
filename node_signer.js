@@ -68,6 +68,28 @@ let src = fs.readFileSync(__dirname + '/bdms_patched.js', 'utf-8');
 // 操作码0调用失败日志
 src = src.replace('var m=n.apply(d,e);', 'var m;try{m=n.apply(d,e);}catch(_xe){console.log("OPCALL0FAIL",typeof n,n&&n.name,_xe.message);throw _xe;}');
 fs.writeFileSync(__dirname + '/bdms_node.js', src);
+
+// ===== 伪装 Error.stack：bdms 会用 new Error().stack 检测 Node（程序 704）=====
+// 注意：V8 里 stack 是每个 Error **实例自带**的属性（Error.prototype 上没有），
+//      所以必须替换 Error 构造器本身，光改 prototype 不生效（实测无效）。
+// 浏览器的 stack 不含 localhost/IP/`Module._compile` 这些帧，这里给出浏览器形态的文本。
+(function () {
+  const RealError = Error;
+  function BrowserError(...args) {
+    const e = new RealError(...args);
+    Object.defineProperty(e, 'stack', {
+      value: 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1',
+      writable: true, configurable: true, enumerable: false,
+    });
+    return e;
+  }
+  BrowserError.prototype = RealError.prototype;
+  BrowserError.captureStackTrace = undefined;
+  BrowserError.prepareStackTrace = undefined;
+  try { Object.defineProperty(globalThis, 'Error', { value: BrowserError, writable: true, configurable: true }); }
+  catch (e) { globalThis.Error = BrowserError; }
+})();
+
 try { eval(src); } catch (e) { console.log('LOAD ERR:', String(e).slice(0, 300)); }
 console.log('bdms:', !!global.window.bdms, '| z:', Array.isArray(global.__z) ? global.__z.length : 'none');
 
@@ -81,16 +103,3 @@ if (process.env.DSH_KEEP_NODE_GLOBALS !== '1') {
     try { Object.defineProperty(globalThis, _hidden, { value: undefined, writable: true, configurable: true }); } catch (e) {}
   }
 }
-
-// ===== 伪装 Error.stack：bdms 会用 new Error().stack 检测 Node =====
-// 程序 704 用正则匹配 localhost / IPv4/IPv6 / `Module._compile|Object.Module|Module.load|Function.Module._load`
-// 来判断是否跑在 Node 里；浏览器的 stack 不含这些帧。不伪装会让环境能力位多出一位（校验和 79 vs 75）。
-try {
-  Object.defineProperty(Error.prototype, 'stack', {
-    configurable: true,
-    get() { return 'Error\n    at https://www.douyin.com/aweme/v1/web/aweme/detail/:1:1'; },
-    set(_v) {},
-  });
-} catch (e) {}
-try { Error.captureStackTrace = undefined; } catch (e) {}
-try { Error.prepareStackTrace = undefined; } catch (e) {}

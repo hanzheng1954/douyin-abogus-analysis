@@ -51,7 +51,7 @@ import sys
 a='''$A'''.strip(); b='''$PYVAL'''.strip()
 print(sum(1 for x,y in zip(a,b) if x!=y) if len(a)==len(b) else -1)")
       [ "$DIFF" = "0" ] && ok "Python 移植与 Node 参考值逐字符一致（${#PYVAL} 字符，0 差异）" \
-        || sk "Python 移植长度 ${#PYVAL}、与参考差 $DIFF 位（见 PY_PORT_REPORT.md §九之二：未哈希原始字段的 3 字节簇）"
+        || ng "Python 移植与参考差 $DIFF 位（目标 0，见 PY_PORT_REPORT.md）"
     else ng "Python 移植未产出 a_bogus（见 /tmp/va_py.log）"; fi
   else ng "Python 移植运行失败（见 /tmp/va_py.log）"; fi
 else sk "未安装 node"; fi
